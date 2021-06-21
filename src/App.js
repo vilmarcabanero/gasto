@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { UserProvider } from 'context/user';
-import { Switch, Route } from 'react-router-dom';
+import { Switch, Route, Redirect } from 'react-router-dom';
 
 import MainPage from 'pages/MainPage';
 import AuthPage from 'pages/AuthPage';
@@ -22,7 +22,11 @@ const App = () => {
 		<UserProvider value={userProviderValues}>
 			<Switch>
 				<PrivateRoute exact path='/' component={MainPage} />
-				<Route exact path='/auth' component={AuthPage} />
+				{localStorage.getItem('authToken') ? (
+					<Redirect to='/' />
+				) : (
+					<Route exact path='/auth' component={AuthPage} />
+				)}
 			</Switch>
 		</UserProvider>
 	);

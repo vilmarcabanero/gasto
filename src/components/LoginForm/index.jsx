@@ -25,7 +25,7 @@ const LoginForm = ({ setIsRegistered, history }) => {
 			setError,
 			loginUserData,
 			setLoginUserData,
-			history,
+			history
 		);
 	};
 

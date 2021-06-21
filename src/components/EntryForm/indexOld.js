@@ -6,54 +6,64 @@ import Grid from '@material-ui/core/Grid';
 import * as MuiPickers from '@material-ui/pickers';
 //Dialog
 import { withStyles } from '@material-ui/core/styles';
-import * as Mui from '@material-ui/core';
-import * as MuiIcon from '@material-ui/icons';
+import {
+	DialogTitle,
+	Typography,
+	IconButton,
+	DialogContent,
+	Button,
+	Dialog,
+	TextField
+} from '@material-ui/core';
+import { Close, PhotoCamera, Add, Remove } from '@material-ui/icons';
 import StylesProvider from '@material-ui/styles/StylesProvider';
 import * as S from './styles';
-
-const styles = theme => ({
-	root: {
-		margin: 0,
-		padding: theme.spacing(2),
-	},
-	closeButton: {
-		position: 'absolute',
-		right: theme.spacing(1),
-		top: theme.spacing(1),
-		color: theme.palette.grey[500],
-	},
-});
-
-const MuiDialogTitle = withStyles(styles)(props => {
-	const { children, classes, onClose, ...other } = props;
-	return (
-		<Mui.DialogTitle disableTypography className={classes.root} {...other}>
-			<Mui.Typography variant='h6'>{children}</Mui.Typography>
-			{onClose ? (
-				<Mui.IconButton
-					aria-label='close'
-					className={classes.closeButton}
-					onClick={onClose}
-				>
-					<MuiIcon.Close />
-				</Mui.IconButton>
-			) : null}
-		</Mui.DialogTitle>
-	);
-});
-
-const MuiDialogContent = withStyles(theme => ({
-	root: {
-		padding: theme.spacing(2),
-	},
-}))(Mui.DialogContent);
+import useStyles from './styles';
 
 const EntryForm = ({ onNewTransaction }) => {
+	const classes = useStyles();
 	const [enteredDate, setEnteredDate] = useState(new Date());
 	const [enteredTime, setEnteredTime] = useState(new Date());
+	
 
 	let dateNow = enteredDate.toLocaleDateString();
 	// alert(dateNow)
+
+	//Modal
+	const styles = theme => ({
+		root: {
+			margin: 0,
+			padding: theme.spacing(3),
+			display: 'flex',
+			justifyContent: 'space-between',
+			alignItems: 'center'
+		},
+	});
+
+	const MuiDialogTitle = withStyles(styles)(props => {
+		const { children, classes, onClose, ...other } = props;
+		return (
+			<DialogTitle disableTypography className={classes.root} {...other}>
+				<Typography variant='h6'>{children}</Typography>
+				{onClose ? (
+					<IconButton
+						aria-label='close'
+						onClick={onClose}
+					>
+						<Close />
+					</IconButton>
+				) : null}
+			</DialogTitle>
+		);
+	});
+
+	const MuiDialogContent = withStyles(theme => ({
+		root: {
+			padding: theme.spacing(2),
+		},
+	}))(DialogContent);
+
+	//Modal
 
 	const addTransaction = (type, evt) => {
 		evt.preventDefault();
@@ -156,22 +166,26 @@ const EntryForm = ({ onNewTransaction }) => {
 
 	return (
 		<StylesProvider injectFirst>
-			<S.SearchButtonContainer>
-				{/* <S.SearchBar placeholder='Search by remarks' /> */}
-				<S.StyledButton onClick={handleClickOpen} className='mb-3'>
-					New Transaction
-				</S.StyledButton>
-			</S.SearchButtonContainer>
+			<Button
+				variant='contained'
+				color='primary'
+				onClick={handleClickOpen}
+				className='mb-3'
+			>
+				New Transaction
+			</Button>
 
-			<Mui.Dialog
+			<Dialog
 				onClose={handleClose}
 				aria-labelledby='customized-dialog-title'
 				open={open}
-				maxWidth='xs'
+				// maxWidth='xs'
+				className={classes.dialog}
 			>
 				<MuiDialogTitle id='customized-dialog-title' onClose={handleClose}>
 					{false ? 'Edit ' : 'Add '} an Entry
 				</MuiDialogTitle>
+
 				<MuiDialogContent dividers>
 					<S.Form>
 						<MuiPickers.MuiPickersUtilsProvider utils={DateFnsUtils}>
@@ -182,61 +196,50 @@ const EntryForm = ({ onNewTransaction }) => {
 											className='datePicker'
 											variant='inline'
 											autoOk
+											size='small'
 											inputVariant='outlined'
 											value={enteredDate}
 											onChange={e => setEnteredDate(e.target.value)}
 											required
 											style={{ width: '99.5%' }}
 										/>
-										<S.DatePickerPlaceholder>Date</S.DatePickerPlaceholder>
 									</S.DatePickerContainer>
 
-									<S.DatePickerContainer>
+									<div className='date-picker-container'>
 										<MuiPickers.TimePicker
 											className='datePicker'
 											variant='inline'
 											autoOk
+											size='small'
 											inputVariant='outlined'
 											value={enteredTime}
 											onChange={e => setEnteredTime(e.target.value)}
 											required
 											style={{ width: '99.5%' }}
 										/>
-										<S.DatePickerPlaceholder>Time</S.DatePickerPlaceholder>
-									</S.DatePickerContainer>
+									</div>
 								</S.DatePickerContainerFlex>
 							</Grid>
 						</MuiPickers.MuiPickersUtilsProvider>
 
+
 						<S.Label>
-							<Mui.Button variant='outlined'>
-								<MuiIcon.PhotoCamera />
+							<Button variant='outlined'>
+								<PhotoCamera />
 								Attach Bill
-							</Mui.Button>
+							</Button>
 						</S.Label>
 					</S.Form>
 				</MuiDialogContent>
-				<Mui.DialogContent>
-					<Grid container justify='space-around'>
-						<S.CashInButton
-							style={{ width: '51%' }}
-							id='cashin-button'
-							onClick={cashInHandler}
-							type='submit'
-						>
-							<MuiIcon.Add /> Cash in
-						</S.CashInButton>
-						<S.CashOutButton
-							style={{ width: '51%' }}
-							id='cashout-button'
-							onClick={cashOutHandler}
-							type='submit'
-						>
-							<MuiIcon.Remove /> Cash out
-						</S.CashOutButton>
-					</Grid>
-				</Mui.DialogContent>
-			</Mui.Dialog>
+				<MuiDialogContent className={classes.cashButton}>
+					<Button className={classes.cashInButton} onClick={cashInHandler}>
+						<Add /> Cash in
+					</Button>
+					<Button className={classes.cashOutButton} onClick={cashOutHandler}>
+						<Remove /> Cash out
+					</Button>
+				</MuiDialogContent>
+			</Dialog>
 		</StylesProvider>
 	);
 };

@@ -8,7 +8,8 @@ export const getUserDetails = async setUser => {
 			},
 		};
 
-		const { data } = await api.get('/user', config);
+		const { data } = await api.get('/users', config);
+		console.log(data);
 		setUser(data);
 	} catch (err) {
 		console.log(err.response.data);

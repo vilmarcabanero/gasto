@@ -1,4 +1,6 @@
 import { makeStyles } from '@material-ui/core/styles';
+import {Container} from '@material-ui/core'
+import styled from 'styled-components'
 
 export default makeStyles(theme => ({
 	appBar: {
@@ -23,3 +25,10 @@ export default makeStyles(theme => ({
 		},
 	},
 }));
+
+export const StyledContainer = styled(Container)`
+
+	.profile-name-container {
+		
+	}
+`

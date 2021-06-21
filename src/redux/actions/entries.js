@@ -1,10 +1,23 @@
 import * as api from 'redux/api/entries.js';
 import * as CONST from 'utils/constants/actionTypes';
+import API from 'api';
 
 export const getEntries = () => async dispatch => {
 	try {
 		const { data } = await api.getEntries();
 		dispatch({ type: CONST.GET_ENTRIES, payload: data });
+		console.log(data);
+
+		// const config = {
+		// 	headers: {
+		// 		Authorization: `Bearer ${localStorage.getItem('authToken')}`,
+		// 	},
+		// };
+
+		// const { data } = await API.get(`/entries`, config);
+
+		// dispatch({ type: CONST.GET_ENTRIES, payload: data });
+		// console.log(data);
 	} catch (err) {
 		console.log(err);
 	}

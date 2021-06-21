@@ -13,9 +13,9 @@ export default makeStyles(theme => ({
 		padding: theme.spacing(2),
 	},
 	form: {
-		display: 'flex',
-		flexWrap: 'wrap',
-		justifyContent: 'center',
+		// display: 'flex',
+		// flexWrap: 'wrap',
+		// justifyContent: 'center',
 	},
 	fileInput: {
 		width: '97%',
@@ -24,12 +24,76 @@ export default makeStyles(theme => ({
 	buttonSubmit: {
 		marginBottom: 10,
 	},
-	//Old
+	//Dialog
+	dialog: {
+		maxWidth: '27rem',
+		width: '100%',
+		margin: 'auto',
+	},
+	dialogTitle: {
+		display: 'flex',
+		justifyContent: 'center',
+		alignItems: 'center',
+	},
+
+	//Buttons
 	closeButton: {
 		position: 'absolute',
 		right: theme.spacing(1),
 		top: theme.spacing(1),
 		color: theme.palette.grey[500],
+	},
+	cashButton: {
+		display: 'flex',
+		justifyContent: 'space-between',
+		alignItems: 'center',
+	},
+	cashInButton: {
+		color: '#fff',
+		backgroundColor: '#3ab98d',
+		maxWidth: '8rem',
+		width: '100%',
+		'&:hover': {
+			backgroundColor: '#3ab98d',
+		},
+	},
+	cashOutButton: {
+		color: '#fff',
+		backgroundColor: '#cb4545',
+		maxWidth: '8rem',
+		width: '100%',
+		'&:hover': {
+			backgroundColor: '#cb4545',
+		},
+	},
+
+	//Datepicker
+	datePickerContainerFlex: {
+		display: 'flex',
+		justifyContent: 'space-between',
+		alignItems: 'center',
+	},
+
+	datePicker: {
+		width: '60%',
+	},
+	timePicker: {
+		width: '38%',
+	},
+
+	//Select and photo
+	category: {
+		display: 'flex',
+		justifyContent: 'space-between',
+		alignItems: 'center',
+	},
+
+	formControl: {
+		width: '75%',
+	},
+	addCategory: {
+		width: '15%',
+		marginTop: '8px'
 	},
 }));
 
@@ -88,7 +152,7 @@ export const StyledButton = styled(Button)`
 	color: #fff;
 	box-shadow: 0 4px 6px rgba(50, 50, 93, 0.11), 0 1px 3px rgba(0, 0, 0, 0.08);
 	padding: 7px 14px;
-	
+
 	&:hover {
 		background-color: #5469d4;
 	}
@@ -119,58 +183,14 @@ export const CashOutButton = styled(Button)`
 
 export const Form = styled.form``;
 
-export const Label = styled.label`
-	position: relative;
-	width: 100%;
-	margin: 10px 0;
-	padding-top: 1rem;
-	transition: all 0.5s ease;
-	display: inline-block; //heto solution.
-	&:hover {
-		cursor: text;
-	}
-`;
-
-export const Placeholder = styled.span`
-	font-size: 1rem;
-	position: absolute;
-	left: 0.7rem;
-	top: 24px;
-	color: rgba(0, 0, 0, 0.5);
-	transition: all 0.5s ease;
-	transition: all 0.3s ease, font-size 0.3s ease, color 0.3s ease;
-	cursor: text;
-	font-weight: 400;
-
-	top: -3px;
-	left: 0rem;
-	font-size: 0.8rem;
-	color: gray;
-	font-weight: 500;
-`;
-
-export const Input = styled.input`
-	border-radius: 5px;
-	font-size: 1rem;
-	width: 100%;
-	color: black;
-	border-bottom: 1px solid gainsboro;
-	height: 2.5rem;
-	padding-left: 0.5rem;
-	background-color: transparent;
-	transition: all 0.5s ease;
-	outline: none;
-	border: 1px solid rgba(0, 0, 0, 0.2);
-	&::-ms-reveal,
-	&::-ms-clear {
-		display: none;
-	}
-
-	&:valid + ${Placeholder}, &:focus + ${Placeholder} {
-		top: -3px;
-		left: 0rem;
-		font-size: 0.8rem;
-		color: gray;
-		font-weight: 500;
-	}
-`;
+// export const Label = styled.label`
+// 	position: relative;
+// 	width: 100%;
+// 	margin: 10px 0;
+// 	padding-top: 1rem;
+// 	transition: all 0.5s ease;
+// 	display: inline-block; //heto solution.
+// 	&:hover {
+// 		cursor: text;
+// 	}
+// `;
