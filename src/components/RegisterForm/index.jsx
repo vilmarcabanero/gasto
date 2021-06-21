@@ -3,7 +3,8 @@ import { Card } from 'react-bootstrap';
 import { Close } from '@material-ui/icons';
 import { Button, TextField } from '@material-ui/core';
 
-import './style.css';
+// import './style.css';
+import * as S from './styles';
 import { validateRegister } from 'utils/validator';
 
 const RegisterForm = ({ setIsRegistered, history }) => {
@@ -26,12 +27,12 @@ const RegisterForm = ({ setIsRegistered, history }) => {
 			setError,
 			registerUserData,
 			setRegisterUserData,
-			history
+			history,
 		);
 	};
 
 	return (
-		<div className='mt-5'>
+		<S.Container className='mt-5'>
 			<Card className='register-card'>
 				<Card.Body>
 					<form onSubmit={registerHandler} className='form'>
@@ -132,7 +133,7 @@ const RegisterForm = ({ setIsRegistered, history }) => {
 					</form>
 				</Card.Body>
 			</Card>
-		</div>
+		</S.Container>
 	);
 };
 

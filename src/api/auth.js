@@ -5,7 +5,7 @@ export const register = async (
 	setError,
 	registerUserData,
 	setRegisterUserData,
-	history
+	history,
 ) => {
 	try {
 		const { data } = await api.post('/auth/register', registerUserData);
@@ -19,6 +19,7 @@ export const register = async (
 				confirmPassword: '',
 			});
 			console.log(data);
+
 			localStorage.setItem('authToken', data.token);
 			history.push('/');
 		} else {
@@ -26,8 +27,7 @@ export const register = async (
 			setError(data.message);
 		}
 	} catch (err) {
-		console.log(err.response.data);
-		alert(err.response.data.message)
+		console.log(err);
 	}
 };
 
@@ -36,7 +36,7 @@ export const login = async (
 	setError,
 	loginUserData,
 	setLoginUserData,
-	history
+	history,
 ) => {
 	try {
 		const { data } = await api.post('/auth/login', loginUserData);
@@ -46,6 +46,7 @@ export const login = async (
 				email: '',
 				password: '',
 			});
+
 			console.log(data);
 			localStorage.setItem('authToken', data.token);
 			history.push('/');
@@ -54,6 +55,6 @@ export const login = async (
 			setError(data.message);
 		}
 	} catch (err) {
-		console.log(err.message);
+		console.log(err);
 	}
 };

@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import {
-	Card,
-} from 'react-bootstrap';
+import { Card } from 'react-bootstrap';
 import { Close } from '@material-ui/icons';
 import { Button as MUIButton, TextField } from '@material-ui/core';
-import './style.css';
+// import './style.css';
+import * as S from './styles';
 import { validateLogin } from 'utils/validator';
 
 const LoginForm = ({ setIsRegistered, history }) => {
@@ -26,12 +25,12 @@ const LoginForm = ({ setIsRegistered, history }) => {
 			setError,
 			loginUserData,
 			setLoginUserData,
-			history
+			history,
 		);
 	};
 
 	return (
-		<div className='mt-5'>
+		<S.Container className='mt-5'>
 			<Card className='login-card'>
 				<Card.Body>
 					<form onSubmit={loginHandler} className='form'>
@@ -98,7 +97,7 @@ const LoginForm = ({ setIsRegistered, history }) => {
 					</form>
 				</Card.Body>
 			</Card>
-		</div>
+		</S.Container>
 	);
 };
 
