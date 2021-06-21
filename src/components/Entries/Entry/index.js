@@ -19,6 +19,8 @@ const Entry = ({ entry, setCurrentId }) => {
 	console.log(entry);
 	// const dispatch = useDispatch();
 
+	const today = new Date();
+
 	return (
 		<div className={classes.entryContainer}>
 			<h3>Entry</h3>
@@ -27,7 +29,11 @@ const Entry = ({ entry, setCurrentId }) => {
 			<p className={entry.type === 'income' ? classes.income : classes.expense}>
 				{entry.amount}
 			</p>
-			<p> {moment(entry.updatedAt).format('LL')}</p>
+			{moment(today).format('LL') === moment(entry.updatedAt).format('LL') ? (
+				'Today'
+			) : (
+				<p> {moment(entry.updatedAt).format('LL')}</p>
+			)}
 
 			{/* <p>Added {format.date(Date(entry.updatedAt), dateNow, day, month, year)}</p> */}
 		</div>
