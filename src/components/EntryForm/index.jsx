@@ -121,6 +121,7 @@ const EntryForm = ({
 
 	const handleClose = () => {
 		setOpen(false);
+		clear();
 	};
 
 	//Dialog

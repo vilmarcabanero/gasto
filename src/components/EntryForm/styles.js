@@ -26,7 +26,7 @@ export default makeStyles(theme => ({
 	},
 	//Dialog
 	dialog: {
-		maxWidth: '27rem',
+		maxWidth: '30rem',
 		width: '100%',
 		margin: 'auto',
 	},
