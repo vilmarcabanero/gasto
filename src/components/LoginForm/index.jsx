@@ -1,7 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { Card } from 'react-bootstrap';
 import { Close } from '@material-ui/icons';
-import { Button as MUIButton, TextField } from '@material-ui/core';
+import {
+	Button as MUIButton,
+	TextField,
+	CircularProgress,
+} from '@material-ui/core';
 // import './style.css';
 import * as S from './styles';
 import { validateLogin } from 'utils/validator';
@@ -77,7 +81,11 @@ const LoginForm = ({ setIsRegistered, history }) => {
 								type='submit'
 								className='w-100 mb-3'
 							>
-								{doneLoggingIn ? 'Login' : 'Logging in...'}
+								{doneLoggingIn ? (
+									'Login'
+								) : (
+									<CircularProgress size={24} style={{ color: '#fff' }} />
+								)}
 							</MUIButton>
 
 							<MUIButton

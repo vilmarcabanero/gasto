@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Card } from 'react-bootstrap';
 import { Close } from '@material-ui/icons';
-import { Button, TextField } from '@material-ui/core';
+import { Button, TextField, CircularProgress } from '@material-ui/core';
 
 // import './style.css';
 import * as S from './styles';
@@ -17,6 +17,8 @@ const RegisterForm = ({ setIsRegistered, history }) => {
 	});
 	const [error, setError] = useState('');
 	const [isValid, setIsValid] = useState(true);
+	const [doneRegistering, setDoneRegistering] = useState(true);
+
 	// console.log(isValid);
 
 	const registerHandler = e => {
@@ -28,6 +30,7 @@ const RegisterForm = ({ setIsRegistered, history }) => {
 			registerUserData,
 			setRegisterUserData,
 			history,
+			setDoneRegistering
 		);
 	};
 
@@ -112,7 +115,11 @@ const RegisterForm = ({ setIsRegistered, history }) => {
 								color='primary'
 								className='w-100 mt-3'
 							>
-								Register
+								{doneRegistering ? (
+									'Register'
+								) : (
+									<CircularProgress size={24} style={{ color: '#fff' }} />
+								)}
 							</Button>
 							<Button
 								className='already-registered mt-3'

@@ -6,7 +6,8 @@ export const validateRegister = (
 	setError,
 	registerUserData,
 	setRegisterUserData,
-	history
+	history,
+	setDoneRegistering
 ) => {
 	setTimeout(() => {
 		setIsValid(true);
@@ -44,7 +45,8 @@ export const validateRegister = (
 			setError,
 			registerUserData,
 			setRegisterUserData,
-			history
+			history,
+			setDoneRegistering
 		);
 	}
 };
