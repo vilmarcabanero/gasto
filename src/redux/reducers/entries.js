@@ -9,7 +9,7 @@ const reducer = (entries = [], action) => {
 				entry._id === action.payload._id ? action.payload : entry
 			);
 		case CONST.CREATE_ENTRY:
-			return [...entries, action.payload];
+			return [...entries]; //I removed the payload.
 		case CONST.GET_ENTRIES:
 			return action.payload;
 		default:

@@ -20,6 +20,7 @@ import * as S from './styles';
 
 const MainPage = ({ history }) => {
 	const [currentId, setCurrentId] = useState(null);
+	const [open, setOpen] = useState(false);
 	const classes = useStyles();
 	const dispatch = useDispatch();
 
@@ -45,7 +46,7 @@ const MainPage = ({ history }) => {
 					Gasto
 				</Typography>
 				<div className='profile-name-container'>
-					<Button onClick={logoutHandler} style={{color: '#fff'}}>
+					<Button onClick={logoutHandler} style={{ color: '#fff' }}>
 						Logout
 					</Button>
 					<Typography className={classes.profileName} variant='p'>
@@ -64,8 +65,17 @@ const MainPage = ({ history }) => {
 						spacing={3}
 					>
 						<Grid item xs={12} sm={7}>
-							<EntryForm currentId={currentId} setCurrentId={setCurrentId} />
-							<Entries setCurrentId={setCurrentId} />
+							<EntryForm
+								currentId={currentId}
+								setCurrentId={setCurrentId}
+								open={open}
+								setOpen={setOpen}
+							/>
+							<Entries
+								setCurrentId={setCurrentId}
+								open={open}
+								setOpen={setOpen}
+							/>
 						</Grid>
 					</Grid>
 				</Container>

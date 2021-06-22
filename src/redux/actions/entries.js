@@ -6,18 +6,8 @@ export const getEntries = () => async dispatch => {
 	try {
 		const { data } = await api.getEntries();
 		dispatch({ type: CONST.GET_ENTRIES, payload: data });
-		console.log(data);
-
-		// const config = {
-		// 	headers: {
-		// 		Authorization: `Bearer ${localStorage.getItem('authToken')}`,
-		// 	},
-		// };
-
-		// const { data } = await API.get(`/entries`, config);
-
-		// dispatch({ type: CONST.GET_ENTRIES, payload: data });
 		// console.log(data);
+
 	} catch (err) {
 		console.log(err);
 	}
@@ -27,6 +17,7 @@ export const createEntry = entry => async dispatch => {
 	try {
 		const { data } = await api.createEntry(entry);
 		dispatch({ type: CONST.CREATE_ENTRY, payload: data });
+		console.log('Created an entry success.',data);
 	} catch (err) {
 		console.log(err);
 	}

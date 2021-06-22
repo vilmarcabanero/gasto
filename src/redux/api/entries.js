@@ -10,9 +10,32 @@ export const getEntries = () => {
 	return api.get(`/entries`, config);
 };
 
-export const createEntry = newPost => api.post(`/entries`, newPost);
+export const createEntry = newEntry => {
+	const config = {
+		headers: {
+			Authorization: `Bearer ${localStorage.getItem('authToken')}`,
+		},
+	};
 
-export const updateEntry = (id, updatedPost) =>
-	api.patch(`/entries/${id}`, updatedPost);
+	return api.post(`/entries`, newEntry, config);
+};
 
-export const deleteEntry = id => api.delete(`/entries/${id}`);
+export const updateEntry = (id, updatedEntry) => {
+	const config = {
+		headers: {
+			Authorization: `Bearer ${localStorage.getItem('authToken')}`,
+		},
+	};
+
+	return api.put(`/entries/${id}`, updatedEntry, config);
+};
+
+export const deleteEntry = id => {
+	const config = {
+		headers: {
+			Authorization: `Bearer ${localStorage.getItem('authToken')}`,
+		},
+	};
+
+	return api.delete(`/entries/${id}`, config);
+};

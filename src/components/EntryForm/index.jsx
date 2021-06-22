@@ -5,7 +5,8 @@ import 'date-fns';
 import DateFnsUtils from '@date-io/date-fns';
 import Grid from '@material-ui/core/Grid';
 import * as MuiPickers from '@material-ui/pickers';
-import { Close, PhotoCamera, Add, Edit, Remove } from '@material-ui/icons';
+import { Close, PhotoCamera, Add, Remove } from '@material-ui/icons';
+import moment from 'moment';
 import {
 	TextField,
 	Button,
@@ -22,14 +23,14 @@ import {
 } from '@material-ui/core';
 import FileBase from 'react-file-base64';
 import { useDispatch, useSelector } from 'react-redux';
-import { createEntry, updateEntry } from 'redux/actions/entries';
+import { createEntry, getEntries, updateEntry } from 'redux/actions/entries';
 import { Card } from 'react-bootstrap';
 
 //Modal
 const styles = theme => ({
 	root: {
 		margin: 0,
-		padding: theme.spacing(3),
+		padding: theme.spacing(2),
 		display: 'flex',
 		justifyContent: 'space-between',
 		alignItems: 'center',
@@ -40,7 +41,7 @@ const MuiDialogTitle = withStyles(styles)(props => {
 	const { children, classes, onClose, ...other } = props;
 	return (
 		<DialogTitle disableTypography className={classes.root} {...other}>
-			<Typography variant='h6'>{children}</Typography>
+			<Typography variant='h5'>{children}</Typography>
 			{onClose ? (
 				<IconButton aria-label='close' onClick={onClose}>
 					<Close />
@@ -56,48 +57,49 @@ const MuiDialogContent = withStyles(theme => ({
 	},
 }))(DialogContent);
 
-const EntryForm = ({ currentId, setCurrentId }) => {
+const EntryForm = ({ currentId, setCurrentId, open, setOpen }) => {
 	const [entryData, setEntryData] = useState({
 		name: '',
 		category: '',
 		amount: '',
 		type: '',
+		date: new Date(),
+		time: new Date(),
 	});
-	const [open, setOpen] = useState(false);
+
+	const [isSubmitted, setIsSubmitted] = useState(false);
+
+	// const [entryName, setEntryName] = useState('')
+
 	const entry = useSelector(state =>
-		currentId ? state.entries.find(p => p._id === currentId) : null
+		currentId ? state.entries.find(e => e._id === currentId) : null
 	);
 	const classes = useStyles();
 	const dispatch = useDispatch();
-
-	const [enteredDate, setEnteredDate] = useState(new Date());
-	const [enteredTime, setEnteredTime] = useState(new Date());
-
-	let dateNow = enteredDate.toLocaleDateString();
 
 	useEffect(() => {
 		if (entry) setEntryData(entry);
 	}, [entry]);
 
-	const addTransaction = (type, evt) => {
-		evt.preventDefault();
-
-		
-	};
+	useEffect(() => {
+		dispatch(getEntries(entryData));
+		clear()
+	}, [isSubmitted]);
 
 	const submitHandler = e => {
 		e.preventDefault();
 
-		console.log('Transaction added.');
+		if (currentId) {
+			dispatch(updateEntry(currentId, entryData));
+		} else {
+			dispatch(createEntry(entryData));
+		}
 
-		// if (currentId) {
-		// 	dispatch(updateEntry(currentId, entryData));
-		// } else {
-		// 	dispatch(createEntry(entryData));
-		// }
+		dispatch(getEntries(entryData));
 
 		clear();
 		handleClose();
+		setIsSubmitted(!isSubmitted);
 	};
 
 	const clear = () => {
@@ -107,6 +109,8 @@ const EntryForm = ({ currentId, setCurrentId }) => {
 			category: '',
 			amount: '',
 			type: '',
+			date: new Date(),
+			time: new Date(),
 		});
 	};
 
@@ -116,60 +120,16 @@ const EntryForm = ({ currentId, setCurrentId }) => {
 
 	//Dialog
 
-	const handleClickOpen = () => {
-		setOpen(true);
-	};
-
-	const cashOutHandler = e => {
-		e.preventDefault();
+	const cashOutHandler = () => {
 		setEntryData({ ...entryData, type: 'expense' });
 
 		setOpen(true);
-		// 	if (amountValue.trim('').length !== 0 && nameValue.trim().length !== 0) {
-		// 		addTransaction('expense', e);
-		// 	} else if (amountValue.trim('').length === 0) {
-		// 		alert('Please fill up the amount');
-		// 		setOpen(true);
-		// 	} else if (nameValue.trim().length === 0) {
-		// 		alert('Please fill up the remarks');
-		// 		setOpen(true);
-		// 	}
-		// };
-
-		// if (currentId) {
-		// 	dispatch(updateEntry(currentId, entryData));
-		// } else {
-		// 	dispatch(createEntry(entryData));
-		// }
-
-		// clear();
-		// handleClose();
 	};
 
-	const cashInHandler = e => {
-		e.preventDefault();
+	const cashInHandler = () => {
 		setEntryData({ ...entryData, type: 'income' });
 
 		setOpen(true);
-
-		// if (amountValue.trim('').length !== 0 && nameValue.trim().length !== 0) {
-		// 	addTransaction('income', e);
-		// } else if (amountValue.trim('').length === 0) {
-		// 	alert('Please fill up the amount');
-		// 	setOpen(true);
-		// } else if (nameValue.trim().length === 0) {
-		// 	alert('Please fill up the remarks');
-		// 	setOpen(true);
-		// }
-
-		// if (currentId) {
-		// 	dispatch(updateEntry(currentId, entryData));
-		// } else {
-		// 	dispatch(createEntry(entryData));
-		// }
-
-		// clear();
-		// handleClose();
 	};
 
 	return (
@@ -188,14 +148,22 @@ const EntryForm = ({ currentId, setCurrentId }) => {
 				className={classes.dialog}
 			>
 				<MuiDialogTitle id='customized-dialog-title' onClose={handleClose}>
-					{false ? 'Edit ' : 'Add '} an{' '}
-					{entryData.type === 'income' ? 'Income' : 'Expense'}
+					<div
+						className={
+							entryData.type === 'income'
+								? classes.incomeTitle
+								: classes.expenseTitle
+						}
+					>
+						{currentId ? 'Edit ' : 'Add '} an
+						{entryData.type === 'income' ? ' Income' : ' Expense'}
+					</div>
 				</MuiDialogTitle>
 
 				<MuiDialogContent dividers>
 					<form className={classes.form} onSubmit={submitHandler}>
 						<MuiPickers.MuiPickersUtilsProvider utils={DateFnsUtils}>
-							<Grid container justify='space-around'>
+							<Grid container justify='space-around' className='mt-3'>
 								<div className={classes.datePickerContainerFlex}>
 									<MuiPickers.DatePicker
 										className={classes.datePicker}
@@ -203,8 +171,10 @@ const EntryForm = ({ currentId, setCurrentId }) => {
 										autoOk
 										size='small'
 										inputVariant='outlined'
-										value={enteredDate}
-										onChange={e => setEnteredDate(e.target.value)}
+										value={entryData.date}
+										onChange={e =>
+											setEntryData({ ...entryData, date: e.target.value })
+										}
 										required
 									/>
 
@@ -214,8 +184,10 @@ const EntryForm = ({ currentId, setCurrentId }) => {
 										autoOk
 										size='small'
 										inputVariant='outlined'
-										value={enteredTime}
-										onChange={e => setEnteredTime(e.target.value)}
+										value={entryData.time}
+										onChange={e =>
+											setEntryData({ ...entryData, time: e.target.value })
+										}
 										required
 									/>
 								</div>
@@ -223,8 +195,9 @@ const EntryForm = ({ currentId, setCurrentId }) => {
 						</MuiPickers.MuiPickersUtilsProvider>
 						<TextField
 							label='Enter entry name'
+							type='text'
 							fullWidth
-							className='mb-2 mt-2'
+							className='mb-3 mt-3'
 							size='small'
 							value={entryData.name}
 							onChange={e =>
@@ -233,16 +206,20 @@ const EntryForm = ({ currentId, setCurrentId }) => {
 						/>
 						<TextField
 							label='Enter amount'
+							type='number'
 							fullWidth
-							className='mb-2'
+							className='mb-3'
 							size='small'
 							value={entryData.amount}
 							onChange={e =>
-								setEntryData({ ...entryData, amount: e.target.value })
+								setEntryData({
+									...entryData,
+									amount: parseFloat(e.target.value),
+								})
 							}
 						/>
 
-						<div className={`${classes.category} mb-3`}>
+						<div className={`${classes.category} mb-4`}>
 							<FormControl size='small' className={`${classes.formControl}`}>
 								<InputLabel id='demo-simple-select-label'>
 									Select Category
@@ -265,29 +242,20 @@ const EntryForm = ({ currentId, setCurrentId }) => {
 							</Button>
 						</div>
 
-						<Button variant='outlined' className=''>
+						<Button variant='outlined' className='mb-4 mt-1'>
 							<PhotoCamera />
 							Attach Bill
 						</Button>
+						<Button
+							variant='contained'
+							className='mb-2'
+							fullWidth
+							color='primary'
+							type='submit'
+						>
+							Save
+						</Button>
 					</form>
-				</MuiDialogContent>
-				{/* <MuiDialogContent className={classes.cashButton}>
-					<Button className={classes.cashInButton} onClick={cashInHandler}>
-						<Add /> Cash in
-					</Button>
-					<Button className={classes.cashOutButton} onClick={cashOutHandler}>
-						<Remove /> Cash out
-					</Button>
-				</MuiDialogContent> */}
-				<MuiDialogContent className={classes.cashButton}>
-					{/* {entryData.type === 'income' ? <Button className={classes.cashInButton} onClick={cashInHandler}>
-						<Add /> Cash in
-					</Button> : <Button className={classes.cashOutButton} onClick={cashOutHandler}>
-						<Remove /> Cash out
-					</Button>} */}
-					<Button variant='contained' fullWidth color='primary' type='submit'>
-						Save
-					</Button>
 				</MuiDialogContent>
 			</Dialog>
 		</div>

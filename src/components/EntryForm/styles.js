@@ -35,6 +35,12 @@ export default makeStyles(theme => ({
 		justifyContent: 'center',
 		alignItems: 'center',
 	},
+	incomeTitle: {
+		color: '#3ab98d',
+	},
+	expenseTitle: {
+		color: '#cb4545',
+	},
 
 	//Buttons
 	closeButton: {
@@ -42,11 +48,6 @@ export default makeStyles(theme => ({
 		right: theme.spacing(1),
 		top: theme.spacing(1),
 		color: theme.palette.grey[500],
-	},
-	cashButton: {
-		display: 'flex',
-		justifyContent: 'space-between',
-		alignItems: 'center',
 	},
 	cashInButton: {
 		color: '#fff',
@@ -93,7 +94,7 @@ export default makeStyles(theme => ({
 	},
 	addCategory: {
 		width: '15%',
-		marginTop: '8px'
+		marginTop: '8px',
 	},
 }));
 

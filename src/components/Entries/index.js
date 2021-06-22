@@ -4,11 +4,11 @@ import { useSelector } from 'react-redux';
 import Entry from './Entry';
 import useStyles from './styles';
 
-const Entries = ({ setCurrentId }) => {
+const Entries = ({ setCurrentId, open, setOpen }) => {
 	const entries = useSelector(state => state.entries);
 	const classes = useStyles();
 
-	console.log(entries);
+	// console.log(entries);
 	return !entries.length ? (
 		<CircularProgress />
 	) : (
@@ -20,7 +20,12 @@ const Entries = ({ setCurrentId }) => {
 		>
 			{entries.map(entry => (
 				<Grid key={entry._id} item xs={12} sm={6}>
-					<Entry entry={entry} setCurrentId={setCurrentId} />
+					<Entry
+						entry={entry}
+						setCurrentId={setCurrentId}
+						open={open}
+						setOpen={setOpen}
+					/>
 				</Grid>
 			))}
 		</Grid>
