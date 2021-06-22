@@ -29,12 +29,15 @@ import {
 import FileBase from 'react-file-base64';
 import { useDispatch, useSelector } from 'react-redux';
 import { createEntry, getEntries, updateEntry } from 'redux/actions/entries';
+import { getCategories } from 'redux/actions/categories';
 
 //Modal
 const styles = theme => ({
 	root: {
 		margin: 0,
 		padding: theme.spacing(3),
+		paddingTop: theme.spacing(1.5),
+		paddingBottom: theme.spacing(1.5),
 		display: 'flex',
 		justifyContent: 'space-between',
 		alignItems: 'center',
@@ -66,16 +69,18 @@ const CategoryForm = ({
 	// setCurrentCategoryId,
 	// open,
 	// setOpen,
+	entryData,
 	setDoneFetchingCategories,
 }) => {
-	const [categoryData, setCategoryData] = useState({
+	const [categoryInputData, setCategoryInputData] = useState({
 		name: '',
-		type: 'income',
+		type: '',
 	});
 
 	const [open, setOpen] = useState(false);
 
 	const [isSubmitted, setIsSubmitted] = useState(false);
+	const dispatch = useDispatch();
 
 	// const handleChange = (event) => {
 	//   setValue(event.target.value);
@@ -91,17 +96,19 @@ const CategoryForm = ({
 
 	const clear = () => {
 		// setCurrentCategoryId(null);
-		setCategoryData({
+		setCategoryInputData({
 			name: '',
 			type: '',
 		});
 	};
 
-
-
 	// useEffect(() => {
-	// 	if (category) setCategoryData(category);
+	// 	if (category) setCategoryInputData(category);
 	// }, [category]);
+
+	useEffect(() => {
+		dispatch(getCategories());
+	}, [open, dispatch]);
 
 	// useEffect(() => {
 	// 	dispatch(getEntries(entryData));
@@ -109,11 +116,11 @@ const CategoryForm = ({
 
 	const submitAddCategoryHandler = () => {
 		console.log('Category added successfully.');
-		console.log(`Category name: ${categoryData.name}`);
-		console.log(`Category type: ${categoryData.type}`);
+		console.log(`Category name: ${categoryInputData.name}`);
+		console.log(`Category type: ${categoryInputData.type}`);
 
 		// if (currentCategoryId) {
-		// 	dispatch(updateEntry(currentCategoryId, categoryData));
+		// 	dispatch(updateEntry(currentCategoryId, categoryInputData));
 		// } else {
 		// 	dispatch(createEntry(currentCategoryId));
 		// }
@@ -131,6 +138,10 @@ const CategoryForm = ({
 	//Dialog
 
 	const addCategoryHandler = () => {
+		setCategoryInputData({
+			...categoryInputData,
+			type: entryData.type === 'income' ? 'income' : 'expense',
+		});
 		setOpen(true);
 	};
 
@@ -147,34 +158,45 @@ const CategoryForm = ({
 				className={classes.dialog}
 			>
 				<MuiDialogTitle id='customized-dialog-title' onClose={handleClose}>
-					<div>{false ? 'Edit ' : 'Add '} a Category</div>
+					<div
+						className={
+							entryData.type === 'income'
+								? classes.incomeTitle
+								: classes.expenseTitle
+						}
+					>
+						{false ? 'Edit ' : 'Add '} a Category
+					</div>
 					{/* false === currentCategoryId to */}
 				</MuiDialogTitle>
 
 				<MuiDialogContent dividers>
-					<form className={classes.form}>
+					<div className={classes.form}>
 						<TextField
 							label='Enter category name'
 							type='text'
 							fullWidth
 							className='mb-4 mt-0'
 							size='small'
-							value={categoryData.name}
+							value={categoryInputData.name}
 							onChange={e =>
-								setCategoryData({ ...categoryData, name: e.target.value })
+								setCategoryInputData({
+									...categoryInputData,
+									name: e.target.value,
+								})
 							}
 						/>
 
-						<div className={`${classes.category} mb-4 mt-2`}>
+						{/* <div className={`${classes.category} mb-4 mt-2`}>
 							<FormControl component='fieldset'>
 								<FormLabel component='legend'>Category Type</FormLabel>
 								<RadioGroup
 									aria-label='category'
 									name='category1'
-									value={categoryData.type}
+									value={categoryInputData.type}
 									onChange={e =>
-										setCategoryData({
-											...categoryData,
+										setCategoryInputData({
+											...categoryInputData,
 											type: e.target.value,
 										})
 									}
@@ -193,7 +215,7 @@ const CategoryForm = ({
 									</div>
 								</RadioGroup>
 							</FormControl>
-						</div>
+						</div> */}
 
 						<Button
 							variant='contained'
@@ -205,7 +227,7 @@ const CategoryForm = ({
 						>
 							Save
 						</Button>
-					</form>
+					</div>
 				</MuiDialogContent>
 			</Dialog>
 		</div>

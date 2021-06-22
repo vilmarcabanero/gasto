@@ -146,12 +146,43 @@ const EntryForm = ({
 
 	//Dialog
 
+	const categoryNameSorter = categories => {
+		const sortedCategories = categories.sort((a, b) => {
+			let categoryNameA = a.name.toUpperCase(); // ignore upper and lowercase
+			let categoryNameB = b.name.toUpperCase(); // ignore upper and lowercase
+			if (categoryNameA < categoryNameB) {
+				return -1; //categoryNameA comes first
+			}
+			if (categoryNameA > categoryNameB) {
+				return 1; // categoryNameB comes first
+			}
+			return 0; // names must be equal
+		});
+
+		return sortedCategories;
+	};
+
 	const cashOutHandler = () => {
 		setEntryData({ ...entryData, type: 'expense' });
 		const expenseCategories = categoryData.filter(
 			category => category.type === 'expense'
 		);
-		setExpenseCategories(expenseCategories);
+
+		// const sortedExpenseCategories = expenseCategories.sort((a, b) => {
+		// 	let categoryNameA = a.name.toUpperCase(); // ignore upper and lowercase
+		// 	let categoryNameB = b.name.toUpperCase(); // ignore upper and lowercase
+		// 	if (categoryNameA < categoryNameB) {
+		// 		return -1; //categoryNameA comes first
+		// 	}
+		// 	if (categoryNameA > categoryNameB) {
+		// 		return 1; // categoryNameB comes first
+		// 	}
+		// 	return 0; // names must be equal
+		// });
+
+		const sortedExpenseCategories = categoryNameSorter(expenseCategories);
+
+		setExpenseCategories(sortedExpenseCategories);
 		setOpen(true);
 	};
 
@@ -160,7 +191,9 @@ const EntryForm = ({
 		const incomeCategories = categoryData.filter(
 			category => category.type === 'income'
 		);
-		setIncomeCategories(incomeCategories);
+
+		const sortedIncomeCategories = categoryNameSorter(incomeCategories);
+		setIncomeCategories(sortedIncomeCategories);
 		setOpen(true);
 	};
 
@@ -195,7 +228,7 @@ const EntryForm = ({
 				</MuiDialogTitle>
 
 				<MuiDialogContent dividers>
-					<form className={classes.form} onSubmit={submitHandler}>
+					<div className={classes.form}>
 						<MuiPickers.MuiPickersUtilsProvider utils={DateFnsUtils}>
 							<Grid container justify='space-around' className='mt-3'>
 								<div className={classes.datePickerContainerFlex}>
@@ -281,7 +314,7 @@ const EntryForm = ({
 							</FormControl>
 							<div className={classes.addCategory}>
 								{/* <Add /> */}
-								<CategoryForm />
+								<CategoryForm entryData={entryData} />
 							</div>
 						</div>
 
@@ -294,11 +327,12 @@ const EntryForm = ({
 							className='mb-2'
 							fullWidth
 							color='primary'
-							type='submit'
+							// type='submit'
+							onClick={submitHandler}
 						>
 							Save
 						</Button>
-					</form>
+					</div>
 				</MuiDialogContent>
 			</Dialog>
 		</div>

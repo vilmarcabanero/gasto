@@ -23,5 +23,15 @@
 		"_id": "60d1fc02857b861dfc5e1e8e1",
 		"name": "Allowance",
 		"type": "income"
+	},
+	{
+		"_id": "60d1fc02857b861dfc5e1e8e2",
+		"name": "Miscellaneous income",
+		"type": "income"
+	},
+	{
+		"_id": "60d1fc02857b861dfc5e1e8e2",
+		"name": "Miscellaneous expense",
+		"type": "expense"
 	}
 ]

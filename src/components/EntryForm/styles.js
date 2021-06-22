@@ -107,7 +107,7 @@ export default makeStyles(theme => ({
 		width: '75%',
 	},
 	addCategory: {
-		width: '15%',
+		width: '17.5%',
 		marginTop: '8px',
 	},
 }));
