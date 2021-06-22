@@ -57,7 +57,13 @@ const MuiDialogContent = withStyles(theme => ({
 	},
 }))(DialogContent);
 
-const EntryForm = ({ currentId, setCurrentId, open, setOpen }) => {
+const EntryForm = ({
+	currentId,
+	setCurrentId,
+	open,
+	setOpen,
+	setDoneFetchingEntries,
+}) => {
 	const [entryData, setEntryData] = useState({
 		name: '',
 		category: '',
@@ -77,31 +83,6 @@ const EntryForm = ({ currentId, setCurrentId, open, setOpen }) => {
 	const classes = useStyles();
 	const dispatch = useDispatch();
 
-	useEffect(() => {
-		if (entry) setEntryData(entry);
-	}, [entry]);
-
-	useEffect(() => {
-		dispatch(getEntries(entryData));
-		clear()
-	}, [isSubmitted]);
-
-	const submitHandler = e => {
-		e.preventDefault();
-
-		if (currentId) {
-			dispatch(updateEntry(currentId, entryData));
-		} else {
-			dispatch(createEntry(entryData));
-		}
-
-		dispatch(getEntries(entryData));
-
-		clear();
-		handleClose();
-		setIsSubmitted(!isSubmitted);
-	};
-
 	const clear = () => {
 		setCurrentId(null);
 		setEntryData({
@@ -112,6 +93,30 @@ const EntryForm = ({ currentId, setCurrentId, open, setOpen }) => {
 			date: new Date(),
 			time: new Date(),
 		});
+	};
+
+	useEffect(() => {
+		if (entry) setEntryData(entry);
+	}, [entry]);
+
+	// useEffect(() => {
+	// 	dispatch(getEntries(entryData));
+	// }, [open, dispatch, entryData]);
+
+	const submitHandler = e => {
+		e.preventDefault();
+
+		if (currentId) {
+			dispatch(updateEntry(currentId, entryData));
+		} else {
+			dispatch(createEntry(entryData));
+		}
+
+		dispatch(getEntries(entryData, setDoneFetchingEntries));
+		
+		clear();
+		handleClose();
+		setIsSubmitted(!isSubmitted);
 	};
 
 	const handleClose = () => {
@@ -134,12 +139,14 @@ const EntryForm = ({ currentId, setCurrentId, open, setOpen }) => {
 
 	return (
 		<div className={classes.modalContainer}>
-			<Button className={classes.cashInButton} onClick={cashInHandler}>
-				<Add /> Cash in
-			</Button>
-			<Button className={classes.cashOutButton} onClick={cashOutHandler}>
-				<Remove /> Cash out
-			</Button>
+			<div className={classes.cashButtons}>
+				<Button className={classes.cashInButton} onClick={cashInHandler}>
+					<Add /> Cash in
+				</Button>
+				<Button className={classes.cashOutButton} onClick={cashOutHandler}>
+					<Remove /> Cash out
+				</Button>
+			</div>
 			<Dialog
 				onClose={handleClose}
 				aria-labelledby='customized-dialog-title'

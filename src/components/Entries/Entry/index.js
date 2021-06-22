@@ -15,11 +15,15 @@ import { useDispatch } from 'react-redux';
 import { deleteEntry } from 'redux/actions/entries';
 import * as format from 'utils/date';
 import Swal from 'sweetalert2';
+import * as S from './styles';
 
 const Entry = ({ entry, setCurrentId, open, setOpen }) => {
 	const classes = useStyles();
 	// console.log(entry);
 	const dispatch = useDispatch();
+
+	// const [hovered, setHovered] = React.useState(false);
+	// const toggleHover = () => setHovered(!hovered);
 
 	const today = new Date();
 
@@ -30,7 +34,7 @@ const Entry = ({ entry, setCurrentId, open, setOpen }) => {
 
 	const deleteEntryHandler = () => {
 		Swal.fire({
-			title: 'Delete Entry',
+			title: 'Are you sure?',
 			text: 'Once deleted, this entry can not be restored.',
 			icon: 'warning',
 			showCancelButton: true,
@@ -46,28 +50,36 @@ const Entry = ({ entry, setCurrentId, open, setOpen }) => {
 	};
 
 	return (
-		<Button fullWidth className={classes.entryContainer}>
+		<S.EntryContainer
+			fullWidth
+			className={classes.container}
+			id='entry-container'
+		>
 			{moment(today).format('LL') === moment(entry.updatedAt).format('LL') ? (
 				<p className={classes.date}>Today</p>
 			) : (
-				<p className={classes.date}> {moment(entry.updatedAt).format('LL')}</p>
+				<p className={classes.date}>{moment(entry.updatedAt).format('LL')}</p>
 			)}
 			<p className={classes.time}>{moment(entry.updatedAt).format('LT')}</p>
 			<p className={classes.entryName}>{entry.name}</p>
-			<p>{entry.category}</p>
-			<p className={entry.type === 'income' ? classes.income : classes.expense}>
-				{entry.amount}
-			</p>
+			<p className={classes.category}>{entry.category}</p>
+			<div className={classes.amount}>
+				<p
+					className={entry.type === 'income' ? classes.income : classes.expense}
+				>
+					{entry.amount}
+				</p>
+			</div>
 
-			<div className={classes.iconButtons}>
+			<S.IconContainer className={classes.iconButtons}>
 				<IconButton onClick={updateEntryHandler}>
 					<Edit style={{ color: '#1976d2' }} />
 				</IconButton>
 				<IconButton onClick={deleteEntryHandler}>
-					<Delete style={{ color: '#e74c3c' }} />
+					<Delete id='delete-icon' style={{ color: '#e74c3c', zIndex: 9999 }} />
 				</IconButton>
-			</div>
-		</Button>
+			</S.IconContainer>
+		</S.EntryContainer>
 	);
 };
 

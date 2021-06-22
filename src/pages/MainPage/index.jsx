@@ -21,13 +21,15 @@ import * as S from './styles';
 const MainPage = ({ history }) => {
 	const [currentId, setCurrentId] = useState(null);
 	const [open, setOpen] = useState(false);
+	const [doneFetchingEntries, setDoneFetchingEntries] = React.useState(false);
+	console.log(doneFetchingEntries);
 	const classes = useStyles();
 	const dispatch = useDispatch();
 
 	const { user, setUser } = React.useContext(UserContext);
 
 	useEffect(() => {
-		dispatch(getEntries());
+		dispatch(getEntries(setDoneFetchingEntries));
 	}, [currentId, dispatch]);
 
 	useEffect(() => {
@@ -70,11 +72,14 @@ const MainPage = ({ history }) => {
 								setCurrentId={setCurrentId}
 								open={open}
 								setOpen={setOpen}
+								setDoneFetchingEntries={setDoneFetchingEntries}
 							/>
 							<Entries
 								setCurrentId={setCurrentId}
 								open={open}
 								setOpen={setOpen}
+								setDoneFetchingEntries={setDoneFetchingEntries}
+								doneFetchingEntries={doneFetchingEntries}
 							/>
 						</Grid>
 					</Grid>

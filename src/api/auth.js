@@ -5,7 +5,7 @@ export const register = async (
 	setError,
 	registerUserData,
 	setRegisterUserData,
-	history,
+	history
 ) => {
 	try {
 		const { data } = await api.post('/auth/register', registerUserData);
@@ -37,10 +37,13 @@ export const login = async (
 	loginUserData,
 	setLoginUserData,
 	history,
+	setDoneLoggingIn
 ) => {
 	try {
+		setDoneLoggingIn(false);
 		const { data } = await api.post('/auth/login', loginUserData);
 		// console.log(data);
+		setDoneLoggingIn(true);
 		if (data.success) {
 			setLoginUserData({
 				email: '',

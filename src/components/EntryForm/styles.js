@@ -42,12 +42,26 @@ export default makeStyles(theme => ({
 		color: '#cb4545',
 	},
 
+	//modals
+
+	modalContainer: {
+	},
+
 	//Buttons
 	closeButton: {
 		position: 'absolute',
 		right: theme.spacing(1),
 		top: theme.spacing(1),
 		color: theme.palette.grey[500],
+	},
+
+	cashButtons: {
+		float: 'right',
+		display: 'flex',
+		justifyContent: 'space-between',
+		alignItems: 'center',
+		width: '16.5rem',
+		marginBottom: '1rem'
 	},
 	cashInButton: {
 		color: '#fff',

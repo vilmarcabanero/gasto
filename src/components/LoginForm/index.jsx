@@ -16,6 +16,7 @@ const LoginForm = ({ setIsRegistered, history }) => {
 	});
 	const [error, setError] = useState('');
 	const [isValid, setIsValid] = useState(true);
+	const [doneLoggingIn, setDoneLoggingIn] = useState(true);
 
 	const loginHandler = e => {
 		e.preventDefault();
@@ -25,7 +26,8 @@ const LoginForm = ({ setIsRegistered, history }) => {
 			setError,
 			loginUserData,
 			setLoginUserData,
-			history
+			history,
+			setDoneLoggingIn
 		);
 	};
 
@@ -75,7 +77,7 @@ const LoginForm = ({ setIsRegistered, history }) => {
 								type='submit'
 								className='w-100 mb-3'
 							>
-								Login
+								{doneLoggingIn ? 'Login' : 'Logging in...'}
 							</MUIButton>
 
 							<MUIButton
