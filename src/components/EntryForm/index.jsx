@@ -113,7 +113,7 @@ const EntryForm = ({
 		}
 
 		dispatch(getEntries(entryData, setDoneFetchingEntries));
-		
+
 		clear();
 		handleClose();
 		setIsSubmitted(!isSubmitted);

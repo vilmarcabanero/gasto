@@ -30,7 +30,7 @@ const MainPage = ({ history }) => {
 
 	useEffect(() => {
 		dispatch(getEntries(setDoneFetchingEntries));
-	}, [currentId, dispatch]);
+	}, [currentId, dispatch, open]); //Heto solution, piling i.rerender if mag open or close ang model.
 
 	useEffect(() => {
 		userAPI.getUserDetails(setUser);
