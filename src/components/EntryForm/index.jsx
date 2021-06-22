@@ -25,6 +25,7 @@ import FileBase from 'react-file-base64';
 import { useDispatch, useSelector } from 'react-redux';
 import { createEntry, getEntries, updateEntry } from 'redux/actions/entries';
 import { Card } from 'react-bootstrap';
+import CategoryForm from 'components/CategoryForm';
 
 //Modal
 const styles = theme => ({
@@ -245,9 +246,10 @@ const EntryForm = ({
 									<MenuItem value='Bills'>Bills</MenuItem>
 								</Select>
 							</FormControl>
-							<Button variant='outlined' className={classes.addCategory}>
-								<Add />
-							</Button>
+							<div className={classes.addCategory}>
+								{/* <Add /> */}
+								<CategoryForm />
+							</div>
 						</div>
 
 						<Button variant='outlined' className='mb-4 mt-1'>
