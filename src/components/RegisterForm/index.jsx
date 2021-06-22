@@ -33,11 +33,11 @@ const RegisterForm = ({ setIsRegistered, history }) => {
 
 	return (
 		<S.Container className='mt-5'>
-			<Card className='register-card'>
+			<Card className='register-card p-4'>
 				<Card.Body>
 					<form onSubmit={registerHandler} className='form'>
 						<h2 className='text-center title'>Register </h2>
-						<div className='input-groups pb-3 mt-4'>
+						<div className='input-groups pb-3 mt-3'>
 							<TextField
 								label='First Name'
 								fullWidth

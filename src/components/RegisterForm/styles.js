@@ -38,8 +38,8 @@ export default useStyles;
 
 export const Container = styled.div`
 	.register-card {
-		height: 35rem;
-		max-width: 25rem;
+		height: 37rem;
+		max-width: 24rem;
 		width: 100%;
 		margin: auto;
 		margin-top: 5rem;
@@ -74,7 +74,7 @@ export const Container = styled.div`
 	}
 
 	.title {
-		margin-top: 2.25rem;
+		margin-top: 1.5rem;
 	}
 
 	.close-icon {

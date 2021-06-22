@@ -33,11 +33,11 @@ const LoginForm = ({ setIsRegistered, history }) => {
 
 	return (
 		<S.Container className='mt-5'>
-			<Card className='login-card'>
+			<Card className='login-card p-4'>
 				<Card.Body>
 					<form onSubmit={loginHandler} className='form'>
 						<h2 className='text-center title'>Login </h2>
-						<div className='input-groups pb-3'>
+						<div className='input-groups pb-3 mt-3'>
 							<TextField
 								type='text'
 								label='Email address'

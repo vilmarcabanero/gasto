@@ -3,7 +3,7 @@ import styled from 'styled-components';
 export const Container = styled.div`
 	.login-card {
 		height: 27rem;
-		max-width: 22rem;
+		max-width: 24rem;
 		width: 100%;
 		margin: auto;
 		margin-top: 5rem;
@@ -41,7 +41,7 @@ export const Container = styled.div`
 	}
 
 	.title {
-		margin-top: 2.25rem;
+		margin-top: 1.5rem;
 	}
 
 	.close-icon {
