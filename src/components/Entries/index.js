@@ -16,10 +16,9 @@ const Entries = ({ setCurrentId, open, setOpen }) => {
 			className={classes.container}
 			container
 			alignItems='stretch'
-			spacing={3}
 		>
 			{entries.map(entry => (
-				<Grid key={entry._id} item xs={12} sm={6}>
+				<Grid key={entry._id} item xs={12} sm={12}>
 					<Entry
 						entry={entry}
 						setCurrentId={setCurrentId}

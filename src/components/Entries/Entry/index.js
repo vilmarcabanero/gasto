@@ -43,29 +43,31 @@ const Entry = ({ entry, setCurrentId, open, setOpen }) => {
 				dispatch(deleteEntry(entry._id));
 			}
 		});
-		
 	};
 
 	return (
-		<div className={classes.entryContainer}>
-			<p>{entry.name}</p>
+		<Button fullWidth className={classes.entryContainer}>
+			{moment(today).format('LL') === moment(entry.updatedAt).format('LL') ? (
+				<p className={classes.date}>Today</p>
+			) : (
+				<p className={classes.date}> {moment(entry.updatedAt).format('LL')}</p>
+			)}
+			<p className={classes.time}>{moment(entry.updatedAt).format('LT')}</p>
+			<p className={classes.entryName}>{entry.name}</p>
 			<p>{entry.category}</p>
 			<p className={entry.type === 'income' ? classes.income : classes.expense}>
 				{entry.amount}
 			</p>
-			{moment(today).format('LL') === moment(entry.updatedAt).format('LL') ? (
-				'Today'
-			) : (
-				<p> {moment(entry.updatedAt).format('LL')}</p>
-			)}
-			<p>{moment(entry.updatedAt).format('LT')}</p>
-			<IconButton onClick={updateEntryHandler}>
-				<Edit style={{ color: '#1976d2' }} />
-			</IconButton>
-			<IconButton onClick={deleteEntryHandler}>
-				<Delete style={{ color: '#e74c3c' }} />
-			</IconButton>
-		</div>
+
+			<div className={classes.iconButtons}>
+				<IconButton onClick={updateEntryHandler}>
+					<Edit style={{ color: '#1976d2' }} />
+				</IconButton>
+				<IconButton onClick={deleteEntryHandler}>
+					<Delete style={{ color: '#e74c3c' }} />
+				</IconButton>
+			</div>
+		</Button>
 	);
 };
 
