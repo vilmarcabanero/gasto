@@ -76,7 +76,24 @@ const EntryForm = ({
 
 	const [isSubmitted, setIsSubmitted] = useState(false);
 
+	const [categoryData, setCategoryData] = useState([]);
+	const [expenseCategories, setExpenseCategories] = useState([]);
+	const [incomeCategories, setIncomeCategories] = useState([]);
+
 	// const [entryName, setEntryName] = useState('')
+
+	useEffect(() => {
+		setCategoryData([
+			{
+				_id: 1,
+				name: 'Salary',
+				type: 'income',
+			},
+			{ _id: 2, name: 'Bills', type: 'expense' },
+			{ _id: 3, name: 'Food', type: 'expense' },
+			{ _id: 4, name: 'Debt', type: 'expense' },
+		]);
+	}, []);
 
 	const entry = useSelector(state =>
 		currentId ? state.entries.find(e => e._id === currentId) : null
@@ -129,13 +146,19 @@ const EntryForm = ({
 
 	const cashOutHandler = () => {
 		setEntryData({ ...entryData, type: 'expense' });
-
+		const expenseCategories = categoryData.filter(
+			category => category.type === 'expense'
+		);
+		setExpenseCategories(expenseCategories);
 		setOpen(true);
 	};
 
 	const cashInHandler = () => {
 		setEntryData({ ...entryData, type: 'income' });
-
+		const incomeCategories = categoryData.filter(
+			category => category.type === 'income'
+		);
+		setIncomeCategories(incomeCategories);
 		setOpen(true);
 	};
 
@@ -241,9 +264,17 @@ const EntryForm = ({
 										setEntryData({ ...entryData, category: e.target.value })
 									}
 								>
-									<MenuItem value='Food'>Food</MenuItem>
-									<MenuItem value='Salary'>Salary</MenuItem>
-									<MenuItem value='Bills'>Bills</MenuItem>
+									{entryData.type === 'income'
+										? incomeCategories.map(category => (
+												<MenuItem key={category._id} value={category.name}>
+													{category.name}
+												</MenuItem>
+										  ))
+										: expenseCategories.map(category => (
+												<MenuItem key={category._id} value={category.name}>
+													{category.name}
+												</MenuItem>
+										  ))}
 								</Select>
 							</FormControl>
 							<div className={classes.addCategory}>
