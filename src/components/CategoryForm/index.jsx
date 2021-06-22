@@ -105,12 +105,10 @@ const CategoryForm = ({
 	// 	dispatch(getEntries(entryData));
 	// }, [open, dispatch, entryData]);
 
-	const submitHandler = e => {
-		e.preventDefault();
-		console.log('Category added successfully.')
-		console.log(`Category name: ${categoryData.name}`)
-		console.log(`Category type: ${categoryData.type}`)
-
+	const submitAddCategoryHandler = () => {
+		console.log('Category added successfully.');
+		console.log(`Category name: ${categoryData.name}`);
+		console.log(`Category type: ${categoryData.type}`);
 
 		// if (currentCategoryId) {
 		// 	dispatch(updateEntry(currentCategoryId, categoryData));
@@ -119,7 +117,6 @@ const CategoryForm = ({
 		// }
 
 		// dispatch(getEntries(entryData, setDoneFetchingEntries)); dapat getCategories?
-
 		clear();
 		handleClose();
 	};
@@ -153,7 +150,7 @@ const CategoryForm = ({
 				</MuiDialogTitle>
 
 				<MuiDialogContent dividers>
-					<form className={classes.form} onSubmit={submitHandler}>
+					<form className={classes.form}>
 						<TextField
 							label='Enter category name'
 							type='text'
@@ -201,7 +198,8 @@ const CategoryForm = ({
 							className='mb-2'
 							fullWidth
 							color='primary'
-							type='submit'
+							// type='submit'
+							onClick={submitAddCategoryHandler}
 						>
 							Save
 						</Button>
