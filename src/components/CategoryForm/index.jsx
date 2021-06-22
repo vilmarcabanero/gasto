@@ -107,6 +107,10 @@ const CategoryForm = ({
 
 	const submitHandler = e => {
 		e.preventDefault();
+		console.log('Category added successfully.')
+		console.log(`Category name: ${categoryData.name}`)
+		console.log(`Category type: ${categoryData.type}`)
+
 
 		// if (currentCategoryId) {
 		// 	dispatch(updateEntry(currentCategoryId, categoryData));
@@ -118,7 +122,6 @@ const CategoryForm = ({
 
 		clear();
 		handleClose();
-		setIsSubmitted(!isSubmitted);
 	};
 
 	const handleClose = () => {
