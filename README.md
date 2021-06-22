@@ -1,4 +1,4 @@
-<h1>Memoria<a href="https://github.com/vilmarcabanero/memoria-client">📦</a></h1>
+<h1>Gasto<a href="https://github.com/vilmarcabanero/gasto-capstone">📦</a></h1>
 
 <h2><samp>Developed using the the MERN Stack</samp></h2>
 
