@@ -21,7 +21,7 @@ const Entries = ({
 		<div>No entries yet. Please add some entry.</div>
 	) : (
 		<Grid className={classes.container} container alignItems='stretch'>
-			<Grid className={classes.entryContainer} xs={12}>
+			<Grid  item className={classes.entryContainer} xs={12}>
 				<p className={classes.date}>Date</p>
 				<p className={classes.time}>Time</p>
 				<p className={classes.entryName}>Entry Name</p>
@@ -29,7 +29,7 @@ const Entries = ({
 				<p className={classes.amount}>Amount</p>
 			</Grid>
 			{entries.map(entry => (
-				<Grid key={entry._id} xs={12}>
+				<Grid item key={entry._id} xs={12}>
 					<Entry
 						doneFetchingEntries={doneFetchingEntries}
 						setDoneFetchingEntries={setDoneFetchingEntries}

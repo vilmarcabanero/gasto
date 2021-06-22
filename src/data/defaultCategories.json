@@ -1,0 +1,27 @@
+[
+	{
+		"_id": "60d1f55ced9f8556bc9d3d67",
+		"name": "Salary",
+		"type": "income"
+	},
+	{
+		"_id": "60d1f82edda36f47fc910f36",
+		"name": "Utilities",
+		"type": "expense"
+	},
+	{
+		"_id": "60d1face857b861dfc5e1e8d",
+		"name": "Food",
+		"type": "expense"
+	},
+	{
+		"_id": "60d1fc02857b861dfc5e1e8e",
+		"name": "Leisures",
+		"type": "expense"
+	},
+	{
+		"_id": "60d1fc02857b861dfc5e1e8e1",
+		"name": "Allowance",
+		"type": "income"
+	}
+]

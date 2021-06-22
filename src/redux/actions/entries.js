@@ -8,7 +8,7 @@ export const getEntries = setDoneFetchingEntries => async dispatch => {
 		setDoneFetchingEntries(true);
 		dispatch({ type: CONST.GET_ENTRIES, payload: data });
 		// console.log(data);
-		console.log('Successfully fetched entries from the server.');
+		console.log('Successfully fetched entries from the server.', data);
 	} catch (err) {
 		console.log(err);
 	}

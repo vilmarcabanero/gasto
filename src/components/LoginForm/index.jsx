@@ -46,7 +46,7 @@ const LoginForm = ({ setIsRegistered, history }) => {
 								type='text'
 								label='Email address'
 								fullWidth
-								id='standard-basic'
+								id='standard-basic-email'
 								className='pb-3'
 								value={loginUserData.email}
 								onChange={e =>
@@ -61,7 +61,7 @@ const LoginForm = ({ setIsRegistered, history }) => {
 								type='password'
 								label='Password'
 								fullWidth
-								id='standard-basic'
+								id='standard-basic-password'
 								className='pb-3'
 								value={loginUserData.password}
 								onChange={e =>

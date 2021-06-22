@@ -9,6 +9,7 @@ import {
 } from '@material-ui/core';
 import { useDispatch } from 'react-redux';
 import { getEntries } from 'redux/actions/entries';
+import { getCategories } from 'redux/actions/categories';
 // import EntryForm from 'components/EntryForm';
 import EntryForm from 'components/EntryForm/index.jsx';
 import UserContext from 'context/user';
@@ -30,7 +31,8 @@ const MainPage = ({ history }) => {
 
 	useEffect(() => {
 		dispatch(getEntries(setDoneFetchingEntries));
-	}, [currentId, dispatch, open]); //Heto solution, piling i.rerender if mag open or close ang model.
+		dispatch(getCategories())
+	}, [currentId, dispatch, open]); //open, Heto solution, piliting i.rerender if mag open or close ang modal.
 
 	useEffect(() => {
 		userAPI.getUserDetails(setUser);
@@ -51,7 +53,8 @@ const MainPage = ({ history }) => {
 					<Button onClick={logoutHandler} style={{ color: '#fff' }}>
 						Logout
 					</Button>
-					<Typography className={classes.profileName} variant='p'>
+
+					<Typography className={classes.profileName} variant='subtitle1'>
 						{`${user.firstName} ${user.lastName}`}
 					</Typography>
 				</div>

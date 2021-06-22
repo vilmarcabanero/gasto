@@ -24,8 +24,10 @@ import {
 import FileBase from 'react-file-base64';
 import { useDispatch, useSelector } from 'react-redux';
 import { createEntry, getEntries, updateEntry } from 'redux/actions/entries';
+import { getCategories } from 'redux/actions/categories';
 import { Card } from 'react-bootstrap';
 import CategoryForm from 'components/CategoryForm';
+import defaultCategories from 'data/defaultCategories.json';
 
 //Modal
 const styles = theme => ({
@@ -77,29 +79,29 @@ const EntryForm = ({
 	const [isSubmitted, setIsSubmitted] = useState(false);
 
 	const [categoryData, setCategoryData] = useState([]);
+
+	const categories = useSelector(state => state.categories);
+	// console.log(categories, 'categories');
+
 	const [expenseCategories, setExpenseCategories] = useState([]);
 	const [incomeCategories, setIncomeCategories] = useState([]);
 
 	// const [entryName, setEntryName] = useState('')
-
-	useEffect(() => {
-		setCategoryData([
-			{
-				_id: 1,
-				name: 'Salary',
-				type: 'income',
-			},
-			{ _id: 2, name: 'Bills', type: 'expense' },
-			{ _id: 3, name: 'Food', type: 'expense' },
-			{ _id: 4, name: 'Debt', type: 'expense' },
-		]);
-	}, []);
 
 	const entry = useSelector(state =>
 		currentId ? state.entries.find(e => e._id === currentId) : null
 	);
 	const classes = useStyles();
 	const dispatch = useDispatch();
+
+	useEffect(() => {
+		dispatch(getCategories());
+		// console.log('Done fetching categories')
+	}, [dispatch, open]);
+
+	useEffect(() => {
+		setCategoryData([...defaultCategories, ...categories]);
+	}, [open, categories]);
 
 	const clear = () => {
 		setCurrentId(null);
