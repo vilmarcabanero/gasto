@@ -14,6 +14,7 @@ import moment from 'moment';
 import { useDispatch } from 'react-redux';
 import { deleteEntry } from 'redux/actions/entries';
 import * as format from 'utils/date';
+import Swal from 'sweetalert2';
 
 const Entry = ({ entry, setCurrentId, open, setOpen }) => {
 	const classes = useStyles();
@@ -28,7 +29,21 @@ const Entry = ({ entry, setCurrentId, open, setOpen }) => {
 	};
 
 	const deleteEntryHandler = () => {
-		dispatch(deleteEntry(entry._id));
+		Swal.fire({
+			title: 'Delete Entry',
+			text: 'Once deleted, this entry can not be restored.',
+			icon: 'warning',
+			showCancelButton: true,
+			confirmButtonColor: '#3085d6',
+			cancelButtonColor: '#d33',
+			confirmButtonText: 'I understand, delete it.',
+		}).then(result => {
+			if (result.isConfirmed) {
+				Swal.fire('Deleted!', 'The entry has been deleted.', 'success');
+				dispatch(deleteEntry(entry._id));
+			}
+		});
+		
 	};
 
 	return (

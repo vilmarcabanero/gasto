@@ -7,7 +7,7 @@ export const getEntries = () => async dispatch => {
 		const { data } = await api.getEntries();
 		dispatch({ type: CONST.GET_ENTRIES, payload: data });
 		// console.log(data);
-
+		console.log('Successfully fetched entries from the server.');
 	} catch (err) {
 		console.log(err);
 	}
@@ -25,9 +25,10 @@ export const createEntry = entry => async dispatch => {
 
 export const updateEntry = (id, entry) => async dispatch => {
 	try {
-		console.log(id);
+		
 		const { data } = await api.updateEntry(id, entry);
 		dispatch({ type: CONST.UPDATE_ENTRY, payload: data });
+		console.log('Successfully updated an entry.');
 	} catch (err) {
 		console.log(err);
 	}
@@ -37,6 +38,7 @@ export const deleteEntry = id => async dispatch => {
 	try {
 		await api.deleteEntry(id);
 		dispatch({ type: CONST.DELETE_ENTRY, payload: id });
+		console.log('Successfully deleted an entry.');
 	} catch (err) {
 		console.log(err);
 	}

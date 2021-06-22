@@ -30,7 +30,7 @@ import { Card } from 'react-bootstrap';
 const styles = theme => ({
 	root: {
 		margin: 0,
-		padding: theme.spacing(2),
+		padding: theme.spacing(3),
 		display: 'flex',
 		justifyContent: 'space-between',
 		alignItems: 'center',
@@ -53,7 +53,7 @@ const MuiDialogTitle = withStyles(styles)(props => {
 
 const MuiDialogContent = withStyles(theme => ({
 	root: {
-		padding: theme.spacing(2),
+		padding: theme.spacing(3),
 	},
 }))(DialogContent);
 
