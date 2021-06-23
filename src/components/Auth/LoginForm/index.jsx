@@ -40,7 +40,7 @@ const LoginForm = ({ setIsRegistered, history }) => {
 	};
 
 	return (
-		<S.Container className='mt-5'>
+		<S.Container>
 			<Card className='login-card p-4'>
 				<div>
 					<form onSubmit={loginHandler} className='form'>

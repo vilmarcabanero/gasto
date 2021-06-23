@@ -26,7 +26,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { createEntry, getEntries, updateEntry } from 'redux/actions/entries';
 import { getCategories } from 'redux/actions/categories';
 import { Card } from 'react-bootstrap';
-import CategoryForm from 'components/CategoryForm';
+import CategoryForm from 'components/Forms/CategoryForm';
 import defaultCategories from 'data/defaultCategories.json';
 
 //Modal

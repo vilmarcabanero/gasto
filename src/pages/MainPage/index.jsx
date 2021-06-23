@@ -12,7 +12,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getEntries } from 'redux/actions/entries';
 import { getCategories } from 'redux/actions/categories';
 // import EntryForm from 'components/EntryForm';
-import EntryForm from 'components/EntryForm/index.jsx';
+import EntryForm from 'components/Forms/EntryForm/index.jsx';
 import UserContext from 'context/user';
 import * as userAPI from 'api/user';
 
@@ -20,7 +20,7 @@ import Entries from 'components/Entries';
 import useStyles from './styles';
 import * as S from './styles';
 import defaultCategories from 'data/defaultCategories.json';
-import Profile from 'components/ProfilePopover';
+import Profile from 'components/Profile/ProfilePopover';
 import ExpenseIncomeSummary from 'components/ExpenseIncomeSummary';
 import SearchBar from 'components/SearchBar'
 

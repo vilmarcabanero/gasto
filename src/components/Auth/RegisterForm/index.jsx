@@ -35,7 +35,7 @@ const RegisterForm = ({ setIsRegistered, history }) => {
 	};
 
 	return (
-		<S.Container className='mt-5'>
+		<S.Container>
 			<Card className='register-card p-4'>
 				<div>
 					<form onSubmit={registerHandler} className='form'>
