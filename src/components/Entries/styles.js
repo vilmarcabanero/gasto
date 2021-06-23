@@ -18,6 +18,7 @@ export default makeStyles(theme => ({
 		alignItems: 'center',
 		position: 'relative',
 		padding: 6,
+		paddingLeft: 33,
 		backgroundColor: 'rgba(200, 200, 200, 0.2)',
 	},
 
@@ -29,7 +30,7 @@ export default makeStyles(theme => ({
 		marginTop: 14,
 	},
 	time: {
-		maxWidth: '6rem',
+		maxWidth: '7rem',
 		width: '100%',
 		textAlign: 'left',
 		paddingLeft: 10,
@@ -37,14 +38,14 @@ export default makeStyles(theme => ({
 	},
 
 	entryName: {
-		maxWidth: '12rem',
+		maxWidth: '17rem',
 		width: '100%',
 		textAlign: 'left',
 		paddingLeft: 10,
 		marginTop: 14,
 	},
 	category: {
-		maxWidth: '9rem',
+		maxWidth: '12rem',
 		width: '100%',
 		textAlign: 'left',
 		paddingLeft: 20,
@@ -60,7 +61,6 @@ export default makeStyles(theme => ({
 	},
 
 	tabsRoot: {
-    flexGrow: 1,
     backgroundColor: theme.palette.background.paper
   }
 }));

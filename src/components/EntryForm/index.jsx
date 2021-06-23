@@ -71,8 +71,8 @@ const EntryForm = ({
 	setCategoryOpen,
 	setDoneFetchingEntries,
 	// categories,
-	// categoryData,
-	// setCategoryData,
+	categoryData,
+	setCategoryData,
 }) => {
 	const [entryData, setEntryData] = useState({
 		name: '',
@@ -95,10 +95,10 @@ const EntryForm = ({
 	const entries = useSelector(state => state.entries);
 	const categories = useSelector(state => state.categories);
 
-	const [categoryData, setCategoryData] = useState([
-		...defaultCategories,
-		...categories,
-	]);
+	// const [categoryData, setCategoryData] = useState([
+	// 	...defaultCategories,
+	// 	...categories,
+	// ]);
 
 	// const [entryName, setEntryName] = useState('')
 
@@ -110,11 +110,13 @@ const EntryForm = ({
 
 	useEffect(() => {
 		dispatch(getCategories());
+		// setCategoryData([...defaultCategories, ...categories]);
 		// console.log('Done fetching categories')
 	}, [dispatch, open]);
 
 	useEffect(() => {
 		setCategoryData([...defaultCategories, ...categories]);
+		
 		console.log('Successfully re-rendered Entry Form.');
 		// if (isCategoryAddSubmitted) {
 		// 	setOpen(true);

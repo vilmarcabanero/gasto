@@ -11,26 +11,43 @@ import {
 } from '@material-ui/core';
 import { Delete, MoreHoriz, Edit } from '@material-ui/icons';
 import moment from 'moment';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { deleteEntry } from 'redux/actions/entries';
+import {getCategories} from 'redux/actions/categories'
 import * as format from 'utils/date';
 import Swal from 'sweetalert2';
 import * as S from './styles';
+import defaultCategories from 'data/defaultCategories.json'
 
-const Entry = ({ entry, setCurrentId, open, setOpen }) => {
+const Entry = ({ entry, setCurrentId, open, setOpen, categoryData, setCategoryData }) => {
 	const classes = useStyles();
 	// console.log(entry);
 	const dispatch = useDispatch();
+	const categories = useSelector(state => state.categories)
 
 	// const [hovered, setHovered] = React.useState(false);
 	// const toggleHover = () => setHovered(!hovered);
 
 	const today = new Date();
 
+	React.useEffect(() => {
+		dispatch(getCategories());
+		setCategoryData([...defaultCategories,...categories])
+	},[open])
+
 	const updateEntryHandler = () => {
+		dispatch(getCategories());
+		setCategoryData([...defaultCategories,...categories])
 		setCurrentId(entry._id);
 		setOpen(true);
+		setCategoryData([...defaultCategories,...categories])
+		// dispatch(getCategories());
+		// setCategoryData([...defaultCategories, ...categories])
+		
+		console.log('category data when edit icon button is clicked: ',[...defaultCategories,...categories])
 	};
+
+	
 
 	const deleteEntryHandler = () => {
 		Swal.fire({

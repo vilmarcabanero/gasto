@@ -8,7 +8,6 @@ import AuthPage from 'pages/AuthPage';
 import PrivateRoute from 'utils/routing/PrivateRoute';
 
 import { CssBaseline } from '@material-ui/core';
-
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 
 const App = () => {

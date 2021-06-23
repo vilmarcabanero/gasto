@@ -20,7 +20,7 @@ import Entries from 'components/Entries';
 import useStyles from './styles';
 import * as S from './styles';
 import defaultCategories from 'data/defaultCategories.json';
-import Profile from 'components/Profile';
+import Profile from 'components/ProfilePopover';
 import ExpenseIncomeSummary from 'components/ExpenseIncomeSummary';
 import SearchBar from 'components/SearchBar'
 
@@ -30,6 +30,14 @@ const MainPage = ({ history }) => {
 	//Categories
 	const [currentCategoryId, setCurrentCategoryId] = useState(null);
 	const [categoryOpen, setCategoryOpen] = useState(false);
+
+	const categories = useSelector(state => state.categories);
+
+	const [categoryData, setCategoryData] = useState([
+		...defaultCategories,
+		...categories,
+	]);
+
 
 	const [doneFetchingEntries, setDoneFetchingEntries] = React.useState(false);
 	console.log(doneFetchingEntries);
@@ -48,7 +56,8 @@ const MainPage = ({ history }) => {
 	useEffect(() => {
 		dispatch(getEntries(setDoneFetchingEntries));
 		dispatch(getCategories());
-		// setCategoryData([...defaultCategories, ...categories]);
+		setCategoryData([...defaultCategories, ...categories]);
+		console.log('Category data sa first render/log in.', categoryData)
 		// console.log('Initial state ng category data pala to.',categoryData);
 		console.log('Successfully re-rendered Main Page');
 	}, [currentId, dispatch, open, categoryOpen]); //open, Heto solution sa not rerendering after adding entry, piliting i.rerender if mag open or close ang modal.
@@ -97,8 +106,8 @@ const MainPage = ({ history }) => {
 								setCategoryOpen={setCategoryOpen}
 								setDoneFetchingEntries={setDoneFetchingEntries}
 								// categories={categories}
-								// categoryData={categoryData}
-								// setCategoryData={setCategoryData}
+								categoryData={categoryData}
+								setCategoryData={setCategoryData}
 							/>
 						</Grid>
 						<Grid item xs={12}>
@@ -112,6 +121,7 @@ const MainPage = ({ history }) => {
 								setOpen={setOpen}
 								setDoneFetchingEntries={setDoneFetchingEntries}
 								doneFetchingEntries={doneFetchingEntries}
+								setCategoryData={setCategoryData}
 							/>
 						</Grid>
 					</Grid>

@@ -30,7 +30,7 @@ export default makeStyles({
 		marginTop: 14,
 	},
 	time: {
-		maxWidth: '6rem',
+		maxWidth: '7rem',
 		width: '100%',
 		textAlign: 'left',
 		paddingLeft: 10,
@@ -38,14 +38,14 @@ export default makeStyles({
 	},
 
 	entryName: {
-		maxWidth: '12rem',
+		maxWidth: '17rem',
 		width: '100%',
 		textAlign: 'left',
 		paddingLeft: 10,
 		marginTop: 14,
 	},
 	category: {
-		maxWidth: '9rem',
+		maxWidth: '12rem',
 		width: '100%',
 		textAlign: 'left',
 		paddingLeft: 20,
