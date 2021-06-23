@@ -43,3 +43,25 @@ export const deleteEntry = id => async dispatch => {
 		console.log(err);
 	}
 };
+
+export const getExpenses = () => async dispatch => {
+	try {
+		const { data } = await api.getExpenses();
+		dispatch({ type: CONST.GET_EXPENSES, payload: data });
+		// console.log(data);
+		console.log('Successfully fetched expense entries from the server.', data);
+	} catch (err) {
+		console.log(err);
+	}
+};
+
+export const getIncome = () => async dispatch => {
+	try {
+		const { data } = await api.getIncome();
+		dispatch({ type: CONST.GET_INCOME, payload: data });
+		// console.log(data);
+		console.log('Successfully fetched income entries from the server.', data);
+	} catch (err) {
+		console.log(err);
+	}
+};

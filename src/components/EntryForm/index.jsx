@@ -78,6 +78,7 @@ const EntryForm = ({
 		name: '',
 		category: '',
 		amount: '',
+		balance: 0,
 		type: '',
 		date: new Date(),
 		time: new Date(),
@@ -91,6 +92,7 @@ const EntryForm = ({
 	const [expenseCategories, setExpenseCategories] = useState([]);
 	const [incomeCategories, setIncomeCategories] = useState([]);
 
+	const entries = useSelector(state => state.entries);
 	const categories = useSelector(state => state.categories);
 
 	const [categoryData, setCategoryData] = useState([
@@ -109,7 +111,7 @@ const EntryForm = ({
 	useEffect(() => {
 		dispatch(getCategories());
 		// console.log('Done fetching categories')
-	}, [dispatch, open,]);
+	}, [dispatch, open]);
 
 	useEffect(() => {
 		setCategoryData([...defaultCategories, ...categories]);
@@ -125,6 +127,7 @@ const EntryForm = ({
 			name: '',
 			category: '',
 			amount: '',
+			balance: 0,
 			type: '',
 			date: new Date(),
 			time: new Date(),
@@ -135,12 +138,16 @@ const EntryForm = ({
 		if (entry) setEntryData(entry);
 	}, [entry]);
 
+	useEffect(() => {}, []);
+
 	// useEffect(() => {
 	// 	dispatch(getEntries(entryData));
 	// }, [open, dispatch, entryData]);
 
 	const submitHandler = e => {
 		e.preventDefault();
+
+		console.log('Current balance', entryData.balance);
 
 		if (currentId) {
 			dispatch(updateEntry(currentId, entryData));
@@ -208,6 +215,30 @@ const EntryForm = ({
 		setCategoryData([...defaultCategories, ...categories]);
 		dispatch(getCategories());
 	};
+
+	// setEntryData({
+	// 	...entryData,
+	// 	balance:
+	// 		entryData.type === 'income'
+	// 			? parseFloat(entryData.balance) + parseFloat(entryData.amount)
+	// 			: parseFloat(entryData.balance) - parseFloat(entryData.amount),
+	// });
+
+	const amountEntryDataHandler = e => {
+		setEntryData({
+			...entryData,
+			amount: parseFloat(e.target.value),
+		});
+
+		// console.log('amount ',entryData.amount)
+		// console.log('balance ', entryData.balance);
+	};
+
+	// entries.forEach(entry => {
+	// 	if(entry.type === 'income') {
+	// 		set
+	// 	}
+	// });
 
 	return (
 		<div className={classes.modalContainer}>
@@ -290,12 +321,7 @@ const EntryForm = ({
 							className='mb-3'
 							size='small'
 							value={entryData.amount}
-							onChange={e =>
-								setEntryData({
-									...entryData,
-									amount: parseFloat(e.target.value),
-								})
-							}
+							onChange={amountEntryDataHandler}
 						/>
 
 						<div className={`${classes.category} mb-4`}>

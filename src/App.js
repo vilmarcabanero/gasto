@@ -18,7 +18,9 @@ const App = () => {
 		email: '',
 	});
 
-	const [darkMode, setDarkMode] = useState(false);
+	const [darkMode, setDarkMode] = useState(
+		localStorage.getItem('darkMode') || false
+	);
 	const theme = createMuiTheme({
 		palette: {
 			primary: {

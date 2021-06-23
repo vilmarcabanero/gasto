@@ -69,6 +69,7 @@ const Entry = ({ entry, setCurrentId, open, setOpen }) => {
 				>
 					{entry.amount}
 				</p>
+				{/* <p>{entry.balance}</p> */}
 			</div>
 
 			<S.IconContainer className={classes.iconButtons}>

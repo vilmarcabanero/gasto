@@ -38,14 +38,14 @@ export default makeStyles({
 	},
 
 	entryName: {
-		maxWidth: '16rem',
+		maxWidth: '12rem',
 		width: '100%',
 		textAlign: 'left',
 		paddingLeft: 10,
 		marginTop: 14,
 	},
 	category: {
-		maxWidth: '10rem',
+		maxWidth: '9rem',
 		width: '100%',
 		textAlign: 'left',
 		paddingLeft: 20,

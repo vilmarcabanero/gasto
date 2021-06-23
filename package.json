@@ -21,6 +21,7 @@
 		"framer-motion": "^4.1.16",
 		"material-ui-search-bar": "^1.0.0-beta.14",
 		"moment": "^2.29.1",
+		"prop-types": "^15.7.2",
 		"react": "^17.0.2",
 		"react-bootstrap": "^1.6.1",
 		"react-dom": "^17.0.2",

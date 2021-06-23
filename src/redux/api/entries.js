@@ -39,3 +39,23 @@ export const deleteEntry = id => {
 
 	return api.delete(`/entries/${id}`, config);
 };
+
+export const getExpenses = () => {
+	const config = {
+		headers: {
+			Authorization: `Bearer ${localStorage.getItem('authToken')}`,
+		},
+	};
+
+	return api.get(`/entries/expenses`, config);
+};
+
+export const getIncome = () => {
+	const config = {
+		headers: {
+			Authorization: `Bearer ${localStorage.getItem('authToken')}`,
+		},
+	};
+
+	return api.get(`/entries/income`, config);
+};

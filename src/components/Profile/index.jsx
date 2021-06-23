@@ -35,6 +35,13 @@ const Profile = ({ user, logoutHandler }) => {
 
 	const open = Boolean(anchorEl);
 	const id = open ? 'simple-popover' : undefined;
+
+	const darkModeHandler = () => {
+		setDarkMode(!darkMode);
+		// localStorage.removeItem('darkMode');
+		// localStorage.setItem('darkMode', darkMode);
+	};
+
 	return (
 		<div>
 			<Button
@@ -92,14 +99,15 @@ const Profile = ({ user, logoutHandler }) => {
 					</ListItem>
 					<ListItem className={`${classes.darkmode}`}>
 						<SettingsBrightness style={{ marginRight: 5 }} />
-						<Typography variant='subtitle1' style={{ marginRight: 80}}>Dark Mode</Typography>
+						<Typography variant='subtitle1' style={{ marginRight: 80 }}>
+							Dark Mode
+						</Typography>
 						<div className={classes.switch}>
-						<Switch
-							color='secondary'
-							checked={darkMode}
-							onChange={() => setDarkMode(!darkMode)}
-							
-						/>
+							<Switch
+								color='secondary'
+								checked={darkMode}
+								onChange={darkModeHandler}
+							/>
 						</div>
 					</ListItem>
 				</List>

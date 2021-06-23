@@ -2,6 +2,10 @@ import * as CONST from 'utils/constants/actionTypes';
 
 const reducer = (entries = [], action) => {
 	switch (action.type) {
+		case CONST.GET_EXPENSES:
+			return action.payload;
+		case CONST.GET_INCOME:
+			return action.payload;
 		case CONST.DELETE_ENTRY:
 			return entries.filter(entry => entry._id !== action.payload);
 		case CONST.UPDATE_ENTRY:
