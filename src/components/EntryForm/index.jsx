@@ -84,7 +84,7 @@ const EntryForm = ({
 	});
 
 	const [isSubmitted, setIsSubmitted] = useState(false);
-	const [isCategoryAddSubmitted, setIsCategoryAddSubmitted] = useState(null);
+	// const [isCategoryAddSubmitted, setIsCategoryAddSubmitted] = useState(null);
 
 	// console.log(categories, 'categories');
 
@@ -109,19 +109,14 @@ const EntryForm = ({
 	useEffect(() => {
 		dispatch(getCategories());
 		// console.log('Done fetching categories')
-	}, [dispatch, open, isCategoryAddSubmitted]);
-
-	useEffect(() => {
-		// setIsCategoryAddSubmitted(true);
-		if (isCategoryAddSubmitted) setOpen(true);
-	}, [categoryOpen]);
+	}, [dispatch, open,]);
 
 	useEffect(() => {
 		setCategoryData([...defaultCategories, ...categories]);
 		console.log('Successfully re-rendered Entry Form.');
-		if (isCategoryAddSubmitted) {
-			setOpen(true);
-		}
+		// if (isCategoryAddSubmitted) {
+		// 	setOpen(true);
+		// }
 	}, [open, categoryOpen, categories]);
 
 	const clear = () => {
@@ -339,8 +334,8 @@ const EntryForm = ({
 									setEntryOpen={setOpen}
 									categoryOpen={categoryOpen}
 									setCategoryOpen={setCategoryOpen}
-									isCategoryAddSubmitted={isCategoryAddSubmitted}
-									setIsCategoryAddSubmitted={setIsCategoryAddSubmitted}
+									// isCategoryAddSubmitted={isCategoryAddSubmitted}
+									// setIsCategoryAddSubmitted={setIsCategoryAddSubmitted}
 								/>
 							</div>
 						</div>

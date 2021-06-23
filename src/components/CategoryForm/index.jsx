@@ -72,8 +72,8 @@ const CategoryForm = ({
 	entryData,
 	entryOpen,
 	setEntryOpen,
-	isCategoryAddSubmitted,
-	setIsCategoryAddSubmitted,
+	// isCategoryAddSubmitted,
+	// setIsCategoryAddSubmitted,
 	setDoneFetchingCategories,
 }) => {
 	const [categoryInputData, setCategoryInputData] = useState({
@@ -112,7 +112,7 @@ const CategoryForm = ({
 
 	useEffect(() => {
 		dispatch(getCategories());
-		setIsCategoryAddSubmitted(false);
+		// setIsCategoryAddSubmitted(false);
 	}, [open, dispatch, categoryOpen]);
 
 	// useEffect(() => {

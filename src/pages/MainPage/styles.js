@@ -28,7 +28,7 @@ export default makeStyles(theme => ({
 
 export const StyledContainer = styled(Container)`
 
-	.profile-name-container {
+	.profile-container {
 		display: flex;
 		justify-content: center;
 		align-items: center;

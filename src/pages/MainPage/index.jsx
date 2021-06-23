@@ -19,6 +19,7 @@ import Entries from 'components/Entries';
 import useStyles from './styles';
 import * as S from './styles';
 import defaultCategories from 'data/defaultCategories.json';
+import Profile from 'components/Profile';
 
 const MainPage = ({ history }) => {
 	const [currentId, setCurrentId] = useState(null);
@@ -65,14 +66,8 @@ const MainPage = ({ history }) => {
 				<Typography className={classes.heading} variant='h4'>
 					Gasto
 				</Typography>
-				<div className='profile-name-container'>
-					<Button onClick={logoutHandler} style={{ color: '#fff' }}>
-						Logout
-					</Button>
-
-					<Typography className={classes.profileName} variant='subtitle1'>
-						{`${user.firstName} ${user.lastName}`}
-					</Typography>
+				<div className='profile-container'>
+					<Profile user={user} logoutHandler={logoutHandler} />
 				</div>
 			</AppBar>
 
