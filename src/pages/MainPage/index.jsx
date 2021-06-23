@@ -21,7 +21,7 @@ import useStyles from './styles';
 import * as S from './styles';
 import defaultCategories from 'data/defaultCategories.json';
 import Profile from 'components/Profile/ProfilePopover';
-import ExpenseIncomeSummary from 'components/ExpenseIncomeSummary';
+import ExpenseIncomeSummary from 'components/EntriesSummary';
 import SearchBar from 'components/SearchBar'
 
 const MainPage = ({ history }) => {

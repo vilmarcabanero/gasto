@@ -1,4 +1,5 @@
 import { makeStyles } from '@material-ui/core/styles';
+import styled from 'styled-components';
 
 export default makeStyles(theme => ({
 	mainContainer: {
@@ -61,6 +62,30 @@ export default makeStyles(theme => ({
 	},
 
 	tabsRoot: {
-    backgroundColor: theme.palette.background.paper
-  }
+		backgroundColor: theme.palette.background.paper,
+	},
+
+	editIconContainer: {
+		marginBottom: -7,
+	},
+
+	categoryList: {
+		padding: 0,
+	},
 }));
+
+export const IconContainer = styled.div`
+	visibility: hidden;
+`;
+
+export const CategoryContainer = styled.div`
+	padding: 1rem;
+	border-radius: 5px;
+	&:hover,
+	&:active {
+		background-color: rgba(200, 200, 200, 0.2);
+		${IconContainer} {
+			visibility: visible;
+		}
+	}
+`;

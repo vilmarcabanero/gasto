@@ -27,6 +27,7 @@ import { createEntry, getEntries, updateEntry } from 'redux/actions/entries';
 import { getCategories } from 'redux/actions/categories';
 import { Card } from 'react-bootstrap';
 import CategoryForm from 'components/Forms/CategoryForm';
+import Categories from 'components/Categories'
 import defaultCategories from 'data/defaultCategories.json';
 
 //Modal
@@ -352,8 +353,10 @@ const EntryForm = ({
 										  ))}
 								</Select>
 							</FormControl>
+							<Categories />
 							<div className={classes.addCategory}>
 								{/* <Add /> */}
+								
 								<CategoryForm
 									currentCategoryId={currentCategoryId}
 									setCurrentCategoryId={setCurrentCategoryId}
