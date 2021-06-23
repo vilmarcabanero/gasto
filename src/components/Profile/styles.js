@@ -30,7 +30,6 @@ export default makeStyles(theme => ({
 		borderRadius: 5,
 		'&:hover': {
 			backgroundColor: 'rgba(200, 200, 200, 0.3)',
-			
 		},
 	},
 	editProfileIcon: {
@@ -75,7 +74,9 @@ export default makeStyles(theme => ({
 		alignItems: 'center',
 		// backgroundColor: 'rgba(63,81,181, 0.3)',
 		borderRadius: '50%',
-		border: '1px solid rgba(63,81,181, 0.75)',
+		// border: '1px solid rgba(63,81,181, 0.75)',
+		borderBottomStyle: 'solid',
+		borderBottomWidth: '3px',
 		width: '1.45rem',
 		height: '1.4rem',
 		marginRight: 5,
@@ -94,5 +95,24 @@ export default makeStyles(theme => ({
 		'&:hover': {
 			backgroundColor: 'rgba(200, 200, 200, 0.3)',
 		},
+	},
+	darkmode: {
+		display: 'flex',
+		justifyContent: 'flex-start',
+		alignItems: 'center',
+		position: 'relative',
+		textTransform: 'none',
+		width: '100%',
+		paddingLeft: 10,
+		borderRadius: 5,
+		'&:hover': {
+			backgroundColor: 'rgba(200, 200, 200, 0.3)',
+		},
+		switch: {
+			width: '4rem',
+			display: 'flex',
+		justifyContent: 'flex-end',
+		alignItems: 'center',
+		}
 	},
 }));

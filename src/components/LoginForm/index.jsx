@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import { Card } from 'react-bootstrap';
+// import { Card } from 'react-bootstrap';
 import { Close } from '@material-ui/icons';
 import {
 	Button as MUIButton,
 	TextField,
 	CircularProgress,
+	Card,
 } from '@material-ui/core';
 // import './style.css';
 import * as S from './styles';
@@ -24,6 +25,7 @@ const LoginForm = ({ setIsRegistered, history }) => {
 
 	const loginHandler = e => {
 		e.preventDefault();
+		console.log(isValid, 'isValid initial');
 
 		validateLogin(
 			setIsValid,
@@ -33,12 +35,14 @@ const LoginForm = ({ setIsRegistered, history }) => {
 			history,
 			setDoneLoggingIn
 		);
+		console.log(isValid, 'isValid after');
+
 	};
 
 	return (
 		<S.Container className='mt-5'>
 			<Card className='login-card p-4'>
-				<Card.Body>
+				<div>
 					<form onSubmit={loginHandler} className='form'>
 						<h2 className='text-center title'>Login </h2>
 						<div className='input-groups pb-3 mt-3'>
@@ -105,7 +109,7 @@ const LoginForm = ({ setIsRegistered, history }) => {
 							</div>
 						)}
 					</form>
-				</Card.Body>
+				</div>
 			</Card>
 		</S.Container>
 	);

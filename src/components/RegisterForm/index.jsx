@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { Card } from 'react-bootstrap';
+// import { Card } from 'react-bootstrap';
 import { Close } from '@material-ui/icons';
-import { Button, TextField, CircularProgress } from '@material-ui/core';
+import { Button, TextField, CircularProgress, Card,Typography } from '@material-ui/core';
 
 // import './style.css';
 import * as S from './styles';
@@ -37,7 +37,7 @@ const RegisterForm = ({ setIsRegistered, history }) => {
 	return (
 		<S.Container className='mt-5'>
 			<Card className='register-card p-4'>
-				<Card.Body>
+				<div>
 					<form onSubmit={registerHandler} className='form'>
 						<h2 className='text-center title'>Register </h2>
 						<div className='input-groups pb-3 mt-3'>
@@ -130,7 +130,7 @@ const RegisterForm = ({ setIsRegistered, history }) => {
 						</div>
 						{!isValid && (
 							<div className='error-container w-100'>
-								<span className='error'>{error}</span>
+								<Typography variant='body1' className='error'>{error}</Typography>
 								<Close
 									className='close-icon'
 									onClick={() => setIsValid(true)}
@@ -138,7 +138,7 @@ const RegisterForm = ({ setIsRegistered, history }) => {
 							</div>
 						)}
 					</form>
-				</Card.Body>
+				</div>
 			</Card>
 		</S.Container>
 	);

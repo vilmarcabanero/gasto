@@ -1,11 +1,27 @@
 import React from 'react';
-import Popover from '@material-ui/core/Popover';
-import { Button, Typography, List, ListItem } from '@material-ui/core';
+import {
+	Button,
+	Typography,
+	List,
+	ListItem,
+	Popover,
+	Switch,
+} from '@material-ui/core';
 import useStyles from './styles';
-import { ExpandMore, ExitToApp, MailOutline, Edit, SettingsBrightness } from '@material-ui/icons';
+import {
+	ExpandMore,
+	ExitToApp,
+	MailOutline,
+	Edit,
+	SettingsBrightness,
+} from '@material-ui/icons';
+import ThemeContext from 'context/theme';
 
 const Profile = ({ user, logoutHandler }) => {
 	const classes = useStyles();
+
+	const { darkMode, setDarkMode } = React.useContext(ThemeContext);
+	console.log(darkMode);
 
 	const [anchorEl, setAnchorEl] = React.useState(null);
 
@@ -49,45 +65,42 @@ const Profile = ({ user, logoutHandler }) => {
 				}}
 			>
 				<List className={classes.popoverContent}>
-					<div className={classes.userDetails} onClick={() => {console.log('Profile is clicked.')}}>
-						<Typography
-							color='primary'
-							className={classes.picture}
-							variant='subtitle1'
-						>
+					<div
+						className={classes.userDetails}
+						onClick={() => {
+							console.log('Profile is clicked.');
+						}}
+					>
+						<Typography className={classes.picture} variant='subtitle1'>
 							{[...user.firstName][0]}
 						</Typography>
-						<Typography
-							className={classes.name}
-							color='primary'
-							variant='subtitle1'
-						>
+						<Typography className={classes.name} variant='subtitle1'>
 							{`${user.firstName} ${user.lastName}`}
 						</Typography>
-						<Edit color='primary' fontSize='small' className={classes.editProfileIcon}  />
+						<Edit fontSize='small' className={classes.editProfileIcon} />
 					</div>
 					<div className={classes.emailContainer}>
-						<MailOutline color='primary' style={{ marginRight: 5 }} />
-						<Typography
-							color='primary'
-							className={classes.email}
-							variant='subtitle1'
-						>
+						<MailOutline style={{ marginRight: 5 }} />
+						<Typography className={classes.email} variant='subtitle1'>
 							{user.email}
 						</Typography>
 					</div>
 
 					<ListItem onClick={logoutHandler} className={`${classes.logout}`}>
-						<ExitToApp color='primary' style={{ marginRight: 5 }} />
-						<Typography color='primary' variant='subtitle1'>
-							Logout
-						</Typography>
+						<ExitToApp style={{ marginRight: 5 }} />
+						<Typography variant='subtitle1'>Logout</Typography>
 					</ListItem>
-					<ListItem onClick={logoutHandler} className={`${classes.logout}`}>
-						<SettingsBrightness color='primary' style={{ marginRight: 5 }} />
-						<Typography color='primary' variant='subtitle1'>
-							Dark Mode
-						</Typography>
+					<ListItem className={`${classes.darkmode}`}>
+						<SettingsBrightness style={{ marginRight: 5 }} />
+						<Typography variant='subtitle1'>Dark Mode</Typography>
+						<div className={classes.switch}>
+						<Switch
+							color='secondary'
+							checked={darkMode}
+							onChange={() => setDarkMode(!darkMode)}
+							style={{  }}
+						/>
+						</div>
 					</ListItem>
 				</List>
 			</Popover>

@@ -18,7 +18,7 @@ export const Container = styled.div`
 		justify-content: center;
 		align-items: center;
 		position: absolute;
-		top: -5.5rem;
+		bottom: -5rem;
 		color: #d8000c;
 		font-size: 18px;
 		background-color: #ffbaba;
