@@ -7,7 +7,7 @@ import {
 	Grid,
 	Button,
 } from '@material-ui/core';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { getEntries } from 'redux/actions/entries';
 import { getCategories } from 'redux/actions/categories';
 // import EntryForm from 'components/EntryForm';
@@ -18,14 +18,24 @@ import * as userAPI from 'api/user';
 import Entries from 'components/Entries';
 import useStyles from './styles';
 import * as S from './styles';
+import defaultCategories from 'data/defaultCategories.json';
 
 const MainPage = ({ history }) => {
 	const [currentId, setCurrentId] = useState(null);
-	const [currentCategoryId, setCurrentCategoryId] = useState(null)
 	const [open, setOpen] = useState(false);
+	//Categories
+	const [currentCategoryId, setCurrentCategoryId] = useState(null);
 	const [categoryOpen, setCategoryOpen] = useState(false);
+
 	const [doneFetchingEntries, setDoneFetchingEntries] = React.useState(false);
 	console.log(doneFetchingEntries);
+
+	// const categories = useSelector(state => state.categories);
+	// const [categoryData, setCategoryData] = useState([
+	// 	...defaultCategories,
+	// 	...categories,
+	// ]);
+
 	const classes = useStyles();
 	const dispatch = useDispatch();
 
@@ -33,8 +43,12 @@ const MainPage = ({ history }) => {
 
 	useEffect(() => {
 		dispatch(getEntries(setDoneFetchingEntries));
-		dispatch(getCategories())
-	}, [currentId, dispatch, open]); //open, Heto solution sa not rerendering after adding entry, piliting i.rerender if mag open or close ang modal.
+		dispatch(getCategories());
+		// setCategoryData([...defaultCategories, ...categories]);
+		// console.log('Initial state ng category data pala to.',categoryData);
+		console.log('Successfully re-rendered Main Page');
+	}, [currentId, dispatch, open, categoryOpen]); //open, Heto solution sa not rerendering after adding entry, piliting i.rerender if mag open or close ang modal.
+	//added categoryOpen, need pala buong main page ang i.rerender not just the EntryForm para mag reflect kagad ang changes ng pag add ng category.// setCategoryData([...defaultCategories, ...categories]); Sinama to dito
 
 	useEffect(() => {
 		userAPI.getUserDetails(setUser);
@@ -82,6 +96,9 @@ const MainPage = ({ history }) => {
 								categoryOpen={categoryOpen}
 								setCategoryOpen={setCategoryOpen}
 								setDoneFetchingEntries={setDoneFetchingEntries}
+								// categories={categories}
+								// categoryData={categoryData}
+								// setCategoryData={setCategoryData}
 							/>
 							<Entries
 								setCurrentId={setCurrentId}

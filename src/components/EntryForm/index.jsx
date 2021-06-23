@@ -70,6 +70,9 @@ const EntryForm = ({
 	categoryOpen,
 	setCategoryOpen,
 	setDoneFetchingEntries,
+	// categories,
+	// categoryData,
+	// setCategoryData,
 }) => {
 	const [entryData, setEntryData] = useState({
 		name: '',
@@ -82,13 +85,17 @@ const EntryForm = ({
 
 	const [isSubmitted, setIsSubmitted] = useState(false);
 
-	const [categoryData, setCategoryData] = useState([]);
-
-	const categories = useSelector(state => state.categories);
 	// console.log(categories, 'categories');
 
 	const [expenseCategories, setExpenseCategories] = useState([]);
 	const [incomeCategories, setIncomeCategories] = useState([]);
+
+	const categories = useSelector(state => state.categories);
+
+	const [categoryData, setCategoryData] = useState([
+		...defaultCategories,
+		...categories,
+	]);
 
 	// const [entryName, setEntryName] = useState('')
 
@@ -105,6 +112,7 @@ const EntryForm = ({
 
 	useEffect(() => {
 		setCategoryData([...defaultCategories, ...categories]);
+		console.log('Successfully re-rendered Entry Form.');
 	}, [open, categoryOpen, categories]);
 
 	const clear = () => {
@@ -220,7 +228,7 @@ const EntryForm = ({
 				</MuiDialogTitle>
 
 				<MuiDialogContent dividers>
-					<div className={classes.form}>
+					<form className={classes.form}>
 						<MuiPickers.MuiPickersUtilsProvider utils={DateFnsUtils}>
 							<Grid container justify='space-around' className='mt-3'>
 								<div className={classes.datePickerContainerFlex}>
@@ -310,6 +318,8 @@ const EntryForm = ({
 									currentCategoryId={currentCategoryId}
 									setCurrentCategoryId={setCurrentCategoryId}
 									entryData={entryData}
+									entryOpen={open}
+									setEntryOpen={setOpen}
 									categoryOpen={categoryOpen}
 									setCategoryOpen={setCategoryOpen}
 								/>
@@ -330,7 +340,7 @@ const EntryForm = ({
 						>
 							Save
 						</Button>
-					</div>
+					</form>
 				</MuiDialogContent>
 			</Dialog>
 		</div>

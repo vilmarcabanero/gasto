@@ -70,6 +70,8 @@ const CategoryForm = ({
 	categoryOpen,
 	setCategoryOpen,
 	entryData,
+	entryOpen,
+	setEntryOpen,
 	setDoneFetchingCategories,
 }) => {
 	const [categoryInputData, setCategoryInputData] = useState({
@@ -108,7 +110,7 @@ const CategoryForm = ({
 
 	useEffect(() => {
 		dispatch(getCategories());
-	}, [open, dispatch]);
+	}, [open, dispatch, categoryOpen]);
 
 	// useEffect(() => {
 	// 	dispatch(getEntries(entryData));
@@ -121,13 +123,14 @@ const CategoryForm = ({
 			dispatch(createCategory(categoryInputData));
 		}
 
-		dispatch(getCategories());
+		// dispatch(getCategories());
 		clear();
 		handleClose();
 	};
 
 	const handleClose = () => {
 		setOpen(false);
+		setEntryOpen(false)
 		setCategoryOpen(false); //Gamitin lang para kapag mag bago ang state, mag rerender ang entry form at ma run to setCategoryData([...defaultCategories, ...categories]);
 		clear();
 	};
@@ -140,6 +143,7 @@ const CategoryForm = ({
 			type: entryData.type === 'income' ? 'income' : 'expense',
 		});
 		setOpen(true);
+		setEntryOpen(true)
 		setCategoryOpen(true);
 		console.log(currentCategoryId);
 	};
@@ -185,36 +189,6 @@ const CategoryForm = ({
 								})
 							}
 						/>
-
-						{/* <div className={`${classes.category} mb-4 mt-2`}>
-							<FormControl component='fieldset'>
-								<FormLabel component='legend'>Category Type</FormLabel>
-								<RadioGroup
-									aria-label='category'
-									name='category1'
-									value={categoryInputData.type}
-									onChange={e =>
-										setCategoryInputData({
-											...categoryInputData,
-											type: e.target.value,
-										})
-									}
-								>
-									<div className={classes.radioGroup}>
-										<FormControlLabel
-											value='income'
-											control={<Radio />}
-											label='Income'
-										/>
-										<FormControlLabel
-											value='expense'
-											control={<Radio />}
-											label='Expense'
-										/>
-									</div>
-								</RadioGroup>
-							</FormControl>
-						</div> */}
 
 						<Button
 							variant='contained'
