@@ -72,6 +72,8 @@ const CategoryForm = ({
 	entryData,
 	entryOpen,
 	setEntryOpen,
+	isCategoryAddSubmitted,
+	setIsCategoryAddSubmitted,
 	setDoneFetchingCategories,
 }) => {
 	const [categoryInputData, setCategoryInputData] = useState({
@@ -110,6 +112,7 @@ const CategoryForm = ({
 
 	useEffect(() => {
 		dispatch(getCategories());
+		setIsCategoryAddSubmitted(false);
 	}, [open, dispatch, categoryOpen]);
 
 	// useEffect(() => {
@@ -124,13 +127,18 @@ const CategoryForm = ({
 		}
 
 		// dispatch(getCategories());
+
 		clear();
 		handleClose();
+
+		// setTimeout(() => {
+		// 	setIsCategoryAddSubmitted(true);
+		// }, 5000);
 	};
 
 	const handleClose = () => {
 		setOpen(false);
-		setEntryOpen(false)
+		setEntryOpen(false);
 		setCategoryOpen(false); //Gamitin lang para kapag mag bago ang state, mag rerender ang entry form at ma run to setCategoryData([...defaultCategories, ...categories]);
 		clear();
 	};
@@ -143,7 +151,7 @@ const CategoryForm = ({
 			type: entryData.type === 'income' ? 'income' : 'expense',
 		});
 		setOpen(true);
-		setEntryOpen(true)
+		setEntryOpen(true);
 		setCategoryOpen(true);
 		console.log(currentCategoryId);
 	};

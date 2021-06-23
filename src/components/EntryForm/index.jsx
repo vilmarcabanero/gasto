@@ -84,6 +84,7 @@ const EntryForm = ({
 	});
 
 	const [isSubmitted, setIsSubmitted] = useState(false);
+	const [isCategoryAddSubmitted, setIsCategoryAddSubmitted] = useState(null);
 
 	// console.log(categories, 'categories');
 
@@ -108,11 +109,19 @@ const EntryForm = ({
 	useEffect(() => {
 		dispatch(getCategories());
 		// console.log('Done fetching categories')
-	}, [dispatch, open]);
+	}, [dispatch, open, isCategoryAddSubmitted]);
+
+	useEffect(() => {
+		// setIsCategoryAddSubmitted(true);
+		if (isCategoryAddSubmitted) setOpen(true);
+	}, [categoryOpen]);
 
 	useEffect(() => {
 		setCategoryData([...defaultCategories, ...categories]);
 		console.log('Successfully re-rendered Entry Form.');
+		if (isCategoryAddSubmitted) {
+			setOpen(true);
+		}
 	}, [open, categoryOpen, categories]);
 
 	const clear = () => {
@@ -145,15 +154,19 @@ const EntryForm = ({
 		}
 
 		dispatch(getEntries(entryData, setDoneFetchingEntries));
+		dispatch(getCategories());
 
 		clear();
 		handleClose();
 		setIsSubmitted(!isSubmitted);
+		setCategoryData([...defaultCategories, ...categories]);
 	};
 
 	const handleClose = () => {
 		setOpen(false);
 		clear();
+		setCategoryData([...defaultCategories, ...categories]);
+		dispatch(getCategories());
 	};
 
 	//Dialog
@@ -184,6 +197,8 @@ const EntryForm = ({
 
 		setExpenseCategories(sortedExpenseCategories);
 		setOpen(true);
+		setCategoryData([...defaultCategories, ...categories]);
+		dispatch(getCategories());
 	};
 
 	const cashInHandler = () => {
@@ -195,6 +210,8 @@ const EntryForm = ({
 		const sortedIncomeCategories = categoryNameSorter(incomeCategories);
 		setIncomeCategories(sortedIncomeCategories);
 		setOpen(true);
+		setCategoryData([...defaultCategories, ...categories]);
+		dispatch(getCategories());
 	};
 
 	return (
@@ -322,6 +339,8 @@ const EntryForm = ({
 									setEntryOpen={setOpen}
 									categoryOpen={categoryOpen}
 									setCategoryOpen={setCategoryOpen}
+									isCategoryAddSubmitted={isCategoryAddSubmitted}
+									setIsCategoryAddSubmitted={setIsCategoryAddSubmitted}
 								/>
 							</div>
 						</div>
