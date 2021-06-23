@@ -10,24 +10,24 @@ export const getCategories = () => {
 	return api.get(`/categories`, config);
 };
 
-export const createCategory = newEntry => {
+export const createCategory = categoryInputData => {
 	const config = {
 		headers: {
 			Authorization: `Bearer ${localStorage.getItem('authToken')}`,
 		},
 	};
 
-	return api.post(`/entries`, newEntry, config);
+	return api.post(`/categories`, categoryInputData, config);
 };
 
-export const updateCategory = (id, updatedEntry) => {
+export const updateCategory = (id, updatedCategory) => {
 	const config = {
 		headers: {
 			Authorization: `Bearer ${localStorage.getItem('authToken')}`,
 		},
 	};
 
-	return api.put(`/entries/${id}`, updatedEntry, config);
+	return api.put(`/categories/${id}`, updatedCategory, config);
 };
 
 export const deleteCategory = id => {
@@ -37,5 +37,5 @@ export const deleteCategory = id => {
 		},
 	};
 
-	return api.delete(`/entries/${id}`, config);
+	return api.delete(`/categories/${id}`, config);
 };

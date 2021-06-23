@@ -63,8 +63,12 @@ const MuiDialogContent = withStyles(theme => ({
 const EntryForm = ({
 	currentId,
 	setCurrentId,
+	currentCategoryId,
+	setCurrentCategoryId,
 	open,
 	setOpen,
+	categoryOpen,
+	setCategoryOpen,
 	setDoneFetchingEntries,
 }) => {
 	const [entryData, setEntryData] = useState({
@@ -101,7 +105,7 @@ const EntryForm = ({
 
 	useEffect(() => {
 		setCategoryData([...defaultCategories, ...categories]);
-	}, [open, categories]);
+	}, [open, categoryOpen, categories]);
 
 	const clear = () => {
 		setCurrentId(null);
@@ -167,18 +171,6 @@ const EntryForm = ({
 		const expenseCategories = categoryData.filter(
 			category => category.type === 'expense'
 		);
-
-		// const sortedExpenseCategories = expenseCategories.sort((a, b) => {
-		// 	let categoryNameA = a.name.toUpperCase(); // ignore upper and lowercase
-		// 	let categoryNameB = b.name.toUpperCase(); // ignore upper and lowercase
-		// 	if (categoryNameA < categoryNameB) {
-		// 		return -1; //categoryNameA comes first
-		// 	}
-		// 	if (categoryNameA > categoryNameB) {
-		// 		return 1; // categoryNameB comes first
-		// 	}
-		// 	return 0; // names must be equal
-		// });
 
 		const sortedExpenseCategories = categoryNameSorter(expenseCategories);
 
@@ -314,7 +306,13 @@ const EntryForm = ({
 							</FormControl>
 							<div className={classes.addCategory}>
 								{/* <Add /> */}
-								<CategoryForm entryData={entryData} />
+								<CategoryForm
+									currentCategoryId={currentCategoryId}
+									setCurrentCategoryId={setCurrentCategoryId}
+									entryData={entryData}
+									categoryOpen={categoryOpen}
+									setCategoryOpen={setCategoryOpen}
+								/>
 							</div>
 						</div>
 

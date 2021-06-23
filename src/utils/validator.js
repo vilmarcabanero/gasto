@@ -21,7 +21,7 @@ export const validateRegister = (
 		setError('Last name is required.');
 	} else if (validator.isEmpty(registerUserData.email)) {
 		setIsValid(false);
-		setError('Please provide an email.');
+		setError(`Email can't be empty.`);
 	} else if (!validator.isEmail(registerUserData.email)) {
 		setIsValid(false);
 		setError('Valid email is required.');
@@ -63,8 +63,10 @@ export const validateLogin = (
 	setTimeout(() => {
 		setIsValid(true);
 	}, 4000);
-
-	if (!validator.isEmail(loginUserData.email)) {
+	if (validator.isEmpty(loginUserData.email)) {
+		setIsValid(false);
+		setError(`Email can't be empty.`);
+	} else if (!validator.isEmail(loginUserData.email)) {
 		setIsValid(false);
 		setError('Valid email is required.');
 	} else if (validator.isEmpty(loginUserData.password)) {

@@ -29,7 +29,7 @@ import {
 import FileBase from 'react-file-base64';
 import { useDispatch, useSelector } from 'react-redux';
 import { createEntry, getEntries, updateEntry } from 'redux/actions/entries';
-import { getCategories } from 'redux/actions/categories';
+import { createCategory, getCategories } from 'redux/actions/categories';
 
 //Modal
 const styles = theme => ({
@@ -65,10 +65,10 @@ const MuiDialogContent = withStyles(theme => ({
 }))(DialogContent);
 
 const CategoryForm = ({
-	// currentCategoryId,
-	// setCurrentCategoryId,
-	// open,
-	// setOpen,
+	currentCategoryId,
+	setCurrentCategoryId,
+	categoryOpen,
+	setCategoryOpen,
 	entryData,
 	setDoneFetchingCategories,
 }) => {
@@ -115,23 +115,20 @@ const CategoryForm = ({
 	// }, [open, dispatch, entryData]);
 
 	const submitAddCategoryHandler = () => {
-		console.log('Category added successfully.');
-		console.log(`Category name: ${categoryInputData.name}`);
-		console.log(`Category type: ${categoryInputData.type}`);
+		if (currentCategoryId) {
+			dispatch(updateEntry(currentCategoryId, categoryInputData));
+		} else {
+			dispatch(createCategory(categoryInputData));
+		}
 
-		// if (currentCategoryId) {
-		// 	dispatch(updateEntry(currentCategoryId, categoryInputData));
-		// } else {
-		// 	dispatch(createEntry(currentCategoryId));
-		// }
-
-		// dispatch(getEntries(entryData, setDoneFetchingEntries)); dapat getCategories?
+		dispatch(getCategories());
 		clear();
 		handleClose();
 	};
 
 	const handleClose = () => {
 		setOpen(false);
+		setCategoryOpen(false); //Gamitin lang para kapag mag bago ang state, mag rerender ang entry form at ma run to setCategoryData([...defaultCategories, ...categories]);
 		clear();
 	};
 
@@ -143,6 +140,8 @@ const CategoryForm = ({
 			type: entryData.type === 'income' ? 'income' : 'expense',
 		});
 		setOpen(true);
+		setCategoryOpen(true);
+		console.log(currentCategoryId);
 	};
 
 	return (

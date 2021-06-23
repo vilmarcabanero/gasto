@@ -13,9 +13,9 @@ export const getCategories = () => async dispatch => {
 	}
 };
 
-export const createCategory = entry => async dispatch => {
+export const createCategory = categoryInputData => async dispatch => {
 	try {
-		const { data } = await api.createCategory(entry);
+		const { data } = await api.createCategory(categoryInputData);
 		dispatch({ type: CONST.CREATE_CATEGORY, payload: data });
 		console.log('Created a category success.', data);
 	} catch (err) {
@@ -23,9 +23,9 @@ export const createCategory = entry => async dispatch => {
 	}
 };
 
-export const updateCategory = (id, entry) => async dispatch => {
+export const updateCategory = (id, currentCategory) => async dispatch => {
 	try {
-		const { data } = await api.updateCategory(id, entry);
+		const { data } = await api.updateCategory(id, currentCategory);
 		dispatch({ type: CONST.UPDATE_CATEGORY, payload: data });
 		console.log('Successfully updated a category.');
 	} catch (err) {

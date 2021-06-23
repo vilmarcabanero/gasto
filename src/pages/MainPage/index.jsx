@@ -21,7 +21,9 @@ import * as S from './styles';
 
 const MainPage = ({ history }) => {
 	const [currentId, setCurrentId] = useState(null);
+	const [currentCategoryId, setCurrentCategoryId] = useState(null)
 	const [open, setOpen] = useState(false);
+	const [categoryOpen, setCategoryOpen] = useState(false);
 	const [doneFetchingEntries, setDoneFetchingEntries] = React.useState(false);
 	console.log(doneFetchingEntries);
 	const classes = useStyles();
@@ -32,7 +34,7 @@ const MainPage = ({ history }) => {
 	useEffect(() => {
 		dispatch(getEntries(setDoneFetchingEntries));
 		dispatch(getCategories())
-	}, [currentId, dispatch, open]); //open, Heto solution, piliting i.rerender if mag open or close ang modal.
+	}, [currentId, dispatch, open]); //open, Heto solution sa not rerendering after adding entry, piliting i.rerender if mag open or close ang modal.
 
 	useEffect(() => {
 		userAPI.getUserDetails(setUser);
@@ -73,8 +75,12 @@ const MainPage = ({ history }) => {
 							<EntryForm
 								currentId={currentId}
 								setCurrentId={setCurrentId}
+								currentCategoryId={currentCategoryId}
+								setCurrentCategoryId={setCurrentCategoryId}
 								open={open}
 								setOpen={setOpen}
+								categoryOpen={categoryOpen}
+								setCategoryOpen={setCategoryOpen}
 								setDoneFetchingEntries={setDoneFetchingEntries}
 							/>
 							<Entries
