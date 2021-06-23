@@ -13,17 +13,17 @@ import { Delete, MoreHoriz, Edit } from '@material-ui/icons';
 import moment from 'moment';
 import { useDispatch, useSelector } from 'react-redux';
 import { deleteEntry } from 'redux/actions/entries';
-import {getCategories} from 'redux/actions/categories'
+import { deleteCategory, getCategories } from 'redux/actions/categories';
 import * as format from 'utils/date';
 import Swal from 'sweetalert2';
 import * as S from './styles';
-import defaultCategories from 'data/defaultCategories.json'
+import defaultCategories from 'data/defaultCategories.json';
 
-const Category = ({ category}) => {
+const Category = ({ category, setCurrentCategoryId, setCategoryOpen, setOpen,setEntryFormOpen }) => {
 	const classes = useStyles();
 	// console.log(entry);
 	const dispatch = useDispatch();
-	const categories = useSelector(state => state.categories)
+	const categories = useSelector(state => state.categories);
 
 	// const [hovered, setHovered] = React.useState(false);
 	// const toggleHover = () => setHovered(!hovered);
@@ -38,32 +38,19 @@ const Category = ({ category}) => {
 	const updateCategoryHandler = () => {
 		// dispatch(getCategories());
 		// setCategoryData([...defaultCategories,...categories])
-		// setCurrentId(entry._id);
-		// setOpen(true);
+		setCurrentCategoryId(category._id);
+		setCategoryOpen(true);
 		// setCategoryData([...defaultCategories,...categories])
 		// dispatch(getCategories());
 		// setCategoryData([...defaultCategories, ...categories])
-		
+
 		// console.log('category data when edit icon button is clicked: ',[...defaultCategories,...categories])
 	};
 
-	
-
 	const deleteCategoryHandler = () => {
-		Swal.fire({
-			title: 'Are you sure?',
-			text: 'Once deleted, this entry can not be restored.',
-			icon: 'warning',
-			showCancelButton: true,
-			confirmButtonColor: '#3085d6',
-			cancelButtonColor: '#d33',
-			confirmButtonText: 'I understand, delete it.',
-		}).then(result => {
-			if (result.isConfirmed) {
-				Swal.fire('Deleted!', 'The entry has been deleted.', 'success');
-				// dispatch(deleteEntry(entry._id));
-			}
-		});
+		setEntryFormOpen(false);
+		console.log('Deleted.')
+		dispatch(deleteCategory(category._id));
 	};
 
 	return (

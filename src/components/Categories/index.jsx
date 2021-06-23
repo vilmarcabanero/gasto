@@ -13,7 +13,7 @@ import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
 import Category from './Category';
 import useStyles from './styles';
-import * as S from './styles'
+import * as S from './styles';
 import { withStyles } from '@material-ui/core/styles';
 import { Close } from '@material-ui/icons';
 import moment from 'moment';
@@ -29,7 +29,6 @@ import {
 	InputLabel,
 	Select,
 	MenuItem,
-
 } from '@material-ui/core';
 import { useDispatch } from 'react-redux';
 import { createEntry, getEntries, updateEntry } from 'redux/actions/entries';
@@ -101,13 +100,16 @@ const MuiDialogContent = withStyles(theme => ({
 	},
 }))(DialogContent);
 
-const Entries = ({
+const Categories = ({
 	setCurrentId,
 	// open,
 	// setOpen,
 	doneFetchingEntries,
 	setDoneFetchingEntries,
 	// setCategoryData,
+	setCategoryOpen,
+	setCurrentCategoryId,
+	setEntryFormOpen
 }) => {
 	const entries = useSelector(state => state.entries);
 	const classes = useStyles();
@@ -115,12 +117,9 @@ const Entries = ({
 	const dispatch = useDispatch();
 	const categories = useSelector(state => state.categories);
 
-	const [categoryData, setCategoryData] = useState([
-		...defaultCategories,
-		...categories,
-	]);
+	const [categoryData, setCategoryData] = useState(categories);
 
-	const [value, setValue] = React.useState('all');
+	const [value, setValue] = React.useState('income');
 	const [open, setOpen] = useState(false);
 
 	const [entryType, setEntryType] = React.useState('income');
@@ -134,16 +133,21 @@ const Entries = ({
 	};
 
 	//Para ishow ang incomeEntries lang or ang expense entries lang.
-	const incomeCategories = categories.filter(category => category.type === 'income');
+	const incomeCategories = categoryData.filter(
+		category => category.type === 'income'
+	);
 	// console.log('Income entries', incomeEntries);
-	const expenseCategories = categories.filter(category => category.type === 'expense');
+	const expenseCategories = categoryData.filter(
+		category => category.type === 'expense'
+	);
+
 	// console.log('Expense entries', expenseEntries);
 
 	// console.log(entries);
 
 	const handleClose = () => {
 		setOpen(false);
-		setCategoryData([...defaultCategories, ...categories]);
+		setCategoryData(categories);
 		dispatch(getCategories());
 	};
 
@@ -183,30 +187,38 @@ const Entries = ({
 							))}
 						</div> */}
 
-<Grid item xs={12}>
-					<TabPanel value={value} index='expense'>
-						{expenseCategories.map(category => (
-							<Grid item key={category._id} xs={12}>
-								<Category
-									category={category}
-								/>
-							</Grid>
-						))}
-					</TabPanel>
-				</Grid>
+						<Grid item xs={12}>
+							<TabPanel value={value} index='income'>
+								{incomeCategories.map(category => (
+									<Grid item key={category._id} xs={12}>
+										<Category
+											category={category}
+											setCurrentCategoryId={setCurrentCategoryId}
+											setCategoryOpen={setCategoryOpen}
+											setOpen={setOpen}
+											setEntryFormOpen={setEntryFormOpen}
+										/>
+									</Grid>
+								))}
+							</TabPanel>
+						</Grid>
 
-				<Grid item xs={12}>
-					<TabPanel value={value} index='income'>
-						{incomeCategories.map(category => (
-							<Grid item key={category._id} xs={12}>
-								<Category
-									category={category}
-								/>
-							</Grid>
-						))}
-					</TabPanel>
-				</Grid>
 
+						<Grid item xs={12}>
+							<TabPanel value={value} index='expense'>
+								{expenseCategories.map(category => (
+									<Grid item key={category._id} xs={12}>
+										<Category
+											category={category}
+											setCurrentCategoryId={setCurrentCategoryId}
+											setCategoryOpen={setCategoryOpen}
+											setOpen={setOpen}
+											setEntryFormOpen={setEntryFormOpen}
+										/>
+									</Grid>
+								))}
+							</TabPanel>
+						</Grid>
 					</MuiDialogContent>
 				</Dialog>
 			</div>
@@ -214,4 +226,4 @@ const Entries = ({
 	);
 };
 
-export default Entries;
+export default Categories;

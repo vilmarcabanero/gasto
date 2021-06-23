@@ -27,7 +27,7 @@ import { createEntry, getEntries, updateEntry } from 'redux/actions/entries';
 import { getCategories } from 'redux/actions/categories';
 import { Card } from 'react-bootstrap';
 import CategoryForm from 'components/Forms/CategoryForm';
-import Categories from 'components/Categories'
+import Categories from 'components/Categories';
 import defaultCategories from 'data/defaultCategories.json';
 
 //Modal
@@ -117,7 +117,7 @@ const EntryForm = ({
 
 	useEffect(() => {
 		setCategoryData([...defaultCategories, ...categories]);
-		
+
 		console.log('Successfully re-rendered Entry Form.');
 		// if (isCategoryAddSubmitted) {
 		// 	setOpen(true);
@@ -307,26 +307,27 @@ const EntryForm = ({
 							</Grid>
 						</MuiPickers.MuiPickersUtilsProvider>
 						<TextField
+							label='Enter amount'
+							type='number'
+							fullWidth
+							className='mb-3 mt-3'
+							size='small'
+							value={entryData.amount}
+							onChange={amountEntryDataHandler}
+						/>
+
+						<TextField
 							label='Enter entry name'
 							type='text'
 							fullWidth
-							className='mb-3 mt-3'
+							className='mb-3'
 							size='small'
 							value={entryData.name}
 							onChange={e =>
 								setEntryData({ ...entryData, name: e.target.value })
 							}
 						/>
-						<TextField
-							label='Enter amount'
-							type='number'
-							fullWidth
-							className='mb-3'
-							size='small'
-							value={entryData.amount}
-							onChange={amountEntryDataHandler}
-						/>
-
+						
 						<div className={`${classes.category} mb-4`}>
 							<FormControl size='small' className={`${classes.formControl}`}>
 								<InputLabel id='demo-simple-select-label'>
@@ -353,10 +354,16 @@ const EntryForm = ({
 										  ))}
 								</Select>
 							</FormControl>
-							<Categories />
+							<Categories
+								currentCategoryId={currentCategoryId}
+								setCurrentCategoryId={setCurrentCategoryId}
+								categoryOpen={categoryOpen}
+								setCategoryOpen={setCategoryOpen}
+								setEntryFormOpen={setOpen}
+							/>
 							<div className={classes.addCategory}>
 								{/* <Add /> */}
-								
+
 								<CategoryForm
 									currentCategoryId={currentCategoryId}
 									setCurrentCategoryId={setCurrentCategoryId}

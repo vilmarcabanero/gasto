@@ -29,7 +29,11 @@ import {
 import FileBase from 'react-file-base64';
 import { useDispatch, useSelector } from 'react-redux';
 import { createEntry, getEntries, updateEntry } from 'redux/actions/entries';
-import { createCategory, getCategories } from 'redux/actions/categories';
+import {
+	createCategory,
+	getCategories,
+	updateCategory,
+} from 'redux/actions/categories';
 
 //Modal
 const styles = theme => ({
@@ -92,9 +96,11 @@ const CategoryForm = ({
 
 	// const [entryName, setEntryName] = useState('')
 
-	// const category = useSelector(state =>
-	// 	currentCategoryId ? state.categories.find(e => e._id === currentCategoryId) : null
-	// );
+	const category = useSelector(state =>
+		currentCategoryId
+			? state.categories.find(c => c._id === currentCategoryId)
+			: null
+	);
 	const classes = useStyles();
 	// const dispatch = useDispatch();
 
@@ -106,9 +112,9 @@ const CategoryForm = ({
 		});
 	};
 
-	// useEffect(() => {
-	// 	if (category) setCategoryInputData(category);
-	// }, [category]);
+	useEffect(() => {
+		if (category) setCategoryInputData(category);
+	}, [category]);
 
 	useEffect(() => {
 		dispatch(getCategories());
@@ -121,7 +127,9 @@ const CategoryForm = ({
 
 	const submitAddCategoryHandler = () => {
 		if (currentCategoryId) {
-			dispatch(updateEntry(currentCategoryId, categoryInputData));
+			dispatch(updateCategory(currentCategoryId, categoryInputData));
+			console.log('Successfully updated');
+			setCurrentCategoryId(null);
 		} else {
 			dispatch(createCategory(categoryInputData));
 		}
@@ -164,7 +172,7 @@ const CategoryForm = ({
 			<Dialog
 				onClose={handleClose}
 				aria-labelledby='customized-dialog-title'
-				open={open}
+				open={categoryOpen}
 				// maxWidth='xs'
 				className={classes.dialog}
 			>
@@ -176,7 +184,7 @@ const CategoryForm = ({
 								: classes.expenseTitle
 						}
 					>
-						{false ? 'Edit ' : 'Add '} a Category
+						{currentCategoryId ? 'Edit ' : 'Add '} a Category
 					</div>
 					{/* false === currentCategoryId to */}
 				</MuiDialogTitle>

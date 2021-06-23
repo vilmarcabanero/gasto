@@ -87,6 +87,7 @@ export const IconContainer = styled.div`
 `;
 
 export const EntryContainer = styled.div`
+	border-radius: 5px;
 	&:hover,
 	&:active {
 		background-color: rgba(200, 200, 200, 0.2);
