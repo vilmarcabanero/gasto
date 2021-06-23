@@ -7,6 +7,7 @@ import {
 	Grid,
 	Button,
 } from '@material-ui/core';
+
 import { useDispatch, useSelector } from 'react-redux';
 import { getEntries } from 'redux/actions/entries';
 import { getCategories } from 'redux/actions/categories';
@@ -20,6 +21,8 @@ import useStyles from './styles';
 import * as S from './styles';
 import defaultCategories from 'data/defaultCategories.json';
 import Profile from 'components/Profile';
+import ExpenseIncomeSummary from 'components/ExpenseIncomeSummary';
+import SearchBar from 'components/SearchBar'
 
 const MainPage = ({ history }) => {
 	const [currentId, setCurrentId] = useState(null);
@@ -78,9 +81,11 @@ const MainPage = ({ history }) => {
 						container
 						justify='space-between'
 						alignItems='stretch'
-						spacing={3}
+						spacing={2}
 					>
-						<Grid item xs={12}>
+						<Grid item xs={12} className={classes.entryFormContainer}>
+							
+							<SearchBar />
 							<EntryForm
 								currentId={currentId}
 								setCurrentId={setCurrentId}
@@ -95,6 +100,12 @@ const MainPage = ({ history }) => {
 								// categoryData={categoryData}
 								// setCategoryData={setCategoryData}
 							/>
+						</Grid>
+						<Grid item xs={12}>
+							<ExpenseIncomeSummary />
+						</Grid>
+
+						<Grid item xs={12}>
 							<Entries
 								setCurrentId={setCurrentId}
 								open={open}

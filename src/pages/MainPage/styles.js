@@ -21,9 +21,23 @@ export default makeStyles(theme => ({
 	},
 	[theme.breakpoints.down('sm')]: {
 		mainContainer: {
-			flexDirection: 'column-reverse',
+			// flexDirection: 'column-reverse',
 		},
 	},
+	entryFormContainer: {
+		marginBottom: '-2rem',
+		// position: 'relative',
+		display: 'flex',
+		justifyContent: 'space-between',
+		alignItems: 'center',
+	},
+
+	[theme.breakpoints.down('sm')]: {
+		entryFormContainer: {
+			flexDirection: 'column',
+		},
+	},
+
 }));
 
 export const StyledContainer = styled(Container)`
@@ -34,3 +48,4 @@ export const StyledContainer = styled(Container)`
 		align-items: center;
 	}
 `
+

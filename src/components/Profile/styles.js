@@ -53,6 +53,7 @@ export default makeStyles(theme => ({
 		paddingBottom: 10,
 		marginBottom: 5,
 		borderBottom: '1px solid rgba(200, 200, 200, 0.7)',
+	
 	},
 	email: {
 		textAlign: 'left',
@@ -113,6 +114,7 @@ export default makeStyles(theme => ({
 			display: 'flex',
 		justifyContent: 'flex-end',
 		alignItems: 'center',
+		paddingLeft: '-1rem'
 		}
 	},
 }));

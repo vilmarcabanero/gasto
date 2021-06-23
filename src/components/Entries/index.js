@@ -14,6 +14,9 @@ const Entries = ({
 	const entries = useSelector(state => state.entries);
 	const classes = useStyles();
 
+	
+
+
 	// console.log(entries);
 	return !doneFetchingEntries ? (
 		<CircularProgress />
