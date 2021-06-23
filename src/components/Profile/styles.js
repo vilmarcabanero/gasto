@@ -20,8 +20,23 @@ export default makeStyles(theme => ({
 		display: 'flex',
 		justifyContent: 'flex-start',
 		alignItems: 'center',
+		position: 'relative',
 		width: '100%',
-		paddingLeft: 7
+		paddingLeft: 7,
+		marginTop: 8,
+		cursor: 'pointer',
+		paddingBottom: 3,
+		paddingTop: 3,
+		borderRadius: 5,
+		'&:hover': {
+			backgroundColor: 'rgba(200, 200, 200, 0.3)',
+			
+		},
+	},
+	editProfileIcon: {
+		position: 'absolute',
+		right: 4,
+		visibility: 'hidden',
 	},
 	profileName: {
 		color: '#fff',
@@ -36,7 +51,9 @@ export default makeStyles(theme => ({
 		alignItems: 'center',
 		width: '100%',
 		paddingLeft: 10,
-		borderBottom: '1px solid rgba(200, 200, 200, 0.7)'
+		paddingBottom: 10,
+		marginBottom: 5,
+		borderBottom: '1px solid rgba(200, 200, 200, 0.7)',
 	},
 	email: {
 		textAlign: 'left',
@@ -64,7 +81,6 @@ export default makeStyles(theme => ({
 		marginRight: 5,
 		paddingTop: 3,
 		marginLeft: 3,
-		
 	},
 	logout: {
 		display: 'flex',
@@ -76,8 +92,7 @@ export default makeStyles(theme => ({
 		paddingLeft: 10,
 		borderRadius: 5,
 		'&:hover': {
-			backgroundColor: 'rgba(200, 200, 200, 0.3)'
-		}
+			backgroundColor: 'rgba(200, 200, 200, 0.3)',
+		},
 	},
-	
 }));
