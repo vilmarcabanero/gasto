@@ -16,9 +16,12 @@ import {
 	SettingsBrightness,
 } from '@material-ui/icons';
 import ThemeContext from 'context/theme';
+import ProfilePage from './ProfilePage';
 
 const Profile = ({ user, logoutHandler }) => {
 	const classes = useStyles();
+	const [editProfileOpen, setEditProfileOpen] = React.useState(false);
+	const [profilePageOpen, setProfilePageOpen] = React.useState(false);
 
 	const { darkMode, setDarkMode } = React.useContext(ThemeContext);
 	console.log(darkMode);
@@ -40,6 +43,10 @@ const Profile = ({ user, logoutHandler }) => {
 		setDarkMode(!darkMode);
 		// localStorage.removeItem('darkMode');
 		// localStorage.setItem('darkMode', darkMode);
+	};
+
+	const showProfilePageHandler = () => {
+		setProfilePageOpen(true);
 	};
 
 	return (
@@ -72,20 +79,29 @@ const Profile = ({ user, logoutHandler }) => {
 				}}
 			>
 				<List className={classes.popoverContent}>
-					<div
-						className={classes.userDetails}
-						onClick={() => {
-							console.log('Profile is clicked.');
-						}}
-					>
-						<Typography className={classes.picture} variant='subtitle1'>
+					<div className={classes.userDetails} onClick={showProfilePageHandler}>
+						{/* <Typography className={classes.picture} variant='subtitle1'>
 							{[...user.firstName][0]}
 						</Typography>
-						<Typography className={classes.name} variant='subtitle1'>
+						<Typography
+							className={classes.name}
+							variant='subtitle1'
+							editProfileOpen={editProfileOpen}
+							setEditProfileOpen={setEditProfileOpen}
+							profilePageOpen={profilePageOpen}
+							setProfilePageOpen={setProfilePageOpen}
+						>
 							{`${user.firstName} ${user.lastName}`}
 						</Typography>
-						<Edit fontSize='small' className={classes.editProfileIcon} />
+						<Edit fontSize='small' className={classes.editProfileIcon} /> */}
+						<ProfilePage
+							editProfileOpen={editProfileOpen}
+							setEditProfileOpen={setEditProfileOpen}
+							profilePageOpen={profilePageOpen}
+							setProfilePageOpen={setProfilePageOpen}
+						/>
 					</div>
+
 					<div className={classes.emailContainer}>
 						<MailOutline style={{ marginRight: 5 }} />
 						<Typography className={classes.email} variant='subtitle1'>

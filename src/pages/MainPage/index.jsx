@@ -20,7 +20,7 @@ import Entries from 'components/Entries';
 import useStyles from './styles';
 import * as S from './styles';
 import defaultCategories from 'data/defaultCategories.json';
-import Profile from 'components/Profile/ProfilePopover';
+import Profile from 'components/ProfilePopover';
 import ExpenseIncomeSummary from 'components/EntriesSummary';
 import SearchBar from 'components/SearchBar'
 
