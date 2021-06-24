@@ -77,7 +77,7 @@ export default makeStyles(theme => ({
 		// border: '2px solid #000',
 		borderRadius: 5,
 		maxWidth: 1232,
-		height: '80vh',
+		height: '90vh',
 
 		margin: 'auto',
 		width: '100%',

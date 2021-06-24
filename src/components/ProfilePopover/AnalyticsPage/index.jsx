@@ -31,7 +31,12 @@ import {
 	Modal,
 	Fade,
 	Backdrop,
+	Tabs,
+	Tab,
+	Box,
 } from '@material-ui/core';
+import PropTypes from 'prop-types';
+import { makeStyles } from '@material-ui/core/styles';
 import FileBase from 'react-file-base64';
 import { useDispatch, useSelector } from 'react-redux';
 import { createEntry, getEntries, updateEntry } from 'redux/actions/entries';
@@ -42,37 +47,52 @@ import Categories from 'components/Categories';
 import defaultCategories from 'data/defaultCategories.json';
 import UserContext from 'context/user';
 import * as userAPI from 'api/user';
+import MonthlyExpenseChart from 'components/Charts/MonthlyExpenseChart';
+import MonthlyIncomeChart from 'components/Charts/MonthlyIncomeChart';
+import ExpenseIncomeChart from 'components/Charts/ExpenseIncomeChart';
 
-//Modal
-const styles = theme => ({
-	root: {
-		margin: 0,
-		padding: theme.spacing(3),
-		display: 'flex',
-		justifyContent: 'space-between',
-		alignItems: 'center',
-	},
-});
 
-const MuiDialogTitle = withStyles(styles)(props => {
-	const { children, classes, onClose, ...other } = props;
+//Tabs
+function TabPanel(props) {
+	const { children, value, index, ...other } = props;
+
 	return (
-		<DialogTitle disableTypography className={classes.root} {...other}>
-			<Typography variant='h5'>{children}</Typography>
-			{onClose ? (
-				<IconButton aria-label='close' onClick={onClose}>
-					<Close />
-				</IconButton>
-			) : null}
-		</DialogTitle>
+		<div
+			role='tabpanel'
+			hidden={value !== index}
+			id={`wrapped-tabpanel-${index}`}
+			aria-labelledby={`wrapped-tab-${index}`}
+			{...other}
+		>
+			{value === index && (
+				<Box p={3}>
+					<Typography>{children}</Typography>
+				</Box>
+			)}
+		</div>
 	);
-});
+}
 
-const MuiDialogContent = withStyles(theme => ({
+TabPanel.propTypes = {
+	children: PropTypes.node,
+	index: PropTypes.any.isRequired,
+	value: PropTypes.any.isRequired,
+};
+
+function a11yProps(index) {
+	return {
+		id: `wrapped-tab-${index}`,
+		'aria-controls': `wrapped-tabpanel-${index}`,
+	};
+}
+
+const useStylesTabs = makeStyles(theme => ({
 	root: {
-		padding: theme.spacing(3),
+		flexGrow: 1,
+		backgroundColor: theme.palette.background.paper,
 	},
-}))(DialogContent);
+}));
+//Tabs
 
 const EntryForm = ({
 	// currentId,
@@ -90,6 +110,7 @@ const EntryForm = ({
 	// setProfilePageOpen,
 }) => {
 	const classes = useStyles();
+	const tabClasses = useStylesTabs();
 	const { user, setUser } = React.useContext(UserContext);
 
 	const [userInputData, setUserInputData] = useState({
@@ -101,6 +122,13 @@ const EntryForm = ({
 	const [editProfileOpen, setEditProfileOpen] = React.useState(false);
 	const [isEditing, setIsEditing] = useState(false);
 	const [currentId, setCurrentId] = useState('');
+
+	//Tabs
+	const [value, setValue] = React.useState('monthly-expense');
+	const handleChange = (event, newValue) => {
+		setValue(newValue);
+	};
+	//Tabs
 
 	const submitHandler = e => {
 		e.preventDefault();
@@ -183,95 +211,48 @@ const EntryForm = ({
 				<Fade in={profilePageOpen}>
 					<div className={classes.paper}>
 						<div className={classes.titleContainer}>
-							<Typography
-								variant='h4'
-								className={classes.title}
-								id='transition-modal-title'
+							<Tabs
+								value={value}
+								onChange={handleChange}
+								aria-label='wrapped label tabs example'
 							>
-								Analytics
-							</Typography>
-							<IconButton className={classes.closeIconButton}><Close onClick={handleClose} /></IconButton>
+								<Tab
+									value='monthly-expense'
+									label='Monthly Expense'
+									wrapped
+									{...a11yProps('one')}
+								/>
+								<Tab
+									value='monthly-income'
+									label='Monthly Income'
+									{...a11yProps('two')}
+								/>
+								<Tab
+									value='expense-income'
+									label='Expense-Income'
+									{...a11yProps('three')}
+								/>
+							</Tabs>
+							<IconButton className={classes.closeIconButton}>
+								<Close onClick={handleClose} />
+							</IconButton>
 						</div>
 						<hr />
 						<div
 							id='transition-modal-description'
 							className={classes.modalBody}
 						>
-							Analytics body
-						</div>
-					</div>
-				</Fade>
-			</Modal>
-
-			<Modal
-				aria-labelledby='transition-modal-title'
-				aria-describedby='transition-modal-description'
-				className={classes.modal}
-				open={editProfileOpen}
-				onClose={handleEditProfileClose}
-				closeAfterTransition
-				BackdropComponent={Backdrop}
-				BackdropProps={{
-					timeout: 500,
-				}}
-			>
-				<Fade in={editProfileOpen}>
-					<div className={classes.paper}>
-						<div className={classes.profileTitleContainer}>
-							<Typography
-								variant='h4'
-								className={classes.profileTitle}
-								id='transition-modal-title'
-							>
-								{currentId === 'firstname'
-									? 'Edit your first name'
-									: 'Edit your last name'}
-							</Typography>
-						</div>
-						<hr />
-						<div
-							id='transition-modal-description'
-							className={classes.modalBody}
-						>
-							<TextField
-								label={
-									currentId === 'firstname'
-										? 'Edit first name'
-										: 'Edit last name'
-								}
-								type='text'
-								fullWidth
-								className='mb-3'
-								size='small'
-								value={
-									currentId === 'firstname'
-										? userInputData.firstName
-										: userInputData.lastName
-								}
-								onChange={e =>
-									currentId === 'firstname'
-										? setUserInputData({
-												...userInputData,
-												firstName: e.target.value,
-										  })
-										: setUserInputData({
-												...userInputData,
-												lastName: e.target.value,
-										  })
-								}
-							/>
-
-							<Button
-								variant='contained'
-								// className='mt-4'
-								style={{ marginTop: '7rem' }}
-								color='primary'
-								fullWidth
-								// type='submit'
-								onClick={submitHandler}
-							>
-								Save
-							</Button>
+							<div className={classes.root}>
+								<TabPanel value={value} index='monthly-expense'>
+									<MonthlyExpenseChart />
+								</TabPanel>
+								<TabPanel value={value} index='monthly-income'>
+									<MonthlyIncomeChart />
+								</TabPanel>
+								<TabPanel value={value} index='expense-income'>
+									<ExpenseIncomeChart />
+								</TabPanel>
+							</div>
 						</div>
 					</div>
 				</Fade>
