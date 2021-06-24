@@ -26,6 +26,7 @@ export const updatedUserDetails = async (setUser, userInputData) => {
 
 		const { data } = await api.put('/users/update', userInputData, config);
 		// console.log(data);
+
 		setUser(data.updates);
 	} catch (err) {
 		console.log(err.response.data);
