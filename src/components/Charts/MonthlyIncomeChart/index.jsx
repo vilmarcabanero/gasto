@@ -1,11 +1,41 @@
 import React from 'react';
 import { Bar } from 'react-chartjs-2';
+import { useSelector } from 'react-redux';
+import moment from 'moment';
 
 const VerticalBar = () => {
-	const monthlyIncome = [
-		7503, 6863, 6505, 7503, 6507, 7125, 5951, 6504, 8550, 9035, 7505, 6259,
-	];
+	const entries = useSelector(state => state.entries);
 
+	const getMonthlyIncome = (entries, month) => {
+		const filteredMonthlyIncome = entries
+			.filter(
+				entry =>
+					entry.type === 'income' &&
+					parseInt(moment(entry.date).format('M')) === month
+			)
+			.map(entry => entry.amount);
+
+		if (!filteredMonthlyIncome.length) {
+			return filteredMonthlyIncome.push(0);
+		} else {
+			return filteredMonthlyIncome.reduce((acc, currVal) => acc + currVal);
+		}
+	};
+
+	const monthlyIncome = [
+		getMonthlyIncome(entries, 1),
+		getMonthlyIncome(entries, 2),
+		getMonthlyIncome(entries, 3),
+		getMonthlyIncome(entries, 4),
+		getMonthlyIncome(entries, 5),
+		getMonthlyIncome(entries, 6),
+		getMonthlyIncome(entries, 7),
+		getMonthlyIncome(entries, 8),
+		getMonthlyIncome(entries, 9),
+		getMonthlyIncome(entries, 10),
+		getMonthlyIncome(entries, 11),
+		getMonthlyIncome(entries, 12),
+	];
 
 	const data = {
 		labels: [

@@ -1,13 +1,71 @@
 import React from 'react';
 import { Line } from 'react-chartjs-2';
+import { useSelector } from 'react-redux';
+import moment from 'moment';
 
 const MultiAxisLine = () => {
-  const monthlyExpenses = [
-		6005, 5503, 6025, 6505, 6003, 7000, 5505, 6203, 6507, 7003, 6756, 5678,
+	const entries = useSelector(state => state.entries);
+
+	const getMonthlyExpenses = (entries, month) => {
+		const filteredMonthlyExpenses = entries
+			.filter(
+				entry =>
+					entry.type === 'expense' &&
+					parseInt(moment(entry.date).format('M')) === month
+			)
+			.map(entry => entry.amount);
+
+		if (!filteredMonthlyExpenses.length) {
+			return filteredMonthlyExpenses.push(0);
+		} else {
+			return filteredMonthlyExpenses.reduce((acc, currVal) => acc + currVal);
+		}
+	};
+
+	const getMonthlyIncome = (entries, month) => {
+		const filteredMonthlyIncome = entries
+			.filter(
+				entry =>
+					entry.type === 'income' &&
+					parseInt(moment(entry.date).format('M')) === month
+			)
+			.map(entry => entry.amount);
+
+		if (!filteredMonthlyIncome.length) {
+			return filteredMonthlyIncome.push(0);
+		} else {
+			return filteredMonthlyIncome.reduce((acc, currVal) => acc + currVal);
+		}
+	};
+
+	const monthlyExpenses = [
+		getMonthlyExpenses(entries, 1),
+		getMonthlyExpenses(entries, 2),
+		getMonthlyExpenses(entries, 3),
+		getMonthlyExpenses(entries, 4),
+		getMonthlyExpenses(entries, 5),
+		getMonthlyExpenses(entries, 6),
+		getMonthlyExpenses(entries, 7),
+		getMonthlyExpenses(entries, 8),
+		getMonthlyExpenses(entries, 9),
+		getMonthlyExpenses(entries, 10),
+		getMonthlyExpenses(entries, 11),
+		getMonthlyExpenses(entries, 12),
 	];
 
-  const monthlyIncome = [
-		7503, 6863, 6505, 7503, 6507, 7125, 5951, 6504, 8550, 9035, 7505, 6259,
+	const monthlyIncome = [
+		getMonthlyIncome(entries, 1),
+		getMonthlyIncome(entries, 2),
+		getMonthlyIncome(entries, 3),
+		getMonthlyIncome(entries, 4),
+		getMonthlyIncome(entries, 5),
+		getMonthlyIncome(entries, 6),
+		getMonthlyIncome(entries, 7),
+		getMonthlyIncome(entries, 8),
+		getMonthlyIncome(entries, 9),
+		getMonthlyIncome(entries, 10),
+		getMonthlyIncome(entries, 11),
+		getMonthlyIncome(entries, 12),
 	];
 
 	const data = {

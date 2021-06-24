@@ -70,8 +70,6 @@ const Entries = ({
 		setValue(newValue);
 	};
 
-
-
 	//Para ishow ang incomeEntries lang or ang expense entries lang.
 	const incomeEntries = entries.filter(entry => entry.type === 'income');
 	// console.log('Income entries', incomeEntries);
@@ -82,7 +80,11 @@ const Entries = ({
 	return !doneFetchingEntries ? (
 		<CircularProgress />
 	) : !entries.length ? (
-		<div className={classes.noEntriesYet}><Typography variant='h5'>No cash-in or cash-out transactions yet.</Typography></div>
+		<div className={classes.noEntriesYet}>
+			<Typography variant='h5'>
+				No cash-in or cash-out transactions yet.
+			</Typography>
+		</div>
 	) : (
 		<Grid className={classes.container} container alignItems='stretch'>
 			<Grid item xs={12}>
@@ -92,8 +94,8 @@ const Entries = ({
 					aria-label='wrapped label tabs example'
 					centered
 				>
-					<Tab value='all' label='All' wrapped {...a11yProps('all')}  />
-					<Tab value='income' label='Income' {...a11yProps('income')}  />
+					<Tab value='all' label='All' wrapped {...a11yProps('all')} />
+					<Tab value='income' label='Income' {...a11yProps('income')} />
 					<Tab value='expense' label='Expense' {...a11yProps('expense')} />
 				</Tabs>
 			</Grid>
@@ -124,7 +126,7 @@ const Entries = ({
 				</ToggleButtonGroup>
 			</Grid> */}
 			<Grid item className={classes.entryContainer} xs={12}>
-				<p  className={classes.date}>Date</p>
+				<p className={classes.date}>Date</p>
 				<p className={classes.time}>Time</p>
 				<p className={classes.entryName}>Entry Name</p>
 				<p className={classes.category}>Category</p>
