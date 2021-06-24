@@ -8,12 +8,12 @@ const AuthPage = ({ history }) => {
 	const [willRedirect, setWillRedirect] = useState(false);
 
 	return (
-		<Box height='100vh'>
+		<Box > {/* height='100vh'*/}
 			<Grid
 				container
 				justify='center'
 				alignItems='center'
-				style={{ height: '100%' }}
+				// style={{ height: '100%' }}
 			>
 				{isRegistered ? (
 					<LoginForm

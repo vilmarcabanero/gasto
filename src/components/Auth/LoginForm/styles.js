@@ -6,6 +6,14 @@ export const Container = styled.div`
 		max-width: 24rem;
 		width: 100%;
 		margin: auto;
+		margin-top: 10rem;
+		@media (max-width: 900px) {
+			margin-top: 7rem;
+		}
+
+		@media (max-width: 767px) {
+			margin-top: 2rem;
+		}
 	}
 
 	.form {
@@ -25,13 +33,12 @@ export const Container = styled.div`
 		border: 1px solid rgba(216, 0, 12, 0.7);
 		padding-left: 0.25rem;
 		padding-right: 0.25rem;
-    
 	}
 
 	.error {
 		margin: 0.1rem;
 		text-align: center;
-    width: 80%;
+		width: 80%;
 	}
 
 	.input-groups {

@@ -25,7 +25,7 @@ const LoginForm = ({ setIsRegistered, history }) => {
 
 	const loginHandler = e => {
 		e.preventDefault();
-		console.log(isValid, 'isValid initial');
+		// console.log(isValid, 'isValid initial');
 
 		validateLogin(
 			setIsValid,
@@ -35,7 +35,7 @@ const LoginForm = ({ setIsRegistered, history }) => {
 			history,
 			setDoneLoggingIn
 		);
-		console.log(isValid, 'isValid after');
+		// console.log(isValid, 'isValid after');
 
 	};
 
