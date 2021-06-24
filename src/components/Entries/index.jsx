@@ -68,6 +68,10 @@ const Entries = ({
 	let incomeEntries = [];
 	let expenseEntries = [];
 
+	incomeEntries = entries.filter(entry => entry.type === 'income');
+	// console.log('Income entries', incomeEntries);
+	expenseEntries = entries.filter(entry => entry.type === 'expense');
+
 	// const [entryType, setEntryType] = React.useState('all');
 	// const handleAlignment = (event, newEntryType) => {
 	// 	setEntryType(newEntryType);
