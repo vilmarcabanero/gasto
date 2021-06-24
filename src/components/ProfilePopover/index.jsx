@@ -17,6 +17,7 @@ import {
 } from '@material-ui/icons';
 import ThemeContext from 'context/theme';
 import ProfilePage from './ProfilePage';
+import AnalyticsPage from './AnalyticsPage';
 
 const Profile = ({ user, logoutHandler }) => {
 	const classes = useStyles();
@@ -125,6 +126,15 @@ const Profile = ({ user, logoutHandler }) => {
 								onChange={darkModeHandler}
 							/>
 						</div>
+					</ListItem>
+
+					<ListItem className={`${classes.logout}`}>
+						<AnalyticsPage
+							editProfileOpen={editProfileOpen}
+							setEditProfileOpen={setEditProfileOpen}
+							profilePageOpen={profilePageOpen}
+							setProfilePageOpen={setProfilePageOpen}
+						/>
 					</ListItem>
 				</List>
 			</Popover>

@@ -76,25 +76,23 @@ export default makeStyles(theme => ({
 		backgroundColor: theme.palette.background.paper,
 		// border: '2px solid #000',
 		borderRadius: 5,
-		maxWidth: '25rem',
-		height: '20rem',
+		maxWidth: 1232,
+		height: '80vh',
 
 		margin: 'auto',
 		width: '100%',
 		boxShadow: theme.shadows[5],
 		// padding: theme.spacing(2, 4, 3),
 	},
-	profileTitleContainer: {
+	titleContainer: {
 		padding: theme.spacing(2),
 		paddingBottom: 0,
 		display: 'flex',
 		justifyContent: 'center',
 		alignItems: 'center',
-		position: 'relative'
+		position: 'relative',
 	},
-	profileTitle: {
-		
-	},
+	title: {},
 	modalBody: {
 		padding: theme.spacing(2),
 		paddingTop: 5,
@@ -128,28 +126,20 @@ export default makeStyles(theme => ({
 		alignItems: 'center',
 		position: 'relative',
 		padding: 6,
-		height: '3rem',
-	},
-	label: {
-		width: '6rem',
-		fontWeight: 'bold'
 	},
 	firstName: {
-		display: 'flex',
-		justifyContent: 'flex-start',
-		alignItems: 'center'
+		width: '100%',
+		display: 'block',
 	},
 	lastName: {
-		display: 'flex',
-		justifyContent: 'flex-start',
-		alignItems: 'center'
+		width: '100%',
+		display: 'block',
 	},
 	email: {
-		// height: '3rem',
-		// paddingTop: '0.5rem'
-		display: 'flex',
-		justifyContent: 'flex-start',
-		alignItems: 'center'
+		width: '100%',
+		display: 'block',
+		height: '3rem',
+		paddingTop: '0.5rem',
 	},
 	closeIconButton: {
 		position: 'absolute',
@@ -159,8 +149,6 @@ export default makeStyles(theme => ({
 
 export const IconContainer = styled.div`
 	visibility: hidden;
-	position: absolute;
-	right: 5px;
 `;
 
 export const DetailsContainer = styled.div`

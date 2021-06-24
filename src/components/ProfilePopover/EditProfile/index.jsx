@@ -110,6 +110,7 @@ const EntryForm = ({
 			>
 				<MuiDialogTitle id='customized-dialog-title' onClose={handleClose}>
 					<div className={classes.editProfileTitle}>Edit profile</div>
+					
 				</MuiDialogTitle>
 
 				<MuiDialogContent dividers>

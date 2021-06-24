@@ -7,11 +7,12 @@ export default makeStyles(theme => ({
 		borderRadius: 2,
 		marginTop: '0',
 		marginBottom: 30,
+		width: '100%',
 		display: 'flex',
 		flexDirection: 'row',
 		justifyContent: 'space-between',
 		alignItems: 'center',
-		height: '3.25rem'
+		height: '3.75rem'
 	},
 	heading: {
 		marginLeft: 20,
