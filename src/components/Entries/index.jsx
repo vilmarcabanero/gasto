@@ -82,7 +82,7 @@ const Entries = ({
 	return !doneFetchingEntries ? (
 		<CircularProgress />
 	) : !entries.length ? (
-		<div className={classes.noEntriesYet}><Typography variant='h5'>No cash-in or cash-out transactions in this book.</Typography></div>
+		<div className={classes.noEntriesYet}><Typography variant='h5'>No cash-in or cash-out transactions yet.</Typography></div>
 	) : (
 		<Grid className={classes.container} container alignItems='stretch'>
 			<Grid item xs={12}>
