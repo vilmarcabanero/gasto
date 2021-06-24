@@ -77,14 +77,22 @@ export default makeStyles(theme => ({
 		// border: '2px solid #000',
 		borderRadius: 5,
 		maxWidth: '25rem',
+		height: '20rem',
+
 		margin: 'auto',
 		width: '100%',
 		boxShadow: theme.shadows[5],
 		// padding: theme.spacing(2, 4, 3),
 	},
-	profileTitle: {
+	profileTitleContainer: {
 		padding: theme.spacing(2),
 		paddingBottom: 0,
+		display: 'flex',
+		justifyContent: 'center',
+		alignItems: 'center',
+	},
+	profileTitle: {
+		
 	},
 	modalBody: {
 		padding: theme.spacing(2),
@@ -107,11 +115,32 @@ export default makeStyles(theme => ({
 		paddingTop: 3,
 		marginLeft: 3,
 	},
-  profilePictureBodyContainer: {
+	profilePictureBodyContainer: {
 		display: 'flex',
 		justifyContent: 'center',
 		alignItems: 'center',
-    margin: 'auto'
+		margin: 'auto',
+	},
+	detailsContainer: {
+		display: 'flex',
+		justifyContent: 'flex-start',
+		alignItems: 'center',
+		position: 'relative',
+		padding: 6,
+	},
+	firstName: {
+		width: '100%',
+		display: 'block',
+	},
+	lastName: {
+		width: '100%',
+		display: 'block',
+	},
+	email: {
+		width: '100%',
+		display: 'block',
+		height: '3rem',
+		paddingTop: '0.5rem'
 	},
 }));
 
@@ -119,7 +148,19 @@ export const IconContainer = styled.div`
 	visibility: hidden;
 `;
 
-export const EntryContainer = styled.div`
+export const DetailsContainer = styled.div`
+	border-radius: 5px;
+	&:hover,
+	&:active {
+		background-color: rgba(200, 200, 200, 0.2);
+		${IconContainer} {
+			visibility: visible;
+		}
+	}
+`;
+
+export const EmailContainer = styled.div`
+	margin-top: 0rem;
 	border-radius: 5px;
 	&:hover,
 	&:active {

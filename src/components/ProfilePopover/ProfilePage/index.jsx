@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import useStyles from './styles';
-import * as S from './styles'
+import * as S from './styles';
 import { withStyles } from '@material-ui/core/styles';
 import 'date-fns';
 import DateFnsUtils from '@date-io/date-fns';
@@ -34,6 +34,7 @@ import CategoryForm from 'components/Forms/CategoryForm';
 import Categories from 'components/Categories';
 import defaultCategories from 'data/defaultCategories.json';
 import UserContext from 'context/user';
+import * as userAPI from 'api/user';
 
 //Modal
 const styles = theme => ({
@@ -82,14 +83,36 @@ const EntryForm = ({
 	// setProfilePageOpen,
 }) => {
 	const classes = useStyles();
+	const { user, setUser } = React.useContext(UserContext);
 
-	const { user } = React.useContext(UserContext);
+	const [userInputData, setUserInputData] = useState({
+		firstName: '',
+		lastName: '',
+	});
+
+	const [profilePageOpen, setProfilePageOpen] = React.useState(false);
+	const [editProfileOpen, setEditProfileOpen] = React.useState(false);
+	const [isEditing, setIsEditing] = useState(false);
+	const [currentId, setCurrentId] = useState('');
+
+	const submitHandler = e => {
+		e.preventDefault();
+		setIsEditing(false);
+		setEditProfileOpen(false);
+		userAPI.updatedUserDetails(setUser, userInputData);
+		userAPI.getUserDetails(setUser);
+
+		console.log('Previous datails: ', user.firstName, user.lastName);
+		console.log(
+			'Updated datails: ',
+			userInputData.firstName,
+			userInputData.lastName
+		);
+	};
 
 	// const handleClose = () => {
 	// 	console.log('Profile page is closed.');
 	// };
-
-	const [profilePageOpen, setProfilePageOpen] = React.useState(false);
 
 	const handleOpen = () => {
 		setProfilePageOpen(true);
@@ -97,6 +120,10 @@ const EntryForm = ({
 
 	const handleClose = () => {
 		setProfilePageOpen(false);
+	};
+
+	const handleEditProfileClose = () => {
+		setEditProfileOpen(false);
 	};
 
 	// setTimeout(() => {
@@ -107,6 +134,19 @@ const EntryForm = ({
 	// const showProfilePageHandler = () => {
 	// 	setProfilePageOpen(true);
 	// };
+
+	const updateProfileHandler = e => {
+		console.log(e.currentTarget.id, ' is clicked.');
+		setCurrentId(e.currentTarget.id);
+		setEditProfileOpen(true);
+		setIsEditing(true);
+		if (e.currentTarget.id === 'firstname') {
+			setUserInputData({ ...userInputData, firstName: user.firstName });
+		} else {
+			setUserInputData({ ...userInputData, lastName: user.lastName });
+		}
+		// console.log('Profile successfully updated.');
+	};
 
 	return (
 		<div className={classes.modalContainer}>
@@ -137,46 +177,148 @@ const EntryForm = ({
 			>
 				<Fade in={profilePageOpen}>
 					<div className={classes.paper}>
-						<Typography
-							variant='h4'
-							className={classes.profileTitle}
-							id='transition-modal-title'
-						>
-							Profile
-						</Typography>
+						<div className={classes.profileTitleContainer}>
+							<Typography
+								variant='h4'
+								className={classes.profileTitle}
+								id='transition-modal-title'
+							>
+								Your details
+							</Typography>
+						</div>
 						<hr />
 						<div
 							id='transition-modal-description'
 							className={classes.modalBody}
 						>
-							<div className={classes.profilePictureBodyContainer}>
-							<Typography
-								className={classes.profilePictureBody}
-								variant='subtitle1'
+							{/* <div className={classes.profilePictureBodyContainer}>
+								<Typography
+									className={classes.profilePictureBody}
+									variant='subtitle1'
+								>
+									{[...user.firstName][0]}
+								</Typography>
+							</div> */}
+							{/* <p>{user.userName}</p>
+							<p>{user.email}</p> */}
+							<S.EmailContainer
+								fullWidth
+								className={classes.detailsContainer}
+								id='first-container'
 							>
-								{[...user.firstName][0]}
-							</Typography>
-							</div>
-							<p>{user.firstName}</p>
-							<p>{user.lastName}</p>
-							<p>{user.userName}</p>
-							<p>{user.email}</p>
-							<S.EntryContainer
-			fullWidth
-			className={classes.container}
-			id='entry-container'
-		>
-			<p className={classes.category}>{category.name}</p>
+								<Typography variant='subtitle1' className={classes.email}>
+									Email:{` ${user.email}`}
+								</Typography>
+							</S.EmailContainer>
+							<div style={{ height: '3rem' }}>
+								<S.DetailsContainer
+									fullWidth
+									className={classes.detailsContainer}
+									id='first-container'
+								>
+									<Typography variant='subtitle1' className={classes.firstName}>
+										First Name:{` ${user.firstName}`}
+									</Typography>
 
-			<S.IconContainer className={classes.iconButtons}>
-				<IconButton onClick={updateCategoryHandler}>
-					<Edit style={{ color: '#1976d2' }} />
-				</IconButton>
-				<IconButton onClick={deleteCategoryHandler}>
-					<Delete id='delete-icon' style={{ color: '#e74c3c', zIndex: 9999 }} />
-				</IconButton>
-			</S.IconContainer>
-		</S.EntryContainer>
+									<S.IconContainer className={classes.iconButtons}>
+										<IconButton id='firstname' onClick={updateProfileHandler}>
+											<Edit style={{ color: '#1976d2' }} />
+										</IconButton>
+									</S.IconContainer>
+								</S.DetailsContainer>
+							</div>
+
+							<div style={{ height: '3rem' }}>
+								<S.DetailsContainer
+									fullWidth
+									className={classes.detailsContainer}
+									id='lastname-container'
+								>
+									<Typography variant='subtitle1' className={classes.lastName}>
+										Last name:{` ${user.lastName}`}
+									</Typography>
+
+									<S.IconContainer className={classes.iconButtons}>
+										<IconButton id='lastname' onClick={updateProfileHandler}>
+											<Edit style={{ color: '#1976d2' }} />
+										</IconButton>
+									</S.IconContainer>
+								</S.DetailsContainer>
+							</div>
+						</div>
+					</div>
+				</Fade>
+			</Modal>
+
+			<Modal
+				aria-labelledby='transition-modal-title'
+				aria-describedby='transition-modal-description'
+				className={classes.modal}
+				open={editProfileOpen}
+				onClose={handleEditProfileClose}
+				closeAfterTransition
+				BackdropComponent={Backdrop}
+				BackdropProps={{
+					timeout: 500,
+				}}
+			>
+				<Fade in={editProfileOpen}>
+					<div className={classes.paper}>
+						<div className={classes.profileTitleContainer}>
+							<Typography
+								variant='h4'
+								className={classes.profileTitle}
+								id='transition-modal-title'
+							>
+								{currentId === 'firstname'
+									? 'Edit your first name'
+									: 'Edit your last name'}
+							</Typography>
+						</div>
+						<hr />
+						<div
+							id='transition-modal-description'
+							className={classes.modalBody}
+						>
+							<TextField
+								label={
+									currentId === 'firstname'
+										? 'Edit first name'
+										: 'Edit last name'
+								}
+								type='text'
+								fullWidth
+								className='mb-3'
+								size='small'
+								value={
+									currentId === 'firstname'
+										? userInputData.firstName
+										: userInputData.lastName
+								}
+								onChange={e =>
+									currentId === 'firstname'
+										? setUserInputData({
+												...userInputData,
+												firstName: e.target.value,
+										  })
+										: setUserInputData({
+												...userInputData,
+												lastName: e.target.value,
+										  })
+								}
+							/>
+
+							<Button
+								variant='contained'
+								// className='mt-4'
+								style={{ marginTop: '7rem' }}
+								color='primary'
+								fullWidth
+								// type='submit'
+								onClick={submitHandler}
+							>
+								Save
+							</Button>
 						</div>
 					</div>
 				</Fade>

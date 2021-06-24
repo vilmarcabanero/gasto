@@ -13,17 +13,24 @@ import { Delete, MoreHoriz, Edit } from '@material-ui/icons';
 import moment from 'moment';
 import { useDispatch, useSelector } from 'react-redux';
 import { deleteEntry } from 'redux/actions/entries';
-import {getCategories} from 'redux/actions/categories'
+import { getCategories } from 'redux/actions/categories';
 import * as format from 'utils/date';
 import Swal from 'sweetalert2';
 import * as S from './styles';
-import defaultCategories from 'data/defaultCategories.json'
+import defaultCategories from 'data/defaultCategories.json';
 
-const Entry = ({ entry, setCurrentId, open, setOpen, categoryData, setCategoryData }) => {
+const Entry = ({
+	entry,
+	setCurrentId,
+	open,
+	setOpen,
+	categoryData,
+	setCategoryData,
+}) => {
 	const classes = useStyles();
 	// console.log(entry);
 	const dispatch = useDispatch();
-	const categories = useSelector(state => state.categories)
+	const categories = useSelector(state => state.categories);
 
 	// const [hovered, setHovered] = React.useState(false);
 	// const toggleHover = () => setHovered(!hovered);
@@ -32,22 +39,23 @@ const Entry = ({ entry, setCurrentId, open, setOpen, categoryData, setCategoryDa
 
 	React.useEffect(() => {
 		dispatch(getCategories());
-		setCategoryData([...defaultCategories,...categories])
-	},[open])
+		setCategoryData([...defaultCategories, ...categories]);
+	}, [open]);
 
 	const updateEntryHandler = () => {
 		dispatch(getCategories());
-		setCategoryData([...defaultCategories,...categories])
+		setCategoryData([...defaultCategories, ...categories]);
 		setCurrentId(entry._id);
 		setOpen(true);
-		setCategoryData([...defaultCategories,...categories])
+		setCategoryData([...defaultCategories, ...categories]);
 		// dispatch(getCategories());
 		// setCategoryData([...defaultCategories, ...categories])
-		
-		console.log('category data when edit icon button is clicked: ',[...defaultCategories,...categories])
-	};
 
-	
+		console.log('category data when edit icon button is clicked: ', [
+			...defaultCategories,
+			...categories,
+		]);
+	};
 
 	const deleteEntryHandler = () => {
 		Swal.fire({
