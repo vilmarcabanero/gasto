@@ -73,7 +73,7 @@ const MainPage = ({ history }) => {
 	};
 
 	return (
-		<S.StyledContainer maxwidth='lg'>
+		<S.StyledContainer>
 			<AppBar className={classes.appBar} position='static' color='primary'>
 				<Typography className={classes.heading} variant='h4'>
 					Gasto
