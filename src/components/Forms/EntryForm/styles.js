@@ -1,5 +1,5 @@
 import { makeStyles } from '@material-ui/core/styles';
-import Button from '@material-ui/core/Button';
+import { Button, Dialog } from '@material-ui/core';
 import styled from 'styled-components';
 
 export default makeStyles(theme => ({
@@ -29,6 +29,7 @@ export default makeStyles(theme => ({
 		maxWidth: '30rem',
 		width: '100%',
 		margin: 'auto',
+		position: 'relative',
 	},
 	dialogTitle: {
 		display: 'flex',
@@ -44,8 +45,7 @@ export default makeStyles(theme => ({
 
 	//modals
 
-	modalContainer: {
-	},
+	modalContainer: {},
 
 	//Buttons
 	closeButton: {
@@ -61,7 +61,7 @@ export default makeStyles(theme => ({
 		justifyContent: 'space-between',
 		alignItems: 'center',
 		width: '16.5rem',
-		marginBottom: '1rem'
+		marginBottom: '1rem',
 	},
 	cashInButton: {
 		color: '#fff',
@@ -196,7 +196,29 @@ export const CashOutButton = styled(Button)`
 	}
 `;
 
-export const Form = styled.form``;
+export const Form = styled.form`
+	position: relative;
+	.error-container {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		position: absolute;
+		top: -2.35rem;
+		color: #d8000c;
+		font-size: 18px;
+		background-color: #ffbaba;
+		border-radius: 3px;
+		border: 1px solid rgba(216, 0, 12, 0.7);
+		padding-left: 0.25rem;
+		padding-right: 0.25rem;
+	}
+
+	.error {
+		margin: 0.1rem;
+		text-align: center;
+		width: 80%;
+	}
+`;
 
 // export const Label = styled.label`
 // 	position: relative;
@@ -209,3 +231,5 @@ export const Form = styled.form``;
 // 		cursor: text;
 // 	}
 // `;
+
+export const StyledDialog = styled(Dialog)``;

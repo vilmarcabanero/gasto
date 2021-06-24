@@ -87,3 +87,26 @@ export const validateLogin = (
 		);
 	}
 };
+
+export const validateAddEntry = (
+	setIsValid,
+	setError,
+	entryData,
+	setConfirmSubmit
+) => {
+	setTimeout(() => {
+		setIsValid(true);
+	}, 4000);
+	if (validator.isEmpty(String(entryData.amount))) {
+		setIsValid(false);
+		setError(`Entry amount can't be empty.`);
+	} else if (validator.isEmpty(String(entryData.name))) {
+		setIsValid(false);
+		setError(`Entry name can't be empty.`);
+	} else if (validator.isEmpty(String(entryData.category))) {
+		setIsValid(false);
+		setError(`Entry category can't be empty.`);
+	} else {
+		setConfirmSubmit(true);
+	}
+};

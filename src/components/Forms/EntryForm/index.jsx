@@ -29,6 +29,9 @@ import { Card } from 'react-bootstrap';
 import CategoryForm from 'components/Forms/CategoryForm';
 import Categories from 'components/Categories';
 import defaultCategories from 'data/defaultCategories.json';
+import { validateAddEntry } from 'utils/validator';
+import * as S from './styles';
+import validator from 'validator';
 
 //Modal
 const styles = theme => ({
@@ -95,6 +98,9 @@ const EntryForm = ({
 
 	const entries = useSelector(state => state.entries);
 	const categories = useSelector(state => state.categories);
+	const [error, setError] = useState('');
+	const [isValid, setIsValid] = useState(true);
+	const [confirmSubmit, setConfirmSubmit] = useState(false);
 
 	// const [categoryData, setCategoryData] = useState([
 	// 	...defaultCategories,
@@ -150,21 +156,43 @@ const EntryForm = ({
 	const submitHandler = e => {
 		e.preventDefault();
 
-		console.log('Current balance', entryData.balance);
+		// validateAddEntry(
+		// 	setIsValid,
+		// 	setError,
+		// 	entryData,
+		// 	setEntryData,
+		// 	setConfirmSubmit
+		// );
+		// console.log('Current balance', entryData.balance);
+		// console.log('Confirm submit.', confirmSubmit)
 
-		if (currentId) {
-			dispatch(updateEntry(currentId, entryData));
+		setTimeout(() => {
+			setIsValid(true);
+		}, 4000);
+		if (validator.isEmpty(String(entryData.amount))) {
+			setIsValid(false);
+			setError(`Entry amount can't be empty.`);
+		} else if (validator.isEmpty(String(entryData.name))) {
+			setIsValid(false);
+			setError(`Entry name can't be empty.`);
+		} else if (validator.isEmpty(String(entryData.category))) {
+			setIsValid(false);
+			setError(`Entry category can't be empty.`);
 		} else {
-			dispatch(createEntry(entryData));
+			if (currentId) {
+				dispatch(updateEntry(currentId, entryData));
+			} else {
+				dispatch(createEntry(entryData));
+			}
+			setConfirmSubmit(true);
+			clear();
+			handleClose();
+			dispatch(getEntries(entryData, setDoneFetchingEntries));
+			dispatch(getCategories());
+
+			setIsSubmitted(!isSubmitted);
+			setCategoryData([...defaultCategories, ...categories]);
 		}
-
-		dispatch(getEntries(entryData, setDoneFetchingEntries));
-		dispatch(getCategories());
-
-		clear();
-		handleClose();
-		setIsSubmitted(!isSubmitted);
-		setCategoryData([...defaultCategories, ...categories]);
 	};
 
 	const handleClose = () => {
@@ -265,7 +293,7 @@ const EntryForm = ({
 					<Remove /> Cash out
 				</Button>
 			</div>
-			<Dialog
+			<S.StyledDialog
 				onClose={handleClose}
 				aria-labelledby='customized-dialog-title'
 				open={open}
@@ -286,7 +314,7 @@ const EntryForm = ({
 				</MuiDialogTitle>
 
 				<MuiDialogContent dividers>
-					<form className={classes.form}>
+					<S.Form className={classes.form}>
 						<MuiPickers.MuiPickersUtilsProvider utils={DateFnsUtils}>
 							<Grid container justify='space-around' className='mt-3'>
 								<div className={classes.datePickerContainerFlex}>
@@ -400,9 +428,18 @@ const EntryForm = ({
 						>
 							Save
 						</Button>
-					</form>
+						{!isValid && (
+							<div className='error-container w-100'>
+								<span className='error'>{error}</span>
+								<Close
+									className='close-icon'
+									onClick={() => setIsValid(true)}
+								/>
+							</div>
+						)}
+					</S.Form>
 				</MuiDialogContent>
-			</Dialog>
+			</S.StyledDialog>
 		</div>
 	);
 };
