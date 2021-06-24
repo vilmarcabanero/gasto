@@ -13,6 +13,7 @@ import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
 import Entry from './Entry';
 import useStyles from './styles';
+import Search from 'material-ui-search-bar';
 
 function TabPanel(props) {
 	const { children, value, index, ...other } = props;
@@ -58,7 +59,14 @@ const Entries = ({
 	const entries = useSelector(state => state.entries);
 	const classes = useStyles();
 
+	//For search
+	const [searchValue, setSearchValue] = useState('');
+	const [searchResults, setSearchResults] = useState([]);
+
 	const [value, setValue] = React.useState('all');
+
+	let incomeEntries = [];
+	let expenseEntries = [];
 
 	// const [entryType, setEntryType] = React.useState('all');
 	// const handleAlignment = (event, newEntryType) => {
@@ -70,11 +78,30 @@ const Entries = ({
 		setValue(newValue);
 	};
 
-	//Para ishow ang incomeEntries lang or ang expense entries lang.
-	const incomeEntries = entries.filter(entry => entry.type === 'income');
-	// console.log('Income entries', incomeEntries);
-	const expenseEntries = entries.filter(entry => entry.type === 'expense');
-	// console.log('Expense entries', expenseEntries);
+	React.useEffect(() => {
+		const results = entries.filter(entry =>
+			entry.name.toLowerCase().includes(searchValue)
+		);
+		setSearchResults(results);
+	}, [searchValue]);
+
+	const searchHandler = () => {
+		const results = entries.filter(entry =>
+			entry.name.toLowerCase().includes(searchValue)
+		);
+		// setSearchResults(results);
+		if (searchValue.length === '') {
+			//Para ishow ang incomeEntries lang or ang expense entries lang.
+			incomeEntries = entries.filter(entry => entry.type === 'income');
+			// console.log('Income entries', incomeEntries);
+			expenseEntries = entries.filter(entry => entry.type === 'expense');
+			console.log('Search value is empty');
+			// console.log('Expense entries', expenseEntries);
+		} else {
+			incomeEntries = results.filter(entry => entry.type === 'income');
+			expenseEntries = results.filter(entry => entry.type === 'expense');
+		}
+	};
 
 	// console.log(entries);
 	return !doneFetchingEntries ? (
@@ -87,7 +114,28 @@ const Entries = ({
 		</div>
 	) : (
 		<Grid className={classes.container} container alignItems='stretch'>
-			<Grid item xs={12}>
+			{/* <Grid
+				item
+				xs={12}
+				md={6}
+				style={{
+					display: 'flex',
+					justifyContent: 'center',
+					alignItems: 'center',
+				}}
+			>
+				<Search
+					value={searchValue}
+					onChange={e => setSearchValue(e)}
+					onRequestSearch={searchHandler}
+					style={{
+						maxWidth: 500,
+						width: '100%',
+						marginBottom: 22,
+					}}
+				/>
+			</Grid> */}
+			<Grid item xs={12} md={12}>
 				<Tabs
 					value={value}
 					onChange={handleChange}

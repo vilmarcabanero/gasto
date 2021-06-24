@@ -70,5 +70,15 @@ export default makeStyles(theme => ({
 		display: 'flex',
 		justifyContent: 'center',
 		alignItems: 'center'
-	}
+	},
+	searchTabContainer: {
+		display: 'flex',
+		justifyContent: 'space-between',
+		alignItems: 'center'
+	},
+	[theme.breakpoints.down('sm')]: {
+		searchTabContainer: {
+			flexDirection: 'column',
+		},
+	},
 }));
