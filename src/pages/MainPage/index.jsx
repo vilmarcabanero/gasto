@@ -92,7 +92,7 @@ const MainPage = ({ history }) => {
 						alignItems='stretch'
 						spacing={2}
 					>
-						<Grid item xs={12} className={classes.entryFormContainer}>
+						<Grid item xs={12} className={!entries.length ? classes.entryFormContainerNoSearchbar : classes.entryFormContainer}>
 							{!entries.length ? null : <SearchBar />}
 							<EntryForm
 								currentId={currentId}
@@ -113,7 +113,7 @@ const MainPage = ({ history }) => {
 							{!entries.length ? null : <ExpenseIncomeSummary />}
 						</Grid>
 
-						<Grid item xs={12}>
+						<Grid item xs={12} className={!entries.length ? classes.entriesContainerNoEntry : ''}>
 							<Entries
 								setCurrentId={setCurrentId}
 								open={open}

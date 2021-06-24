@@ -31,12 +31,22 @@ export default makeStyles(theme => ({
 		justifyContent: 'space-between',
 		alignItems: 'center',
 	},
+	entryFormContainerNoSearchbar: {
+		marginBottom: '-25rem',
+		// position: 'relative',
+		display: 'flex',
+		justifyContent: 'center',
+		alignItems: 'center',
+	},
 
 	[theme.breakpoints.down('sm')]: {
 		entryFormContainer: {
 			flexDirection: 'column',
 		},
 	},
+	entriesContainerNoEntry: {
+		marginTop: '13rem'
+	}
 
 }));
 
