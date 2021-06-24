@@ -431,10 +431,12 @@ const EntryForm = ({
 						{!isValid && (
 							<div className='error-container w-100'>
 								<span className='error'>{error}</span>
-								<Close
-									className='close-icon'
-									onClick={() => setIsValid(true)}
-								/>
+								<IconButton>
+									<Close
+										className='close-icon'
+										onClick={() => setIsValid(true)}
+									/>
+								</IconButton>
 							</div>
 						)}
 					</S.Form>
