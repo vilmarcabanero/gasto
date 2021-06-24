@@ -132,8 +132,8 @@ const EntryForm = ({
 			amount: '',
 			balance: 0,
 			type: '',
-			date: new Date(),
-			time: new Date(),
+			date: moment(new Date()),
+			time: moment(new Date()),
 		});
 	};
 
@@ -237,6 +237,18 @@ const EntryForm = ({
 		// console.log('balance ', entryData.balance);
 	};
 
+	const dateChangeHandler = e => {
+		setEntryData({ ...entryData, date: moment(e) });
+		// console.log(e);
+	};
+
+	const timeChangeHandler = e => {
+		setEntryData({ ...entryData, time: e });
+		// console.log(e);
+	};
+
+	// console.log(entryData.time, entryData.date);
+
 	// entries.forEach(entry => {
 	// 	if(entry.type === 'income') {
 	// 		set
@@ -285,9 +297,7 @@ const EntryForm = ({
 										size='small'
 										inputVariant='outlined'
 										value={entryData.date}
-										onChange={e =>
-											setEntryData({ ...entryData, date: e.target.value })
-										}
+										onChange={dateChangeHandler}
 										required
 									/>
 
@@ -298,9 +308,7 @@ const EntryForm = ({
 										size='small'
 										inputVariant='outlined'
 										value={entryData.time}
-										onChange={e =>
-											setEntryData({ ...entryData, time: e.target.value })
-										}
+										onChange={timeChangeHandler}
 										required
 									/>
 								</div>
@@ -327,7 +335,7 @@ const EntryForm = ({
 								setEntryData({ ...entryData, name: e.target.value })
 							}
 						/>
-						
+
 						<div className={`${classes.category} mb-4`}>
 							<FormControl size='small' className={`${classes.formControl}`}>
 								<InputLabel id='demo-simple-select-label'>

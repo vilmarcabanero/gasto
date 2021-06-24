@@ -80,12 +80,12 @@ const Entry = ({
 			className={classes.container}
 			id='entry-container'
 		>
-			{moment(today).format('LL') === moment(entry.updatedAt).format('LL') ? (
+			{moment(today).format('LL') === moment(entry.date).format('LL') ? (
 				<p className={classes.date}>Today</p>
 			) : (
-				<p className={classes.date}>{moment(entry.updatedAt).format('LL')}</p>
+				<p className={classes.date}>{moment(entry.date).format('LL')}</p>
 			)}
-			<p className={classes.time}>{moment(entry.updatedAt).format('LT')}</p>
+			<p className={classes.time}>{moment(entry.time).format('LT')}</p>
 			<p className={classes.entryName}>{entry.name}</p>
 			<p className={classes.category}>{entry.category}</p>
 			<div className={classes.amount}>

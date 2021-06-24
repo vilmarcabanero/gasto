@@ -82,7 +82,7 @@ const Entries = ({
 	return !doneFetchingEntries ? (
 		<CircularProgress />
 	) : !entries.length ? (
-		<div>No entries yet. Please add some entry.</div>
+		<div className={classes.noEntriesYet}><Typography variant='h5'>No cash-in or cash-out transactions in this book.</Typography></div>
 	) : (
 		<Grid className={classes.container} container alignItems='stretch'>
 			<Grid item xs={12}>
@@ -124,7 +124,7 @@ const Entries = ({
 				</ToggleButtonGroup>
 			</Grid> */}
 			<Grid item className={classes.entryContainer} xs={12}>
-				<p className={classes.date}>Date</p>
+				<p  className={classes.date}>Date</p>
 				<p className={classes.time}>Time</p>
 				<p className={classes.entryName}>Entry Name</p>
 				<p className={classes.category}>Category</p>

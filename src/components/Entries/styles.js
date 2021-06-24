@@ -19,6 +19,8 @@ export default makeStyles(theme => ({
 		position: 'relative',
 		padding: 6,
 		paddingLeft: 33,
+		height: '4rem',
+		// fontWeight: 'bold',
 		backgroundColor: 'rgba(200, 200, 200, 0.2)',
 	},
 
@@ -58,9 +60,15 @@ export default makeStyles(theme => ({
 		textAlign: 'left',
 		paddingLeft: 10,
 		marginTop: 14,
+		
 	},
 
 	tabsRoot: {
     backgroundColor: theme.palette.background.paper
-  }
+  },
+	noEntriesYet: {
+		display: 'flex',
+		justifyContent: 'center',
+		alignItems: 'center'
+	}
 }));

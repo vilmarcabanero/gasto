@@ -22,7 +22,7 @@ import * as S from './styles';
 import defaultCategories from 'data/defaultCategories.json';
 import Profile from 'components/ProfilePopover';
 import ExpenseIncomeSummary from 'components/EntriesSummary';
-import SearchBar from 'components/SearchBar'
+import SearchBar from 'components/SearchBar';
 
 const MainPage = ({ history }) => {
 	const [currentId, setCurrentId] = useState(null);
@@ -32,12 +32,12 @@ const MainPage = ({ history }) => {
 	const [categoryOpen, setCategoryOpen] = useState(false);
 
 	const categories = useSelector(state => state.categories);
+	const entries = useSelector(state => state.entries);
 
 	const [categoryData, setCategoryData] = useState([
 		...defaultCategories,
 		...categories,
 	]);
-
 
 	const [doneFetchingEntries, setDoneFetchingEntries] = React.useState(false);
 	console.log(doneFetchingEntries);
@@ -57,7 +57,7 @@ const MainPage = ({ history }) => {
 		dispatch(getEntries(setDoneFetchingEntries));
 		dispatch(getCategories());
 		setCategoryData([...defaultCategories, ...categories]);
-		console.log('Category data sa first render/log in.', categoryData)
+		console.log('Category data sa first render/log in.', categoryData);
 		// console.log('Initial state ng category data pala to.',categoryData);
 		console.log('Successfully re-rendered Main Page');
 	}, [currentId, dispatch, open, categoryOpen]); //open, Heto solution sa not rerendering after adding entry, piliting i.rerender if mag open or close ang modal.
@@ -93,8 +93,7 @@ const MainPage = ({ history }) => {
 						spacing={2}
 					>
 						<Grid item xs={12} className={classes.entryFormContainer}>
-							
-							<SearchBar />
+							{!entries.length ? null : <SearchBar />}
 							<EntryForm
 								currentId={currentId}
 								setCurrentId={setCurrentId}
@@ -111,7 +110,7 @@ const MainPage = ({ history }) => {
 							/>
 						</Grid>
 						<Grid item xs={12}>
-							<ExpenseIncomeSummary />
+							{!entries.length ? null : <ExpenseIncomeSummary />}
 						</Grid>
 
 						<Grid item xs={12}>
