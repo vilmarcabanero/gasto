@@ -65,12 +65,24 @@ const Entries = ({
 
 	const [value, setValue] = React.useState('all');
 
+	const results = !searchValue
+		? entries
+		: entries.filter(entry =>
+				entry.name.toLowerCase().includes(searchValue.toLowerCase())
+		  );
+
+	console.log(results)
+
+	React.useEffect(() => {
+		console.log(searchValue)
+	}, [searchValue])
+
 	let incomeEntries = [];
 	let expenseEntries = [];
 
-	incomeEntries = entries.filter(entry => entry.type === 'income');
+	incomeEntries = results.filter(entry => entry.type === 'income');
 	// console.log('Income entries', incomeEntries);
-	expenseEntries = entries.filter(entry => entry.type === 'expense');
+	expenseEntries = results.filter(entry => entry.type === 'expense');
 
 	// const [entryType, setEntryType] = React.useState('all');
 	// const handleAlignment = (event, newEntryType) => {
@@ -82,30 +94,23 @@ const Entries = ({
 		setValue(newValue);
 	};
 
-	React.useEffect(() => {
-		const results = entries.filter(entry =>
-			entry.name.toLowerCase().includes(searchValue)
-		);
-		setSearchResults(results);
-	}, [searchValue]);
-
-	const searchHandler = () => {
-		const results = entries.filter(entry =>
-			entry.name.toLowerCase().includes(searchValue)
-		);
-		// setSearchResults(results);
-		if (searchValue.length === '') {
-			//Para ishow ang incomeEntries lang or ang expense entries lang.
-			incomeEntries = entries.filter(entry => entry.type === 'income');
-			// console.log('Income entries', incomeEntries);
-			expenseEntries = entries.filter(entry => entry.type === 'expense');
-			console.log('Search value is empty');
-			// console.log('Expense entries', expenseEntries);
-		} else {
-			incomeEntries = results.filter(entry => entry.type === 'income');
-			expenseEntries = results.filter(entry => entry.type === 'expense');
-		}
-	};
+	// const searchHandler = () => {
+	// 	const results = entries.filter(entry =>
+	// 		entry.name.toLowerCase().includes(searchValue)
+	// 	);
+	// 	// setSearchResults(results);
+	// 	if (searchValue.length === '') {
+	// 		//Para ishow ang incomeEntries lang or ang expense entries lang.
+	// 		incomeEntries = entries.filter(entry => entry.type === 'income');
+	// 		// console.log('Income entries', incomeEntries);
+	// 		expenseEntries = entries.filter(entry => entry.type === 'expense');
+	// 		console.log('Search value is empty');
+	// 		// console.log('Expense entries', expenseEntries);
+	// 	} else {
+	// 		incomeEntries = results.filter(entry => entry.type === 'income');
+	// 		expenseEntries = results.filter(entry => entry.type === 'expense');
+	// 	}
+	// };
 
 	// console.log(entries);
 	return !doneFetchingEntries ? (
@@ -118,7 +123,7 @@ const Entries = ({
 		</div>
 	) : (
 		<Grid className={classes.container} container alignItems='stretch'>
-			{/* <Grid
+			<Grid
 				item
 				xs={12}
 				md={6}
@@ -128,18 +133,18 @@ const Entries = ({
 					alignItems: 'center',
 				}}
 			>
-				<Search
+				{/* <Search
 					value={searchValue}
 					onChange={e => setSearchValue(e)}
-					onRequestSearch={searchHandler}
+					onRequestSearch={() => {}}
 					style={{
 						maxWidth: 500,
 						width: '100%',
 						marginBottom: 22,
 					}}
-				/>
-			</Grid> */}
-			<Grid item xs={12} md={12}>
+				/> */}
+			</Grid>
+			<Grid item xs={12} md={6}>
 				<Tabs
 					value={value}
 					onChange={handleChange}
@@ -187,7 +192,7 @@ const Entries = ({
 
 			<Grid item xs={12}>
 				<TabPanel value={value} index='all'>
-					{entries.map(entry => (
+					{results.map(entry => (
 						<Grid item key={entry._id} xs={12}>
 							<Entry
 								doneFetchingEntries={doneFetchingEntries}

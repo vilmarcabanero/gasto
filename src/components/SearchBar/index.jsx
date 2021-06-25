@@ -15,14 +15,13 @@ const SearchBar = () => {
 		'Sinkedin',
 	];
 
-	React.useEffect(() => {
-		const results = people.filter(person =>
-			person.toLowerCase().includes(searchValue)
-		);
-		setSearchResults(results);
-	}, [searchValue]);
+	const results = !searchValue
+		? people
+		: people.filter(person =>
+				person.toLowerCase().includes(searchValue.toLocaleLowerCase())
+		  );
 
-	console.log(searchValue);
+	// console.log(searchValue);
 
 	return (
 		<Search
