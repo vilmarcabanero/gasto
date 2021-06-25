@@ -144,7 +144,7 @@ const Entries = ({
 					}}
 				/>
 			</Grid> */}
-			<Grid item xs={12} md={6}>
+			<Grid item xs={12} md={12}>
 				<Tabs
 					value={value}
 					onChange={handleChange}
