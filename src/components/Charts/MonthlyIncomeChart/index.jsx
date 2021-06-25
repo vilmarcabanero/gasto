@@ -16,7 +16,7 @@ const VerticalBar = () => {
 			.map(entry => entry.amount);
 
 		if (!filteredMonthlyIncome.length) {
-			return filteredMonthlyIncome.push(0);
+			return 0;
 		} else {
 			return filteredMonthlyIncome.reduce((acc, currVal) => acc + currVal);
 		}

@@ -16,7 +16,7 @@ const VerticalBar = () => {
 			.map(entry => entry.amount);
 
 		if (!filteredMonthlyExpenses.length) {
-			return filteredMonthlyExpenses.push(0);
+			return 0;
 		} else {
 			return filteredMonthlyExpenses.reduce((acc, currVal) => acc + currVal);
 		}
