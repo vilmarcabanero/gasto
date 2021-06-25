@@ -123,7 +123,7 @@ const Entries = ({
 		</div>
 	) : (
 		<Grid className={classes.container} container alignItems='stretch'>
-			<Grid
+			{/* <Grid
 				item
 				xs={12}
 				md={6}
@@ -133,7 +133,7 @@ const Entries = ({
 					alignItems: 'center',
 				}}
 			>
-				{/* <Search
+				<Search
 					value={searchValue}
 					onChange={e => setSearchValue(e)}
 					onRequestSearch={() => {}}
@@ -142,8 +142,8 @@ const Entries = ({
 						width: '100%',
 						marginBottom: 22,
 					}}
-				/> */}
-			</Grid>
+				/>
+			</Grid> */}
 			<Grid item xs={12} md={6}>
 				<Tabs
 					value={value}
