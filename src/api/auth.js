@@ -21,7 +21,7 @@ export const register = async (
 				password: '',
 				confirmPassword: '',
 			});
-			console.log(data);
+			// console.log(data);
 
 			localStorage.setItem('authToken', data.token);
 			history.push('/');
@@ -53,7 +53,7 @@ export const login = async (
 				password: '',
 			});
 
-			console.log(data);
+			// console.log(data);
 			localStorage.setItem('authToken', data.token);
 			history.push('/');
 		} else {
