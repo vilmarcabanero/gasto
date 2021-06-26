@@ -110,9 +110,13 @@ const Profile = ({ user, logoutHandler }) => {
 						</Typography>
 					</div>
 
-					<ListItem onClick={logoutHandler} className={`${classes.logout}`}>
-						<ExitToApp style={{ marginRight: 5 }} />
-						<Typography variant='subtitle1'>Logout</Typography>
+					<ListItem className={`${classes.logout}`}>
+						<AnalyticsPage
+							editProfileOpen={editProfileOpen}
+							setEditProfileOpen={setEditProfileOpen}
+							profilePageOpen={profilePageOpen}
+							setProfilePageOpen={setProfilePageOpen}
+						/>
 					</ListItem>
 					<ListItem className={`${classes.darkmode}`}>
 						<SettingsBrightness style={{ marginRight: 5 }} />
@@ -127,14 +131,9 @@ const Profile = ({ user, logoutHandler }) => {
 							/>
 						</div>
 					</ListItem>
-
-					<ListItem className={`${classes.logout}`}>
-						<AnalyticsPage
-							editProfileOpen={editProfileOpen}
-							setEditProfileOpen={setEditProfileOpen}
-							profilePageOpen={profilePageOpen}
-							setProfilePageOpen={setProfilePageOpen}
-						/>
+					<ListItem onClick={logoutHandler} className={`${classes.logout}`}>
+						<ExitToApp style={{ marginRight: 5 }} />
+						<Typography variant='subtitle1'>Logout</Typography>
 					</ListItem>
 				</List>
 			</Popover>
